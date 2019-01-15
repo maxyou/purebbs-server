@@ -1,14 +1,10 @@
 const Koa = require('koa')
-const path = require('path')
-const bodyParser = require('koa-bodyparser')
-const staticFiles = require('koa-static')
 const router = require('./router')
+const middleware = require('./middleware')
 
 const app = new Koa()
 
-app.use(bodyParser())
-app.use(staticFiles(path.resolve(__dirname, "./public")))
-
+middleware(app)
 router(app)
 
 app.listen(3000, () => {

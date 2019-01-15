@@ -8,6 +8,7 @@ module.exports = {
         console.log(ctx.request.query)
         console.log(ctx.request.querystring)
         ctx.response.body = '<h1>HOME page</h1>'
+        ctx.log.info('home is visited')
     },
     homeParams: async (ctx, next) => {
         console.log(ctx.params)
