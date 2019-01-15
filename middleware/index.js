@@ -1,10 +1,10 @@
 const path = require('path')
 const bodyParser = require('koa-bodyparser')
 const staticFiles = require('koa-static')
-const log = require('./log')
+const logger = require('./logger')
 module.exports = (app) => {
   
-  app.use(log())
+  app.use(logger())
   app.use(staticFiles(path.resolve(__dirname, "../public")))
   app.use(bodyParser())
 
