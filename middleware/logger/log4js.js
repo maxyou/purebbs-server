@@ -1,29 +1,58 @@
 const log4js = require('log4js');
+const fmt = require("./fmt.js")
+const setting = require("./setting.js")
 const methods = ["trace", "debug", "info", "warn", "error", "fatal", "mark"]
 
+const { env, appLogLevel, dir, serverIp, projectName } = setting
+
 module.exports = () => {
-    const contextLogger = {}
-    log4js.configure({
-        appenders: { cheese: { type: 'file', filename: 'cheese.log' } },
-        categories: { default: { appenders: ['cheese'], level: 'info' } }
-    });
-
-    const logger = log4js.getLogger('cheese');
-
-    return async (ctx, next) => {
-        // 记录请求开始的时间
-        const start = Date.now()
-        // 循环methods将所有方法挂载到ctx 上
-        methods.forEach((method, i) => {
-            contextLogger[method] = (message) => {
-                logger[method](message)
-            }
-        })
-        ctx.log = contextLogger;
-
-        await next()
-        // 记录完成的时间 作差 计算响应时间
-        const responseTime = Date.now() - start;
-        logger.info(`响应时间为${responseTime / 1000}s`);
+  const contextLogger = {}
+  const contextFmtLogger = {}
+  const appenders = {}
+  
+  // 打印到log文件
+  appenders.cheese = {
+    type: 'dateFile',
+    filename: `${dir}/task`,
+    pattern: '-yyyy-MM-dd.log',
+    alwaysIncludePattern: true
+  }
+  // 打印到服务器控制台
+  if (env === "dev" || env === "local" || env === "development") {
+    appenders.out = {
+      type: "console"
     }
+  }
+  let config = {
+    appenders,
+    categories: {
+      default: {
+        appenders: Object.keys(appenders),
+        // appenders: ['cheese','out'],
+        level: appLogLevel
+      }
+    }
+  }
+
+  const logger = log4js.getLogger();
+
+  return async (ctx, next) => {
+    const start = Date.now()
+
+    log4js.configure(config)
+    methods.forEach((method, i) => {
+      contextLogger[method] = (message) => {
+        logger[method](message)
+      }
+      contextFmtLogger[method] = (message) => {
+        logger[method](fmt(ctx, message))
+      }
+    })
+    ctx.log = contextLogger;
+    ctx.fmtLog = contextFmtLogger;
+
+    await next()
+    const responseTime = Date.now() - start;
+    // logger.info(fmt(ctx, `响应时间为${responseTime/1000}s`))
+  }
 }

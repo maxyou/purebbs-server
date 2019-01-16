@@ -3,6 +3,7 @@ const Service = require('./service')
 module.exports = {
     index: async (ctx, next) => {
         ctx.response.body = `<h1>index page</h1>`
+        ctx.fmtLog.info('root path is visited')
     },
     home: async (ctx, next) => {
         console.log(ctx.request.query)
