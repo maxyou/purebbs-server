@@ -13,7 +13,7 @@ module.exports = function (sql, values) {
                     if (err) {
                         reject(err)
                     } else {
-                        console.log(rows)
+                        // console.log(rows)
                         resolve(rows)
                     }
                     connection.release()
