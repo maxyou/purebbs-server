@@ -2,6 +2,8 @@ const Koa = require('koa')
 const router = require('./router')
 const middleware = require('./middleware')
 
+require('./db/api.js')
+
 const app = new Koa()
 
 middleware(app)

@@ -16,7 +16,7 @@ const CONFIG = {
 
 module.exports = (app) => {
     
-    app.keys = ['some secret hurr'];
+    app.keys = ['secret keys'];
 
     return session(CONFIG, app)
 }
