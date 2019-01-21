@@ -2,19 +2,25 @@ const mysql = require('mysql')
 const config = require('./config')
 const pool = mysql.createPool(config)
 
-pool.getConnection(function (err, connection) {
+module.exports = function (sql, values) {
+    return new Promise((resolve, reject) => {
+        pool.getConnection(function (err, connection) {
+            if (err) {
+                reject(err)
+            } else {
+                connection.query(sql, values, (err, rows) => {
 
-    connection.query('SELECT * FROM _mysql_session_store', (error, results, fields) => {
-
-        console.log('====db/mysql.js=========')
-        console.log(results)
-        console.log('========================')
-        console.log(fields)
-        // 结束会话
-        connection.release();
-
-        // 如果有错误就抛出
-        if (error) throw error;
+                    if (err) {
+                        reject(err)
+                    } else {
+                        console.log(rows)
+                        resolve(rows)
+                    }
+                    connection.release()
+                })
+            }
+        })
     })
-})
+}
 
+// module.exports = { query }

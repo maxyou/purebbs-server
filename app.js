@@ -1,9 +1,12 @@
 const Koa = require('koa')
 const router = require('./router')
 const middleware = require('./middleware')
-
-require('./db/api.js')
-
+const sqlQuery = require('./db/api.js')
+sqlQuery(
+  'SELECT * FROM _mysql_session_store',
+  [],
+  null
+)
 const app = new Koa()
 
 middleware(app)
