@@ -10,22 +10,17 @@ const sqlQuery = require('./db/api.js')
 //   console.log(v)
 // })
 
-async function selectAllData( ) {
-  let sql = 'SELECT * FROM _mysql_session_store'
-  console.log('===== 2 ==========')
-  let dataList = await sqlQuery( sql, [] )
-  console.log('===== 4 ==========')
+// async function selectAllData( ) {
+//   let sql = 'SELECT * FROM _mysql_session_store'
+//   console.log('===== 2 ==========')
+//   let dataList = await sqlQuery( sql, [] )
+//   console.log('===== 4 ==========')
   // console.log(dataList)
   // return dataList
-}
-console.log('===== 1 ==========')
-selectAllData()
-console.log('===== 3 ==========')
-
-// async function getData() {
-//   let dataList = await selectAllData()
-//   console.log( dataList )
 // }
+// console.log('===== 1 ==========')
+// selectAllData()
+// console.log('===== 3 ==========')
 
 
 const app = new Koa()
