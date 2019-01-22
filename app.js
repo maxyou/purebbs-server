@@ -2,13 +2,13 @@ const Koa = require('koa')
 const router = require('./router')
 const middleware = require('./middleware')
 const sqlQuery = require('./db/api.js')
-// sqlQuery(
-//   'SELECT * FROM _mysql_session_store',
-//   []
-// ).then((v)=>{
-//   console.log('=====then======')
-//   console.log(v)
-// })
+sqlQuery(
+  'SELECT * FROM _mysql_session_store',
+  []
+).then((v)=>{
+  console.log('=====then======')
+  console.log(v)
+})
 
 // async function selectAllData( ) {
 //   let sql = 'SELECT * FROM _mysql_session_store'
