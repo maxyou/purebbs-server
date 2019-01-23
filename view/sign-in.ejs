@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        <%= title %>
+    </title>
+</head>
+
+<body>
+    <h1>
+        <%= title %>
+    </h1>
+
+    <form action="/login/user" method="post">
+        <input name="name" type="text" placeholder="请输入用户名：ikcamp" />
+        <br />
+        <input name="password" type="text" placeholder="请输入密码：123456" />
+        <br />
+        <button>登录</button>
+    </form>
+    <a href="/sign-up">没有帐号，去注册</a>
+</body>
+
+</html>

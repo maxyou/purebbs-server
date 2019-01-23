@@ -2,8 +2,13 @@ const Service = require('./service')
 
 module.exports = {
     index: async (ctx, next) => {
-        ctx.response.body = `<h1>index page</h1>`
-        ctx.fmtLog.info('root path is visited')
+        // ctx.response.body = `<h1>index page</h1>`
+        // ctx.fmtLog.info('root path is visited')
+
+        let title = 'hello koa2'
+        await ctx.render('index',{
+            title,
+        })
     },
     home: async (ctx, next) => {
         console.log(ctx.request.query)
@@ -15,17 +20,15 @@ module.exports = {
         console.log(ctx.params)
         ctx.response.body = '<h1>HOME page /:id/:name</h1>'
     },
-    login: async (ctx, next) => {
-        ctx.response.body =
-            `
-        <form action="/login/user" method="post">
-          <input name="name" type="text" placeholder="请输入用户名：ikcamp"/> 
-          <br/>
-          <input name="password" type="text" placeholder="请输入密码：123456"/>
-          <br/> 
-          <button>GoGoGo</button>
-        </form>
-      `
+    'sign-up': async(ctx, next) => {
+        await ctx.render('sign-up',{
+            title:'Sign up:',
+        })
+    },
+    'sign-in': async(ctx, next) => {
+        await ctx.render('sign-in',{
+            title:'Sign in:',
+        })
     },
     user: async (ctx, next) => {
         let {

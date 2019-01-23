@@ -1,13 +1,17 @@
 class User{
     constructor(obj){
-        Object.assign(this, ...obj)
+        this.props = {props, ...obj}
     }
 
     save(){
-        if(this.id){
+        if(this.props.id){
             this.update()
         }else{
             
         }
+    }
+
+    update(){
+        
     }
 }
