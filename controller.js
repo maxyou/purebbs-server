@@ -1,4 +1,5 @@
 const Service = require('./service')
+const User = require('./user/user')
 
 module.exports = {
     index: async (ctx, next) => {
@@ -31,16 +32,25 @@ module.exports = {
         })
     },
     'sign-in/post': async (ctx, next) => {
-        console.log('sign-in/post===============')
+        let {
+            name,
+            password
+        } = ctx.request.body
+        console.log('sign-in/post==============='+name+' '+password)
+        let user
+        try{
+            user = new User({name, password})
+        }catch(e){
+            console.log(e)
+        }
+        console.log('create user-----------')
+        console.log(user)
+
+        // let data = await Service.login(name, password)
+        // ctx.response.body = data
         await ctx.render('sign-in-success',{
             title:'Sign in success',
         })
-        // let {
-        //     name,
-        //     password
-        // } = ctx.request.body
-        // let data = await Service.login(name, password)
-        // ctx.response.body = data
     },
     'sign-up/post': async (ctx, next) => {
         console.log('sign-up/post===============')

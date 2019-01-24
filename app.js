@@ -34,16 +34,16 @@ app.use(views(path.join(__dirname, './view'),{
 
 middleware(app)
 
-app.use(async (ctx, next) => {
-  // ignore favicon
-  if (ctx.path === '/favicon.ico') return;
+// app.use(async (ctx, next) => {
+//   // ignore favicon
+//   if (ctx.path === '/favicon.ico') return;
 
-  let n = ctx.session.views || 0;
-  ctx.session.views = ++n;
-  ctx.log.info(n + ' views');
+//   let n = ctx.session.views || 0;
+//   ctx.session.views = ++n;
+//   ctx.log.info(n + ' views');
 
-  await next()
-});
+//   await next()
+// });
 
 router(app)
 

@@ -1,6 +1,17 @@
 class User{
+    
     constructor(obj){
-        this.props = {props, ...obj}
+        this.props = {...obj}
+        console.log(this.props)
+    }
+
+    validate(){
+        if(this.props.name=='myname'){
+            return true
+        }else{
+            return flase
+        }
+
     }
 
     save(){
@@ -12,6 +23,8 @@ class User{
     }
 
     update(){
-        
+
     }
 }
+
+module.exports = User
