@@ -30,12 +30,29 @@ module.exports = {
             title:'Sign in:',
         })
     },
-    user: async (ctx, next) => {
-        let {
-            name,
-            password
-        } = ctx.request.body
-        let data = await Service.login(name, password)
-        ctx.response.body = data
+    'sign-in/post': async (ctx, next) => {
+        console.log('sign-in/post===============')
+        await ctx.render('sign-in-success',{
+            title:'Sign in success',
+        })
+        // let {
+        //     name,
+        //     password
+        // } = ctx.request.body
+        // let data = await Service.login(name, password)
+        // ctx.response.body = data
+    },
+    'sign-up/post': async (ctx, next) => {
+        console.log('sign-up/post===============')
+        await ctx.render('sign-up-success',{
+            title:'Sign up success!',
+        })
+
+        // let {
+        //     name,
+        //     password
+        // } = ctx.request.body
+        // let data = await Service.login(name, password)
+        // ctx.response.body = data
     }
 }
