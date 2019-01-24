@@ -5,23 +5,23 @@ module.exports = async (ctx, next) => {
         name,
         password
     } = ctx.request.body
-    console.log('sign-up/post==============='+name+' '+password)
-    let user
-    try{
-        user = new User({name, password})
-    }catch(e){
-        console.log(e)
-    }
-    if(user.validate()){
-        console.log('user is valid')
-    }else{
-        console.log('user is invalid')
-    }
-    console.log(user)
+    console.log('sign-up/post===============' + name + ' ' + password)
 
-    // let data = await Service.login(name, password)
-    // ctx.response.body = data
-    await ctx.render('sign-up-success',{
-        title:'Sign up success',
-    })
+    let user = new User({ name, password })
+
+    if (user.exist()) {
+        console.log('user is exist already')
+        await ctx.render('sign-error', {
+            title: 'user is exist already',
+        })
+    } else {
+
+
+
+        console.log('user is added')
+        await ctx.render('sign-up-success', {
+            title: 'Sign up success',
+        })
+    }
+
 }

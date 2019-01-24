@@ -1,6 +1,13 @@
-module.exports = {
-    host: '127.0.0.1',
+const database = {
+    host: 'localhost',
     user: 'root',
     password: '123456',
-    database: 'koa2session'
+    database: 'koa2base'
+}
+
+const tbUsers = 'users'
+
+module.exports = {
+    database,
+    tbUsers
 }

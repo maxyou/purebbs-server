@@ -3,7 +3,7 @@ const router = require('./router')
 const views = require('koa-views')
 const path = require('path')
 const middleware = require('./middleware')
-const sqlQuery = require('./db/api.js')
+
 
 // sqlQuery(
 //   'SELECT * FROM _mysql_session_store',
@@ -33,17 +33,6 @@ app.use(views(path.join(__dirname, './view'),{
 }))
 
 middleware(app)
-
-// app.use(async (ctx, next) => {
-//   // ignore favicon
-//   if (ctx.path === '/favicon.ico') return;
-
-//   let n = ctx.session.views || 0;
-//   ctx.session.views = ++n;
-//   ctx.log.info(n + ' views');
-
-//   await next()
-// });
 
 router(app)
 
