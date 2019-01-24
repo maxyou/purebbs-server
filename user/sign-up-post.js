@@ -15,9 +15,7 @@ module.exports = async (ctx, next) => {
             title: 'user is exist already',
         })
     } else {
-
-
-
+        user.insert()
         console.log('user is added')
         await ctx.render('sign-up-success', {
             title: 'Sign up success',

@@ -12,10 +12,10 @@ class User {
             `SELECT * FROM ${db.config.tbUsers} WHERE name='${this.props.name}'`,
             []
         ).then((v) => {
-            console.log('=====then======')
+            console.log('=====exist then======')
             console.log(v)
 
-            if (this.props.name == 'myname') {
+            if (v) {
                 return true
             } else {
                 return false
@@ -24,12 +24,21 @@ class User {
 
     }
 
-    save() {
-        if (this.props.id) {
-            this.update()
-        } else {
+    insert() {
+        db.query(
+            `INSERT INTO ${db.config.tbUsers} (name, code) VALUES ('${this.props.name}','${this.props.code}')`,
+            []
+        ).then((v) => {
+            console.log('=====insert then======')
+            console.log(v)
 
-        }
+            if (v) {
+                return true
+            } else {
+                return false
+            }
+        })
+
     }
 
     update() {
