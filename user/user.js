@@ -9,7 +9,7 @@ class User{
         if(this.props.name=='myname'){
             return true
         }else{
-            return flase
+            return false
         }
 
     }

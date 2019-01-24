@@ -1,5 +1,5 @@
 const Service = require('./service')
-const User = require('./user/user')
+const UserModule = require('./user')
 
 module.exports = {
     index: async (ctx, next) => {
@@ -39,11 +39,15 @@ module.exports = {
         console.log('sign-in/post==============='+name+' '+password)
         let user
         try{
-            user = new User({name, password})
+            user = new UserModule.User({name, password})
         }catch(e){
             console.log(e)
         }
-        console.log('create user-----------')
+        if(user.validate()){
+            console.log('user is valid')
+        }else{
+            console.log('user is invalid')
+        }
         console.log(user)
 
         // let data = await Service.login(name, password)
