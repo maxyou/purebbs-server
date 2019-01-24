@@ -1,5 +1,5 @@
 const Service = require('./service')
-const UserModule = require('./user')
+const User = require('./user')
 
 module.exports = {
     index: async (ctx, next) => {
@@ -31,31 +31,7 @@ module.exports = {
             title:'Sign in:',
         })
     },
-    'sign-in/post': async (ctx, next) => {
-        let {
-            name,
-            password
-        } = ctx.request.body
-        console.log('sign-in/post==============='+name+' '+password)
-        let user
-        try{
-            user = new UserModule.User({name, password})
-        }catch(e){
-            console.log(e)
-        }
-        if(user.validate()){
-            console.log('user is valid')
-        }else{
-            console.log('user is invalid')
-        }
-        console.log(user)
-
-        // let data = await Service.login(name, password)
-        // ctx.response.body = data
-        await ctx.render('sign-in-success',{
-            title:'Sign in success',
-        })
-    },
+    'sign-in/post': User.signInPost,
     'sign-up/post': async (ctx, next) => {
         console.log('sign-up/post===============')
         await ctx.render('sign-up-success',{
