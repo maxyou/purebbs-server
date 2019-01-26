@@ -1,6 +1,6 @@
 const User = require('./user')
 
-module.exports = async (ctx, next) => {
+module.exports = (ctx, next) => {
     let {
         name,
         password
@@ -8,19 +8,22 @@ module.exports = async (ctx, next) => {
     console.log('sign-up/post===============' + name + ' ' + password)
 
     let user = new User({ name, password })
-    let exist = await user.exist()
-    console.log('=====exist ='+exist)
-    if (exist) {
+    let exist = user.exist()
+    console.log('>>>>>>exist await return: '+exist)
+    exist.then(v => {
+        console.log('exist=====1')
+        console.log(v)
         console.log('user is exist already')
-        await ctx.render('sign-error', {
+        ctx.render('sign-error', {
             title: 'user is exist already',
         })
-    } else {
+    }).catch(e => {
+        console.log('exist=====insert========2')
         user.insert()
         console.log('user is added')
-        await ctx.render('sign-up-success', {
+        ctx.render('sign-up-success', {
             title: 'Sign up success',
         })
-    }
+    })
 
 }
