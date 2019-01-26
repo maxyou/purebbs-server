@@ -7,26 +7,50 @@ class User {
         console.log(this.props)
     }
 
-    exist() {
+    async exist() {
         db.query(
             `SELECT * FROM ${db.config.tbUsers} WHERE name='${this.props.name}'`,
             []
         ).then((v) => {
-            console.log('=====exist then======')
-            console.log(v)
+            return new Promise((resolve, reject)=>{
 
-            if (v) {
-                return true
-            } else {
-                return false
-            }
+                console.log('=====exist then 1======')
+                console.log(v)
+                
+                if (v) {
+                    console.log('=====exist return true======')
+                    resolve(v)
+                    // return true
+                } else {
+                    console.log('=====exist return false======')
+                    reject(v)
+                    // return false
+                }
+            })
+        },
+        (v)=>{
+            return new Promise((resolve, reject)=>{
+
+                console.log('=====exist then 2======')
+                console.log(v)
+                
+                if (v) {
+                    console.log('=====exist return true 2======')
+                    resolve(v)
+                    // return true
+                } else {
+                    console.log('=====exist return false 2======')
+                    reject(v)
+                    // return false
+                }
+            })
         })
 
     }
 
     insert() {
         db.query(
-            `INSERT INTO ${db.config.tbUsers} (name, code) VALUES ('${this.props.name}','${this.props.code}')`,
+            `INSERT INTO ${db.config.tbUsers} (name, password) VALUES ('${this.props.name}','${this.props.code}')`,
             []
         ).then((v) => {
             console.log('=====insert then======')

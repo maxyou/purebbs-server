@@ -8,8 +8,9 @@ module.exports = async (ctx, next) => {
     console.log('sign-up/post===============' + name + ' ' + password)
 
     let user = new User({ name, password })
-
-    if (user.exist()) {
+    let exist = await user.exist()
+    console.log('=====exist ='+exist)
+    if (exist) {
         console.log('user is exist already')
         await ctx.render('sign-error', {
             title: 'user is exist already',
