@@ -7,6 +7,8 @@ module.exports = async (ctx, next) => {
     } = ctx.request.body
     console.log('sign-out/post===============' + name + ' ' + password)
     let user = new User({ name, password })
+
+    ctx.redirect('/sign-in')
     // let searchResult = await user.searchByNamePwd()
     // let searchResultObject = JSON.parse(JSON.stringify(searchResult))
 
@@ -23,7 +25,7 @@ module.exports = async (ctx, next) => {
     // }
     // console.log(user)
 
-    await ctx.render('sign-in', {
-        title: 'Sign in:',
-    })
+    // await ctx.render('sign-in', {
+    //     title: 'Sign in:',
+    // })
 }
