@@ -23,6 +23,9 @@ module.exports = async (ctx, next) => {
         let a = await user.addUser()
         console.log(a)
         if(a.affectedRows==1){
+
+            ctx.session = {isLogin: true, user: name, count: 1}
+
             await ctx.render('sign-up-success',{title:'user is added'})
         }else{
             await ctx.render('sign-error',{title:'user add failed'})

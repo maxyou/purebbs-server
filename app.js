@@ -4,12 +4,17 @@ const views = require('koa-views')
 const path = require('path')
 const middleware = require('./middleware')
 
-
 const app = new Koa()
 
 app.use(views(path.join(__dirname, './view'),{
   extension: 'ejs'
 }))
+
+app.use(async (ctx, next) => {
+  console.log('app ctx.cookies--------------------')
+  console.log(ctx.cookies.get('SESSION_ID'))
+  await next()
+})
 
 middleware(app)
 
