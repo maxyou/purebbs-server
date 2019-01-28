@@ -11,6 +11,7 @@ module.exports = async (ctx, next) => {
     let searchResultObject = JSON.parse(JSON.stringify(searchResult))
 
     if (searchResultObject.length > 0) {
+        
         ctx.session = {isLogin: true, user: name, count: 1}
         console.log('user is valid')
         await ctx.render('sign-in-success', {
