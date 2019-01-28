@@ -18,35 +18,19 @@ app.use(async (ctx, next) => {
 
   if(ctx.originalUrl=='/favicon.ico') return
 
-  console.log('app ctx.cookies--------------------')
-  console.log(ctx.cookies.get('SESSION_ID'))
+  // console.log('app ctx.cookies--------------------')
+  // console.log(ctx.cookies.get('SESSION_ID'))
 
-  if(ctx.session){
-    console.log('has session')
-    if(ctx.session.isLogin){
-      console.log('has session + is login:'+ctx.session.isLogin)
-    }
+  if(allowPage.indexOf(ctx.originalUrl) > -1){
+    // console.log('====allow page:'+url)
+  }else if(ctx.session && ctx.session.isLogin){
+    // console.log('====already login:'+url)
+  }else{
+    // console.log('====redirect:'+url)
+    ctx.redirect('/sign-in')
   }
 
-  let url = ctx.originalUrl  
-  if(allowPage.indexOf(url) > -1){
-    console.log('====allow page:'+url)
-    await next()
-    return
-  }
-
-  if(ctx.session){
-    if(ctx.session.isLogin){
-      console.log('====is login:'+url)
-      await next()
-      return
-    }
-    console.log('is login:'+ctx.session.isLogin)
-  } 
-
-  console.log('====redirect:'+url)
-  // ctx.session = null
-  ctx.redirect('/sign-in')
+  await next()
 })
 
 router(app)

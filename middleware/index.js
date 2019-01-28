@@ -7,11 +7,11 @@ const httpError = require('./httpError')
 
 module.exports = (app) => {
   
-  app.use(session(app))
-  app.use(httpError())
-  app.use(logger())
-  app.use(staticFiles(path.resolve(__dirname, "../public")))
   app.use(bodyParser())
+  app.use(logger())
+  app.use(httpError())
+  app.use(staticFiles(path.resolve(__dirname, "../public")))
+  app.use(session(app))
 
   // 增加错误的监听处理
 //   app.on("error", (err, ctx) => {
