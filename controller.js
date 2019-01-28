@@ -8,13 +8,7 @@ module.exports = {
 
         console.log('----session index-----')
         console.log(ctx.session)
-        if(ctx.session.isLogin){
-            ctx.session.count++
-            console.log('----session.count:'+ctx.session.count)
-        }else{
-            ctx.session = {}
-            ctx.redirect('/sign-in')
-        }
+        ctx.session.count++
 
         let title = 'hello koa2'
         await ctx.render('index', {
