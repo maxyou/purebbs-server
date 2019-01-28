@@ -14,7 +14,10 @@ module.exports = (app) => {
   
   router.post('/sign-in/post', Controller['sign-in/post'])
   router.post('/sign-up/post', Controller['sign-up/post'])
-  
+
+  router.get('/sign-out', Controller['sign-out'])
+  router.post('/sign-out/post', Controller['sign-out/post'])
+
   app.use(router.routes())
     .use(router.allowedMethods())
 }

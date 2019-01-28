@@ -7,7 +7,7 @@ module.exports = {
         // ctx.fmtLog.info('root path is visited')
 
         let title = 'hello koa2'
-        await ctx.render('index',{
+        await ctx.render('index', {
             title,
         })
     },
@@ -21,16 +21,22 @@ module.exports = {
         console.log(ctx.params)
         ctx.response.body = '<h1>HOME page /:id/:name</h1>'
     },
-    'sign-up': async(ctx, next) => {
-        await ctx.render('sign-up',{
-            title:'Sign up:',
+    'sign-up': async (ctx, next) => {
+        await ctx.render('sign-up', {
+            title: 'Sign up:',
         })
     },
-    'sign-in': async(ctx, next) => {
-        await ctx.render('sign-in',{
-            title:'Sign in:',
+    'sign-up/post': User.signUpPost,
+    'sign-in': async (ctx, next) => {
+        await ctx.render('sign-in', {
+            title: 'Sign in:',
         })
     },
     'sign-in/post': User.signInPost,
-    'sign-up/post': User.signUpPost
+    'sign-out': async (ctx, next) => {
+        await ctx.render('sign-out', {
+            title: 'Sign out:',
+        })
+    },
+    'sign-out/post': User.signOutPost,
 }
