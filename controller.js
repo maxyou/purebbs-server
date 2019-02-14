@@ -48,4 +48,12 @@ module.exports = {
         })
     },
     'sign-out/post': User.signOutPost,
+    'upload-avatar': async (ctx, next) => {
+        console.log('----upload-avatar-----')
+        await ctx.render('upload-avatar', {
+            title: 'Please pick your avatar:',
+        })
+    },
+    'upload-avatar/post': User.uploadAvatarPost,
+
 }
