@@ -34,12 +34,13 @@ module.exports = () => {
     }
   }
 
-  const logger = log4js.getLogger();
-
+  
   return async (ctx, next) => {
     const start = Date.now()
-
+    
     log4js.configure(config)
+    const logger = log4js.getLogger();
+    
     methods.forEach((method, i) => {
       contextLogger[method] = (message) => {
         logger[method](message)
