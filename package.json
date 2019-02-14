@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "ejs": "^2.6.1",
+    "formidable": "^1.2.1",
     "koa": "^2.6.2",
     "koa-bodyparser": "^4.2.1",
     "koa-mysql-session": "0.0.2",
