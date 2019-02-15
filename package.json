@@ -12,6 +12,7 @@
     "ejs": "^2.6.1",
     "formidable": "^1.2.1",
     "koa": "^2.6.2",
+    "koa-body": "^4.0.8",
     "koa-bodyparser": "^4.2.1",
     "koa-mysql-session": "0.0.2",
     "koa-router": "^7.4.0",

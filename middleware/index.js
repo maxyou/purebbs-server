@@ -1,5 +1,6 @@
 const path = require('path')
 const bodyParser = require('koa-bodyparser')
+const koaBody = require('koa-body')
 const staticFiles = require('koa-static')
 const logger = require('./logger')
 const session = require('./session')
@@ -9,6 +10,7 @@ const urlAuthen = require('./url-authen')
 module.exports = (app) => {
   
   app.use(bodyParser())
+  // app.use(koaBody({multipart:true, keepExtensions: true}))
   app.use(logger())
   app.use(httpError())
   app.use(staticFiles(path.resolve(__dirname, "../public")))

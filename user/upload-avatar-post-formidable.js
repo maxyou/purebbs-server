@@ -4,7 +4,9 @@ module.exports = async (ctx, next) => {
 
     let form = new formidable.IncomingForm()
     
-    form.uploadDir = `${__dirname}/`
+    form.uploadDir = `${__dirname}/upload`
+    console.log('----upload dir----')
+    // console.log(form.uploadDir)
     form.keepExtensions = true
 
     await new Promise((resolve, reject) => {
