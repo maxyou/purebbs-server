@@ -1,32 +1,33 @@
 const multer = require('koa-multer')
 
-console.log('---multer----')
+module.exports = async (ctx, next) => {
 
-let storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        console.log('---multer----destination:')
-        console.log(file)
-        cb(null, 'public/uploads/')
-    },
-    filename: function (req, file, cb) {
-        console.log('---multer----filename:')
-        console.log(file)
-        let fileFormat = (file.originalname).split(".")
-        cb(null, Date.now() + "." + fileFormat[fileFormat.length - 1])
-    }
-})
+    console.log('---multer----')
 
-let upload = multer({storage: storage})
+    let storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+            // console.log('---multer----destination:')
+            // console.log(file)
+            cb(null, 'user/upload/')
+        },
+        filename: function (req, file, cb) {
+            // console.log('---multer----filename:')
+            // console.log(file)
+            let fileFormat = (file.originalname).split(".")
+            cb(null, Date.now() + "." + fileFormat[fileFormat.length - 1])
+        }
+    })
 
-console.log('---multer----before upload')
+    let upload = multer({storage: storage})
 
-module.exports = upload.single('file')
-// module.exports = async (ctx, next) => {
+    console.log('---multer----before upload')
 
-    // console.log('---multer----after upload')
+    upload.single('file')(ctx, next)
 
-    // await ctx.render('upload-avatar-success', {
-    //     title: 'Upload avatar success',
-    // })
+    console.log('---multer----after upload')
 
-// }
+    await ctx.render('upload-avatar-success', {
+        title: 'Upload avatar success',
+    })
+
+}
