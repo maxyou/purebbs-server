@@ -10,7 +10,7 @@ const urlAuthen = require('./url-authen')
 module.exports = (app) => {
   
   app.use(bodyParser())
-  // app.use(koaBody({multipart:true, keepExtensions: true}))
+  // app.use(koaBody({multipart:true}))
   app.use(logger())
   app.use(httpError())
   app.use(staticFiles(path.resolve(__dirname, "../public")))

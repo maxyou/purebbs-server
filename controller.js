@@ -55,5 +55,6 @@ module.exports = {
         })
     },
     'upload-avatar/post': User.uploadAvatarPost,
+    'upload-avatar/post1': User.uploadAvatarPost1,
 
 }

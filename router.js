@@ -19,7 +19,7 @@ module.exports = (app) => {
   router.post('/sign-out/post', Controller['sign-out/post'])
 
   router.get('/upload-avatar', Controller['upload-avatar'])
-  router.post('/upload-avatar/post', Controller['upload-avatar/post'])
+  router.post('/upload-avatar/post', Controller['upload-avatar/post'], Controller['upload-avatar/post1'])
 
   app.use(router.routes())
     .use(router.allowedMethods())
