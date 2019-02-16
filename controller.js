@@ -1,5 +1,6 @@
 const Service = require('./service')
 const User = require('./user')
+const send = require('koa-send')
 
 module.exports = {
     index: async (ctx, next) => {
@@ -55,6 +56,16 @@ module.exports = {
         })
     },
     'upload-avatar/post': User.uploadAvatarPost,
-    'upload-avatar/post1': User.uploadAvatarPost1,
+    'download-photo': async (ctx, next) => {
+        let title = 'welcom download photo'
+        await ctx.render('download-photo', {
+            title,
+        })
+    },
+    'download-photo/download': async (ctx, next) => {
+        console.log('----download-photo/download-----')
+        await send(ctx, 'img/coffee.jpg', {root: __dirname + '/resource'})
+        console.log('----download-photo/download-----end')
+    },
 
 }

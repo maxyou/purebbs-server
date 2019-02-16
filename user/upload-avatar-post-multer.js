@@ -2,17 +2,11 @@ const multer = require('koa-multer')
 
 module.exports = async (ctx, next) => {
 
-    console.log('---multer----')
-
     let storage = multer.diskStorage({
         destination: function (req, file, cb) {
-            // console.log('---multer----destination:')
-            // console.log(file)
             cb(null, 'user/upload/')
         },
         filename: function (req, file, cb) {
-            // console.log('---multer----filename:')
-            // console.log(file)
             let fileFormat = (file.originalname).split(".")
             cb(null, Date.now() + "." + fileFormat[fileFormat.length - 1])
         }
@@ -20,11 +14,7 @@ module.exports = async (ctx, next) => {
 
     let upload = multer({storage: storage})
 
-    console.log('---multer----before upload')
-
     upload.single('file')(ctx, next)
-
-    console.log('---multer----after upload')
 
     await ctx.render('upload-avatar-success', {
         title: 'Upload avatar success',

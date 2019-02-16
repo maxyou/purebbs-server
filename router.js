@@ -21,6 +21,9 @@ module.exports = (app) => {
   router.get('/upload-avatar', Controller['upload-avatar'])
   router.post('/upload-avatar/post', Controller['upload-avatar/post'])
 
+  router.get('/download-photo', Controller['download-photo'])
+  router.get('/download-photo/download', Controller['download-photo/download'])
+
   app.use(router.routes())
     .use(router.allowedMethods())
 }
