@@ -1,4 +1,4 @@
-const User = require('../service')
+const User = require('../../service')
 
 module.exports = async (ctx, next) => {
     let {

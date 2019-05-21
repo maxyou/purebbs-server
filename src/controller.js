@@ -1,5 +1,5 @@
 // const Service = require('./service')
-const User = require('./user')
+const User = require('./controller/user')
 const send = require('koa-send')
 
 module.exports = {
