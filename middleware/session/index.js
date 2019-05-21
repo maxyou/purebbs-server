@@ -1,6 +1,6 @@
 const session = require("./session")
-const minimal = require("./minimal")
+// const minimal = require("./minimal")
 module.exports = (app) => {
-   // return session(app)
-   return minimal(app)
+   return session(app)
+   // return minimal(app)
 }
