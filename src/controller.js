@@ -1,4 +1,4 @@
-const Service = require('./service')
+// const Service = require('./service')
 const User = require('./user')
 const send = require('koa-send')
 

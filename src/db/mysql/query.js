@@ -1,7 +1,7 @@
 const mysql = require('mysql')
 const config = require('./config')
 const pool = mysql.createPool(config.database)
-const printObj = require('../../utils/printobj')
+const printObj = require('../../tool/printobj')
 
 module.exports = function (sql, values) {
     return new Promise((resolve, reject) => {
