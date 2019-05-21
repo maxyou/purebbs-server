@@ -1,6 +1,6 @@
 const log4js = require('log4js');
-const fmt = require("./fmt.js")
-const setting = require("./setting.js")
+const fmt = require("./fmt")
+const setting = require("./setting")
 const methods = ["trace", "debug", "info", "warn", "error", "fatal", "mark"]
 
 const { env, appLogLevel, dir, serverIp, projectName } = setting
