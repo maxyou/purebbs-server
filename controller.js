@@ -35,9 +35,10 @@ module.exports = {
     },
     'sign-up/post': User.signUpPost,
     'sign-in': async (ctx, next) => {
-        console.log('----sign in-----')
+        console.log('----sign in page-----')
         console.log(ctx.session)
 
+        // ctx.response.body = '<h1>sign-in page</h1>'
         await ctx.render('sign-in', {
             title: 'Sign in:',
         })
