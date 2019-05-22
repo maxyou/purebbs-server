@@ -13,16 +13,16 @@ module.exports = (app) => {
   router.get('/sign-up', Controller.user['sign-up'])
   
   router.post('/sign-in/post', Controller.user['sign-in/post'])
-  // router.post('/sign-up/post', Controller.user['sign-up/post'])
+  router.post('/sign-up/post', Controller.user['sign-up/post'])
 
-  // router.get('/sign-out', Controller.user['sign-out'])
-  // router.post('/sign-out/post', Controller.user['sign-out/post'])
+  router.get('/sign-out', Controller.user['sign-out'])
+  router.post('/sign-out/post', Controller.user['sign-out/post'])
 
-  // router.get('/upload-avatar', Controller.user['upload-avatar'])
-  // router.post('/upload-avatar/post', Controller.user['upload-avatar/post'])
+  router.get('/upload-avatar', Controller.user['upload-avatar'])
+  router.post('/upload-avatar/post', Controller.user['upload-avatar/post'])
 
-  // router.get('/download-photo', Controller.user['download-photo'])
-  // router.get('/download-photo/download', Controller.user['download-photo/download'])
+  router.get('/download-photo', Controller.user['download-photo'])
+  router.get('/download-photo/download', Controller.user['download-photo/download'])
 
   app.use(router.routes())
     .use(router.allowedMethods())
