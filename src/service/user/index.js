@@ -1,7 +1,7 @@
 const db = require('../db')
 
 module.exports = {
-    searchByNamePwd({ name, password }) {
+    async searchByNamePwd({ name, password }) {
         console.log('this is searchByNamePwd:'+name+' '+password)
         return '[]'
         // return db.query(
@@ -10,7 +10,7 @@ module.exports = {
         // )
     },
 
-    searchByName({ name, password }) {
+    async searchByName({ name, password }) {
         console.log('this is searchByName:'+name+' '+password)
         return '[]'
         // return db.query(
@@ -19,7 +19,7 @@ module.exports = {
         // )
     },
 
-    addUser({ name, password }) {
+    async addUser({ name, password }) {
         console.log('this is addUser:'+name+' '+password)
         return '[]'
         // return db.query(
@@ -28,7 +28,7 @@ module.exports = {
         // )
     },
 
-    updateUser({ name, password }) {
+    async updateUser({ name, password }) {
 
     }
 
