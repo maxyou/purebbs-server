@@ -3,7 +3,7 @@
 
 // module.exports = {config, query}
 
-const {updateUser} = require('./mongodb')
+const {user} = require('./mongodb')
 console.log('--------db/index.js-------')
 
-module.exports = {updateUser}
+module.exports = {user}

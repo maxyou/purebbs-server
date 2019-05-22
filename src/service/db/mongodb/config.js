@@ -22,15 +22,16 @@ for(let m in clazz){
 console.log('mongodb connect......2')
 
 module.exports = {
+    hmackey:'koa2base hmackey',
     getModel: name=>{
         try{
             console.log('--------in getModel------0')
 
             var m = mongoose.model(name)
             console.log('--------in getModel------1')
-            console.log(m)
+            // console.log(m)
             // console.log(JSON.stringify(m))
-            console.log('--------in getModel------2')
+            // console.log('--------in getModel------2')
             return m
         }catch(e){
             console.log(e)

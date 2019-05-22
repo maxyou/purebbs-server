@@ -24,6 +24,8 @@ module.exports = (app) => {
   router.get('/download-photo', Controller.user['download-photo'])
   router.get('/download-photo/download', Controller.user['download-photo/download'])
 
+  router.get('/user/list', Controller.user['user/list'])
+
   app.use(router.routes())
     .use(router.allowedMethods())
 }

@@ -4,6 +4,7 @@ const signInPost = require('./sign-in-post')
 const signUpPost = require('./sign-up-post')
 const signOutPost = require('./sign-out-post')
 const uploadAvatarPost = require('./upload-avatar-post-multer')
+const {user} = require('../../service')
 
 module.exports = {
 
@@ -46,6 +47,20 @@ module.exports = {
         console.log('----download-photo/download-----')
         await send(ctx, 'img/coffee.jpg', {root: __dirname + '/resource'})
         console.log('----download-photo/download-----end')
+    },
+    
+    'user/list': async (ctx, next) => {
+        
+        console.log('----render user/list----------1')
+        var users = await user.getUsers()
+        console.log(users)
+        console.log('----render user/list----------2')
+        
+        await ctx.render('user-list', {
+            title: 'user list',
+            users
+        })
+        console.log('----render user/list----------3')
     },
 
 }
