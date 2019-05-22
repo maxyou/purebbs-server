@@ -1,4 +1,4 @@
-const allowPage = ['/sign-in', '/sign-in/post', '/favicon.ico']
+const allowPage = ['/sign-up', '/sign-in', '/sign-in/post', '/favicon.ico']
 
 module.exports = () => {
     return async (ctx, next) => {

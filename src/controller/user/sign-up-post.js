@@ -1,4 +1,4 @@
-const User = require('../../service')
+const {user} = require('../../service')
 
 module.exports = async (ctx, next) => {
     let {
@@ -7,8 +7,8 @@ module.exports = async (ctx, next) => {
     } = ctx.request.body
     console.log('sign-up/post:' + name + ' ' + password)
 
-    let user = new User({ name, password })
-    let searchResult = await user.searchByName()
+    let signup = { name, password }
+    let searchResult = await user.searchByName(signup)
     console.log('>>>>>>exist await return: ')
     let searchResultObject = JSON.parse(JSON.stringify(searchResult))
     console.log('----vv----')

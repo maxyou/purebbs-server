@@ -1,4 +1,4 @@
-const User = require('../../service')
+const {user} = require('../../service')
 
 module.exports = async (ctx, next) => {
     let {
@@ -6,8 +6,8 @@ module.exports = async (ctx, next) => {
         password
     } = ctx.request.body
     console.log('sign-in/post===============' + name + ' ' + password)
-    let user = new User({ name, password })
-    let searchResult = await user.searchByNamePwd()
+    let signin = { name, password }
+    let searchResult = await user.searchByNamePwd(signin)
     let searchResultObject = JSON.parse(JSON.stringify(searchResult))
 
     if (searchResultObject.length > 0) {
