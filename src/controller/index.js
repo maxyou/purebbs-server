@@ -1,3 +1,7 @@
-const user = require('./user')
+const home = require('./home')
+const user = require('./user.js')
 
-module.exports = {user}
+module.exports = {
+    home,
+    user
+}
