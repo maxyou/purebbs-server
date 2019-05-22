@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="/public/user/register/css/submit.css">
+</head>
+<body>
+    
+    <h2>注册结果</h2>
+    <p>服务器返回code是{{code}}，返回信息是{{message}}</p>
+    
+</body>
+</html>

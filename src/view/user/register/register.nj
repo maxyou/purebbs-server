@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="/public/user/register/css/register.css">
+</head>
+<body>
+    <div class='viewport-full'>
+        <div class='register-container'>
+            <div class='title'>{{data}}</div>
+            <form class='register-form' action='/user/register/submit'  method="post">
+                <div class='form-input'>
+                    <span class='prompt1'>您的用户名:</span> <input  class='input1' type="text" name="name"><br>
+                    <span class='prompt2'>您的密码: </span><input  class='input2' type="password" name="password"><br>
+                    <span class='prompt3'>您的电邮: </span><input  class='input3' type="text" name="email"><br>
+                </div>
+                <img class='captcha-img' src="/tool/verify" title="看不清？点击刷新" 
+                    onclick="javascript:this.src='/tool/verify?mt='+Math.random()"><br>
+                    <span class='captcha-prompt'>验证码: </span><input class='captcha-input' type="text" name="code"><br>
+                <input class='submit' type="submit" value="提交注册">
+            </form> 
+        </div>
+    </div>
+</body>
+</html>
