@@ -9,14 +9,14 @@ module.exports = (app) => {
   
   router.get('/home/:id/:name', Controller.home.homeParams)
   
-  router.get('/sign-in', Controller.user['sign-in'])
-  router.get('/sign-up', Controller.user['sign-up'])
+  router.get('/login', Controller.user['login'])
+  router.get('/register', Controller.user['register'])
   
-  router.post('/sign-in/post', Controller.user['sign-in/post'])
-  router.post('/sign-up/post', Controller.user['sign-up/post'])
+  router.post('/login/post', Controller.user['login/post'])
+  router.post('/register/post', Controller.user['register/post'])
 
-  router.get('/sign-out', Controller.user['sign-out'])
-  router.post('/sign-out/post', Controller.user['sign-out/post'])
+  router.get('/logout', Controller.user['logout'])
+  router.get('/logout/post', Controller.user['logout/post'])
 
   router.get('/upload-avatar', Controller.user['upload-avatar'])
   router.post('/upload-avatar/post', Controller.user['upload-avatar/post'])

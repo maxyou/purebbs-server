@@ -12,7 +12,7 @@
     
     <h2>这是退出页面</h2>
     <p>{{data}}</p>
-    <a href="/user/logout/submit">安全退出</a>
+    <a href="/logout/post">安全退出</a>
     
 </body>
 </html>

@@ -1,20 +1,21 @@
 // const Service = require('./service')
 const send = require('koa-send')
-const signInPost = require('./sign-in-post')
-const signUpPost = require('./sign-up-post')
-const signOutPost = require('./sign-out-post')
+const loginPost = require('./sign-in-post')
+const registerPost = require('./sign-up-post')
+const logoutPost = require('./sign-out-post')
 const uploadAvatarPost = require('./upload-avatar-post-multer')
 const {user} = require('../../service')
 
 module.exports = {
 
-    'sign-up': async (ctx, next) => {
+    'register': async (ctx, next) => {
         await ctx.render('user/register/register', {
             title: 'Sign up:',
         })
     },
-    'sign-up/post': signUpPost,
-    'sign-in': async (ctx, next) => {
+    'register/post': registerPost,
+
+    'login': async (ctx, next) => {
         console.log('----sign in page-----')
         console.log(ctx.session)
 
@@ -23,13 +24,15 @@ module.exports = {
             title: 'Sign in:',
         })
     },
-    'sign-in/post': signInPost,
-    'sign-out': async (ctx, next) => {
-        await ctx.render('sign-out', {
+    'login/post': loginPost,
+
+    'logout': async (ctx, next) => {
+        await ctx.render('user/logout/logout', {
             title: 'Sign out:',
         })
     },
-    'sign-out/post': signOutPost,
+    'logout/post': logoutPost,
+    
     'upload-avatar': async (ctx, next) => {
         console.log('----upload-avatar-----')
         await ctx.render('upload-avatar', {

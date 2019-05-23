@@ -1,4 +1,12 @@
-const allowPage = ['/sign-out', '/sign-up', '/sign-in', '/sign-in/post', '/favicon.ico']
+const allowPage = [
+    '/login', 
+    '/login/post', 
+    '/register',
+    '/register/post', 
+    '/logout', 
+    '/logout/post', 
+    '/favicon.ico'
+]
 
 module.exports = () => {
     return async (ctx, next) => {
@@ -15,7 +23,7 @@ module.exports = () => {
             console.log('====already login'+ctx.session.userinfo.name)
         } else {
             console.log('====redirect to sign-in')
-            ctx.redirect('/sign-in')
+            ctx.redirect('/login')
         }
 
         await next()
