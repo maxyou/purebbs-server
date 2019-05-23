@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+    <meta http-equiv="refresh" content="{{delay}};url={{redirectUrl}}"> 
+</head>
+<body>
+<!--The content below is only a placeholder and can be replaced.-->
+
+    {# <link rel="stylesheet" href="/public/admin/bootstrap/css/bootstrap.css"> #}
+
+            <h2>{{message}}</h2>
+            
+            <br />
+                
+            <p>请浏览消息，将在{{ delay}}秒后跳转</p>
+
+</body>
+</html>

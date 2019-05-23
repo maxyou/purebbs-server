@@ -12,7 +12,7 @@
         <div class='viewport-full'>
         <div class='register-container'>
             <div class='title'>{{data}}</div>
-            <form class='register-form' action='/user/login/submit'  method="post">
+            <form class='register-form' action='/sign-in/post'  method="post">
                 <div class='form-input'>
                     <span class='prompt1'>您的用户名:</span> <input  class='input1' type="text" name="name"><br>
                     <span class='prompt2'>您的密码: </span><input  class='input2' type="password" name="password"><br>
