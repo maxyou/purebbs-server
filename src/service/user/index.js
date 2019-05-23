@@ -48,7 +48,7 @@ module.exports = {
             console.log(res)
 
             if (res) {//或者比较返回值的name属性？
-                return { code: 0, message: '添加用户成功' };
+                return { code: 0, message: '添加用户成功', res:res };
             } else {
                 return { code: -1, message: '添加用户异常' };
             }
@@ -57,7 +57,6 @@ module.exports = {
     },
 
     async authenticateUser(user) {
-
 
         //查询用户名是否存在，取第一个
         var found = await db.user.searchUserByName({ "name": user.name });
@@ -71,7 +70,7 @@ module.exports = {
             hmac.update(userFound.salt + user.password);
             var hashpwd = hmac.digest('hex');
             if (hashpwd == userFound.hashpwd) {
-                return { code: 0, message: '欢迎 ' + user.name + ' 登录', userFound };
+                return { code: 0, message: '认证成功，欢迎 ' + user.name + ' 登录', res:userFound };
             } else {
                 return { code: -1, message: '密码错误' };
             }

@@ -8,11 +8,12 @@ module.exports = async (ctx, next) => {
     console.log('sign-up/post:' + name + ' ' + password)
 
     let signup = { name, password }
-    let a = await user.addUser(signup)
-    console.log(a)
-    if(a.code==0){
+    let result = await user.addUser(signup)
+    console.log(result)
+    if(result.code==0){
 
-        ctx.session = {isLogin: true, user: name, count: 1}
+        // ctx.session = {isLogin: true, user: name, count: 1}
+        ctx.session.userinfo = {isLogin:true, ...result.res};
 
         await ctx.render('sign-up-success',{title:'user is added'})
     }else{

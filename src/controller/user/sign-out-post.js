@@ -8,6 +8,10 @@ module.exports = async (ctx, next) => {
     // let user = new User({ name, password })
 
     // console.log(ctx.request.method)
+    // if(ctx.session.userinfo){
+    //     ctx.session.userinfo.isLogin = false
+    // }
     ctx.session = null
+
     ctx.redirect('/sign-in')
 }

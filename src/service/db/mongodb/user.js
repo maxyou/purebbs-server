@@ -6,12 +6,12 @@ module.exports = {
     async getUsers() {
 
         //查询user表的数据
-        console.log('--------db/mongodb/user.js-------1')
+        // console.log('--------db/mongodb/user.js-------1')
         var User = config.getModel('User')
-        console.log('--------db/mongodb/user.js-------2')
+        // console.log('--------db/mongodb/user.js-------2')
         var users = await User.find({});
-        console.log(users)
-        console.log('--------db/mongodb/user.js-------3')
+        // console.log(users)
+        // console.log('--------db/mongodb/user.js-------3')
         return users
         // return await config.getModel('User').find({});
     },
@@ -40,49 +40,6 @@ module.exports = {
 
         return await config.getModel('User').find({ "name": user.name });
 
-    },
-    async authenticateUser(user) {
-
-        //查询用户名是否存在，取第一个
-        var found = await config.getModel('User').find({ "name": user.name });
-
-        // if (found.length > 0) {
-
-        //     var userFound = found[0];
-
-        //     const hmac = crypto.createHmac('sha256', config.hmackey);
-
-        //     hmac.update(userFound.salt + user.password);
-        //     var hashpwd = hmac.digest('hex');
-        //     if (hashpwd == userFound.hashpwd) {
-        //         return { code: 0, message: '欢迎 ' + user.name + ' 登录', userFound };
-        //     } else {
-        //         return { code: -1, message: '密码错误' };
-        //     }
-
-        // } else {
-        //     return { code: -1, message: '没有找到用户' };
-        // }
-
     }
-
-    // async searchByNamePwd({ name, password }) {
-    //     return []
-    // },
-
-    // async searchByName({ name, password }) {
-    //     console.log('this is searchByName:'+name+' '+password)
-    //     return []
-    // },
-
-    // async addUser({ name, password }) {
-    //     console.log('this is addUser:'+name+' '+password)
-    //     return []
-    // },
-
-    // async updateUser({ name, password }) {
-    //     console.log('this is updateUser:'+name+' '+password)
-    //     return []
-    // }
 
 }

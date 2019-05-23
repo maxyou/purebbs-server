@@ -11,8 +11,9 @@ module.exports = async (ctx, next) => {
     var result = await user.authenticateUser(signin);
   
       if(result && result.code==0){      
-        ctx.session.userinfo = result.userFound;
-        console.log('user is valid')
+        ctx.session.userinfo = {isLogin:true, ...result.res._doc};
+        console.log('ctx.session:')
+        console.log(ctx.session)
         await ctx.render('sign-in-success', {
             title: 'Sign in success',
         })
