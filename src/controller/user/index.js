@@ -1,8 +1,8 @@
 // const Service = require('./service')
 const send = require('koa-send')
-const loginPost = require('./sign-in-post')
-const registerPost = require('./sign-up-post')
-const logoutPost = require('./sign-out-post')
+const loginPost = require('./login-post')
+const registerPost = require('./register-post')
+const logoutPost = require('./logout-post')
 const uploadAvatarPost = require('./upload-avatar-post-multer')
 const {user} = require('../../service')
 
@@ -56,13 +56,17 @@ module.exports = {
         
         console.log('----render user/list----------1')
         var users = await user.getUsers()
-        console.log(users)
+        console.log(users.length)
         console.log('----render user/list----------2')
-        
-        await ctx.render('user-list', {
-            title: 'user list',
-            users
-        })
+        try{
+            await ctx.render('user/userlist', {
+                title: 'user list',
+                users
+            })
+    
+        }catch(e){
+            console.log(e)
+        }
         console.log('----render user/list----------3')
     },
 

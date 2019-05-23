@@ -12,7 +12,7 @@ module.exports = {
         //查询user表的数据
         console.log('--------user/index.js-------1')
         var users = await db.user.getUsers()
-        console.log(users)
+        // console.log(users)
         console.log('--------user/index.js-------2')
 
         return users
