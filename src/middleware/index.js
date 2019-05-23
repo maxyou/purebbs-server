@@ -1,11 +1,12 @@
 const path = require('path')
 const bodyParser = require('koa-bodyparser')
-const koaBody = require('koa-body')
 const staticFiles = require('koa-static')
 const logger = require('./logger')
 const session = require('./session')
 const httpError = require('./httpError')
 const urlAuthen = require('./url-authen')
+const views = require('koa-views')
+const nunjucks = require('koa-nunjucks-2')
 
 module.exports = (app) => {
   
@@ -17,6 +18,16 @@ module.exports = (app) => {
   app.use(session(app))
   app.use(urlAuthen()) //must after session middleware
 
+  // app.use(views(path.join(__dirname, './view'),{
+  //   extension: 'ejs'
+  // }))  
+  app.use(nunjucks({
+    ext: 'nj',
+    path: path.join(__dirname, '../view'),// 指定视图目录
+    nunjucksConfig: {
+      trimBlocks: true // 开启转义 防Xss
+    }
+  }));
   // 增加错误的监听处理
 //   app.on("error", (err, ctx) => {
 //     if (ctx && !ctx.headerSent && ctx.status < 500) {

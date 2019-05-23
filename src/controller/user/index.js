@@ -19,7 +19,7 @@ module.exports = {
         console.log(ctx.session)
 
         // ctx.response.body = '<h1>sign-in page</h1>'
-        await ctx.render('sign-in', {
+        await ctx.render('user/login/login', {
             title: 'Sign in:',
         })
     },
