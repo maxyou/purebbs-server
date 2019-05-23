@@ -9,7 +9,7 @@ const {user} = require('../../service')
 module.exports = {
 
     'sign-up': async (ctx, next) => {
-        await ctx.render('sign-up', {
+        await ctx.render('user/register/register', {
             title: 'Sign up:',
         })
     },
