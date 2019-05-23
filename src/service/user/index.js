@@ -5,10 +5,10 @@ const crypto = require('crypto');
 console.log('--------user/index.js-------')
 
 module.exports = {
-    
-    
+
+
     async getUsers() {
-        
+
         //查询user表的数据
         console.log('--------user/index.js-------1')
         var users = await db.user.getUsers()
@@ -30,20 +30,20 @@ module.exports = {
             return { code: -1, message: '用户名重复' };
         } else {
             console.log('add user ---- salt')
-            
+
             user.salt = crypto.randomBytes(32).toString('hex');//32字节，也即256bit
-            
+
             const hmac = crypto.createHmac('sha256', config.hmackey);
-            
+
             hmac.update(user.salt + user.password);
             user.hashpwd = hmac.digest('hex');
             user.password = '';
-            
-            
+
+
             console.log('add user ---- call db')
             //增加用户
             var res = await db.user.addUser(user)
-            
+
             console.log('add user ---- after call db')
             console.log(res)
 
@@ -53,38 +53,32 @@ module.exports = {
                 return { code: -1, message: '添加用户异常' };
             }
         }
-    
+
     },
 
     async authenticateUser(user) {
 
 
-    },
+        //查询用户名是否存在，取第一个
+        var found = await db.user.searchUserByName({ "name": user.name });
 
-    async searchByName({name}) {
-        return await db.user.searchUserByName({ "name": name });
-    },
+        if (found.length > 0) {
 
+            var userFound = found[0];
 
-    // async searchByNamePwd({ name, password }) {
-    //     console.log('this is searchByNamePwd:'+name+' '+password)
-    //     console.log(db)
-    //     console.log('--------searchByNamePwd-------1')
-    //     var m = db.updateUser({name:'Admin', password:'pwd'})
-    //     console.log('--------searchByNamePwd-------2')
-    //     console.log(m)
-    //     console.log('--------searchByNamePwd-------3')
+            const hmac = crypto.createHmac('sha256', config.hmackey);
 
-    //     return '[]'
-    // },
+            hmac.update(userFound.salt + user.password);
+            var hashpwd = hmac.digest('hex');
+            if (hashpwd == userFound.hashpwd) {
+                return { code: 0, message: '欢迎 ' + user.name + ' 登录', userFound };
+            } else {
+                return { code: -1, message: '密码错误' };
+            }
 
-    // async addUser({ name, password }) {
-    //     console.log('this is addUser:'+name+' '+password)
-    //     return '[]'
-    // },
+        } else {
+            return { code: -1, message: '没有找到用户' };
+        }
 
-    // async updateUser({ name, password }) {
-
-    // }
-
+    }
 }
