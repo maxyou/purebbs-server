@@ -8,29 +8,17 @@ module.exports = async (ctx, next) => {
     console.log('sign-up/post:' + name + ' ' + password)
 
     let signup = { name, password }
-    let searchResult = await user.searchByName(signup)
-    console.log('>>>>>>exist await return: ')
-    let searchResultObject = JSON.parse(JSON.stringify(searchResult))
-    console.log('----vv----')
-    console.log(searchResultObject)
-    console.log(searchResultObject.length)
+    let a = await user.addUser(signup)
+    console.log(a)
+    if(a.code==0){
 
-    if(searchResultObject.length > 0){
-        await ctx.render('sign-error', {
-            title: 'user is exist already',
-        })
+        ctx.session = {isLogin: true, user: name, count: 1}
+
+        await ctx.render('sign-up-success',{title:'user is added'})
     }else{
-        let a = await user.addUser()
-        console.log(a)
-        if(a.affectedRows==1){
-
-            ctx.session = {isLogin: true, user: name, count: 1}
-
-            await ctx.render('sign-up-success',{title:'user is added'})
-        }else{
-            await ctx.render('sign-error',{title:'user add failed'})
-        }
+        await ctx.render('sign-error',{title:'user add failed'})
     }
+
     console.log('sign-up/post===============3')
         
 }

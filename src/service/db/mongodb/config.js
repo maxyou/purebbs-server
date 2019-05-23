@@ -22,7 +22,7 @@ for(let m in clazz){
 console.log('mongodb connect......2')
 
 module.exports = {
-    hmackey:'koa2base hmackey',
+    
     getModel: name=>{
         try{
             console.log('--------in getModel------0')
