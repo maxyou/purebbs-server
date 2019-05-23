@@ -1,12 +1,14 @@
 const allowPage = [
     '/login', 
-    '/login/post', 
+    // '/login/post', 
     '/register',
-    '/register/post', 
+    // '/register/post', 
     '/logout', 
-    '/logout/post', 
-    '/favicon.ico'
+    // '/logout/post', 
+    '/favicon.ico',
+    '/tool/verify'
 ]
+
 
 module.exports = () => {
     return async (ctx, next) => {
@@ -15,9 +17,9 @@ module.exports = () => {
         console.log('originalUrl:' + ctx.originalUrl)
         if (ctx.originalUrl == '/favicon.ico') return
         
-        console.log('---------url-authen---------------1')
+        console.log('---------url-authen---------------1'+allowPage.indexOf(ctx.originalUrl))
 
-        if (allowPage.indexOf(ctx.originalUrl) > -1) {
+        if (allowPage.some(v=>ctx.originalUrl.indexOf(v)>-1)) {
             console.log('====allow page:'+ctx.originalUrl)
         } else if (ctx.session && ctx.session.userinfo && ctx.session.userinfo.isLogin) {
             console.log('====already login'+ctx.session.userinfo.name)
