@@ -3,9 +3,9 @@ const Controller = require('./controller')
 
 module.exports = (app) => {
   router.get( '/', Controller.home.index )
-  router.get( '/index', Controller.home.index )
+  router.get( '/home/index', Controller.home.index )
   
-  router.get('/home', Controller.home.home)
+  router.get('/home/home', Controller.home.home)
   
   router.get('/home/:id/:name', Controller.home.homeParams)
   
