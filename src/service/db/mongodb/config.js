@@ -27,17 +27,6 @@ console.log('mongodb connect......2')
 module.exports = {
     
     getModel: name=>{
-        try{
-            console.log('--------in getModel------0')
-
-            var m = mongoose.model(name)
-            console.log('--------in getModel------1')
-            // console.log(m)
-            // console.log(JSON.stringify(m))
-            // console.log('--------in getModel------2')
-            return m
-        }catch(e){
-            console.log(e)
-        }
+        return mongoose.model(name)
     }
 }

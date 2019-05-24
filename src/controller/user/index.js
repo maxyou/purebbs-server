@@ -48,7 +48,8 @@ module.exports = {
     },
     'download/photo/download': async (ctx, next) => {
         console.log('----download-photo/download-----')
-        await send(ctx, 'img/coffee.jpg', {root: __dirname + '/resource'})
+        // await send(ctx, 'img/coffee.jpg', {root: __dirname + '/download'})
+        await send(ctx, 'img/coffee.jpg', {root: 'download'}) //当前项目根目录下的download目录
         console.log('----download-photo/download-----end')
     },
     
@@ -58,15 +59,10 @@ module.exports = {
         var users = await user.getUsers()
         console.log(users.length)
         console.log('----render user/list----------2')
-        try{
-            await ctx.render('user/userlist', {
-                title: 'user list',
-                users
-            })
-    
-        }catch(e){
-            console.log(e)
-        }
+        await ctx.render('user/userlist', {
+            title: 'user list',
+            users
+        })
         console.log('----render user/list----------3')
     },
 
