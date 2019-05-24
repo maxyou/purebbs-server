@@ -4,7 +4,7 @@ module.exports = async (ctx, next) => {
 
     let storage = multer.diskStorage({
         destination: function (req, file, cb) {
-            cb(null, 'user/upload/')
+            cb(null, 'upload') //项目根目录的upload目录
         },
         filename: function (req, file, cb) {
             let fileFormat = (file.originalname).split(".")
@@ -16,7 +16,7 @@ module.exports = async (ctx, next) => {
 
     upload.single('file')(ctx, next)
 
-    await ctx.render('upload-avatar-success', {
+    await ctx.render('user/upload/upload-avatar-success', {
         title: 'Upload avatar success',
     })
 

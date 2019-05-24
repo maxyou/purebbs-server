@@ -16,7 +16,7 @@ module.exports = async (ctx, next) => {
           title:'error',
           message:'captchaText error',
           delay:'3',
-          redirectUrl:'/sign-in'
+          redirectUrl:'/login'
         });    
       }
 

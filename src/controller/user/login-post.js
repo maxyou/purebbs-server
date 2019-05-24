@@ -19,7 +19,7 @@ module.exports = async (ctx, next) => {
       title:'error',
       message:'captchaText error',
       delay:'3',
-      redirectUrl:'/sign-in'
+      redirectUrl:'/login'
     });    
   }
   console.log('sign-in/post:--------2' + name + ' ' + password + ' ' + code)

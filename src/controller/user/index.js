@@ -33,20 +33,20 @@ module.exports = {
     },
     'logout/post': logoutPost,
     
-    'upload-avatar': async (ctx, next) => {
+    'upload/avatar': async (ctx, next) => {
         console.log('----upload-avatar-----')
-        await ctx.render('upload-avatar', {
+        await ctx.render('user/upload/upload-avatar', {
             title: 'Please pick your avatar:',
         })
     },
-    'upload-avatar/post': uploadAvatarPost,
-    'download-photo': async (ctx, next) => {
+    'upload/avatar/post': uploadAvatarPost,
+    'download/photo': async (ctx, next) => {
         let title = 'welcom download photo'
-        await ctx.render('download-photo', {
+        await ctx.render('user/download/download-photo', {
             title,
         })
     },
-    'download-photo/download': async (ctx, next) => {
+    'download/photo/download': async (ctx, next) => {
         console.log('----download-photo/download-----')
         await send(ctx, 'img/coffee.jpg', {root: __dirname + '/resource'})
         console.log('----download-photo/download-----end')
