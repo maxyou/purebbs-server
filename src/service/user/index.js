@@ -1,4 +1,4 @@
-const db = require('../db')
+const db = require('../../db')
 const config = require('./config')
 const crypto = require('crypto');
 

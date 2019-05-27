@@ -28,6 +28,20 @@ module.exports = (app) => {
   //-----------tool---------------------
   router.get('/tool/verify', Controller.tool.verify);
 
+  //-----------post--------------------
+  router.post('/post/add', controller.post['add']);
+  // router.get('/post/get', controller.post['get']);
+  router.get('/post/getpages', controller.post['getByPaginate']);
+  router.post('/post/findbyidanddelete', controller.post['findByIdAndDelete']);
+  router.post('/post/findbyidandupdate', controller.post['findByIdAndUpdate']);
+
+  //-----------private message--------------------
+  // router.post('/rbac/access/add', controller.rbac.access.add);
+  // router.get('/rbac/access/get', controller.rbac.access.get);
+  // router.get('/rbac/access/getpages', controller.rbac.access.getByPaginate);
+  // router.post('/rbac/access/findbyidanddelete', controller.rbac.access.findByIdAndDelete);
+  // router.post('/rbac/access/findbyidandupdate', controller.rbac.access.findByIdAndUpdate);
+
   app.use(router.routes())
     .use(router.allowedMethods())
 }
