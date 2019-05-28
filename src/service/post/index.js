@@ -38,6 +38,16 @@ module.exports = {
     },
     async findByIdAndUpdate(post) {
 
+        console.log('-----service findByIdAndUpdate-------')
+        console.log(JSON.stringify(post))
+        const {_id, ...resProps} = post
+        console.log(JSON.stringify(_id))
+        console.log(JSON.stringify(resProps))
 
+        var res = await db.post.findByIdAndUpdate(_id, resProps)
+        console.log('--------update--------')
+        console.log(JSON.stringify(res))
+        console.log('--------update--------')
+        return { code: 0, message: '更新数据成功', data: res };
     }
 }

@@ -1,4 +1,4 @@
-const {user} = require('../../service')
+const {user:service} = require('../../service')
 
 module.exports = async (ctx, next) => {
     let {
@@ -20,7 +20,7 @@ module.exports = async (ctx, next) => {
         });    
       }
 
-    let result = await user.addUser(signup)
+    let result = await service.addUser(signup)
     console.log(result)
 
     if (result && result.code == 0) {

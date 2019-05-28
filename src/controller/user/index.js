@@ -4,7 +4,7 @@ const loginPost = require('./login-post')
 const registerPost = require('./register-post')
 const logoutPost = require('./logout-post')
 const uploadAvatarPost = require('./upload-avatar-post-multer')
-const {user} = require('../../service')
+const {user:service} = require('../../service')
 
 module.exports = {
 
@@ -56,7 +56,7 @@ module.exports = {
     'user/list': async (ctx, next) => {
         
         console.log('----render user/list----------1')
-        var users = await user.getUsers()
+        var users = await service.getUsers()
         console.log(users.length)
         console.log('----render user/list----------2')
         await ctx.render('user/userlist', {

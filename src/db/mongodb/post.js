@@ -31,10 +31,12 @@ module.exports = {
         );
     },
 
-    async searchUserByName(user) {
+    async findByIdAndUpdate({_id, resProps}) {
 
-        return await config.getModel('User').find({ "name": user.name });
+        console.log('-----db findByIdAndUpdate-------')
 
-    }
+        var res = await config.getModel('Post').findByIdAndUpdate(_id, resProps)
+        return res
+    },
 
 }

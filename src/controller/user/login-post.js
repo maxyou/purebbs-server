@@ -1,4 +1,4 @@
-const { user } = require('../../service')
+const { user:service } = require('../../service')
 
 module.exports = async (ctx, next) => {
   let {
@@ -24,7 +24,7 @@ module.exports = async (ctx, next) => {
   }
   console.log('sign-in/post:--------2' + name + ' ' + password + ' ' + code)
   
-  var result = await user.authenticateUser(signin);
+  var result = await service.authenticateUser(signin);
 
   if (result && result.code == 0) {
     ctx.session.userinfo = { isLogin: true, ...result.res._doc };
@@ -43,7 +43,5 @@ module.exports = async (ctx, next) => {
       message: result.message,
     })
   }
-
-
 
 }
