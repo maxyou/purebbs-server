@@ -1,4 +1,5 @@
 const db = require('../../db')
+const {time} = require('../../tool')
 
 console.log('--------post/index.js-------')
 
@@ -6,6 +7,8 @@ module.exports = {
 
 
     async add(post) {
+
+        await time.delay(1000)
 
         console.log('--------post/index.js-------addUser')
             //增加用户
@@ -23,6 +26,9 @@ module.exports = {
 
     },
     async getByPaginate(query) {
+        
+        await time.delay(1000)
+
         console.log('service post getByPaginate')
         var res = await db.post.getByPaginate(query)
         console.log('service post getByPaginate----2')
@@ -33,10 +39,13 @@ module.exports = {
 
 
     async findByIdAndDelete(post) {
-
+        
+        await time.delay(1000)
 
     },
     async findByIdAndUpdate(post) {
+        
+        await time.delay(1000)
 
         console.log('-----service findByIdAndUpdate-------')
         console.log(JSON.stringify(post))
