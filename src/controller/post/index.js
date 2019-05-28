@@ -41,6 +41,7 @@ module.exports = {
             offset: ctx.request.query.offset,
             limit: ctx.request.query.limit,
         });
+        console.log('-----getByPaginate result------------------')
         console.log(result)
         ctx.body=result;
     },    

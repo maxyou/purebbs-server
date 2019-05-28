@@ -6,7 +6,9 @@ module.exports = {
     async getByPaginate(pageInfo = {offset: 0, limit: 20}) {
 
         var res = await config.getModel('Post').paginate({ }, pageInfo)
-        return { code: 0, message: '获取数据成功', data: res.docs, totalDocs: res.totalDocs };
+        console.log('---------db getByPaginate res --------------')
+        console.log(res)
+        return res;
     },
     
     async add(post) {
