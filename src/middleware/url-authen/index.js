@@ -25,7 +25,7 @@ module.exports = () => {
             console.log('====already login'+ctx.session.userinfo.name)
         } else {
             console.log('====redirect to sign-in')
-            ctx.redirect('/login')
+            // ctx.redirect('/login')
         }
 
         await next()

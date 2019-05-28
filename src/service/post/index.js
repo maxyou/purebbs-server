@@ -1,6 +1,4 @@
 const db = require('../../db')
-const config = require('./config')
-const crypto = require('crypto');
 
 console.log('--------user/index.js-------')
 
@@ -25,8 +23,9 @@ module.exports = {
 
     },
     async getByPaginate(query) {
-
-        var res = await db.board.getByPaginate(query)
+        console.log('service post getByPaginate')
+        var res = await db.post.getByPaginate(query)
+        console.log('service post getByPaginate----2')
         return { code: 0, message: '获取数据成功', data: res.docs, totalDocs: res.totalDocs };
         
     },

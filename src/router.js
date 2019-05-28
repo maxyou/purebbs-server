@@ -1,32 +1,32 @@
 const router = require('koa-router')()
-const Controller = require('./controller')
+const controller = require('./controller')
 
 module.exports = (app) => {
 
   //---------home-------------------
-  router.get( '/', Controller.home.index )
-  router.get( '/home/index', Controller.home.index )  
-  router.get('/home/home', Controller.home.home)  
-  router.get('/home/:id/:name', Controller.home.homeParams)
+  // router.get( '/', controller.home.index )
+  // router.get( '/home/index', controller.home.index )  
+  // router.get('/home/home', controller.home.home)  
+  // router.get('/home/:id/:name', controller.home.homeParams)
   
   //---------user--------------------
   //login, register, logout
-  router.get('/register', Controller.user['register'])
-  router.post('/register/post', Controller.user['register/post'])
-  router.get('/login', Controller.user['login'])
-  router.post('/login/post', Controller.user['login/post'])
-  router.get('/logout', Controller.user['logout'])
-  router.get('/logout/post', Controller.user['logout/post'])
+  // router.get('/register', controller.user['register'])
+  // router.post('/register/post', controller.user['register/post'])
+  // router.get('/login', controller.user['login'])
+  // router.post('/login/post', controller.user['login/post'])
+  // router.get('/logout', controller.user['logout'])
+  // router.get('/logout/post', controller.user['logout/post'])
   //crud
-  router.get('/user/list', Controller.user['user/list'])
+  // router.get('/user/list', controller.user['user/list'])
   //avatar, photo
-  router.get('/upload/avatar', Controller.user['upload/avatar'])
-  router.post('/upload/avatar/post', Controller.user['upload/avatar/post'])
-  router.get('/download/photo', Controller.user['download/photo'])
-  router.get('/download/photo/download', Controller.user['download/photo/download'])
+  // router.get('/upload/avatar', controller.user['upload/avatar'])
+  // router.post('/upload/avatar/post', controller.user['upload/avatar/post'])
+  // router.get('/download/photo', controller.user['download/photo'])
+  // router.get('/download/photo/download', controller.user['download/photo/download'])
 
   //-----------tool---------------------
-  router.get('/tool/verify', Controller.tool.verify);
+  // router.get('/tool/verify', controller.tool.verify);
 
   //-----------post--------------------
   router.post('/post/add', controller.post['add']);

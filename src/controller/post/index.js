@@ -1,9 +1,4 @@
 // const Service = require('./service')
-const send = require('koa-send')
-const loginPost = require('./login-post')
-const registerPost = require('./register-post')
-const logoutPost = require('./logout-post')
-const uploadAvatarPost = require('./upload-avatar-post-multer')
 const {post} = require('../../service')
 
 module.exports = {
@@ -38,6 +33,7 @@ module.exports = {
     //     ctx.body=result;
     // },
     'getByPaginate': async (ctx, next) =>{
+        console.log('--------post getByPaginate------------')
         console.log('page info:')
         console.log(ctx.request.query.offset)
         console.log(ctx.request.query.limit)
@@ -45,6 +41,7 @@ module.exports = {
             offset: ctx.request.query.offset,
             limit: ctx.request.query.limit,
         });
+        console.log(result)
         ctx.body=result;
     },    
 
