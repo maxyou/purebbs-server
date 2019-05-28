@@ -22,7 +22,7 @@ module.exports = {
         ctx.body=result;
     },
     'findByIdAndUpdate': async (ctx, next) =>{
-        console.log('-----controller findByIdAndUpdate-------')
+        // console.log('-----controller findByIdAndUpdate-------')
         var post = ctx.request.body
         var result = await service.findByIdAndUpdate(post);
         ctx.body=result;
@@ -43,7 +43,7 @@ module.exports = {
             limit: ctx.request.query.limit,
         });
         console.log('-----getByPaginate result------------------')
-        console.log(result)
+        // console.log(result)
         ctx.body=result;
     },    
 
