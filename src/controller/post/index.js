@@ -2,7 +2,7 @@
 const {post:service} = require('../../service')
 
 module.exports = {
-    'add': async (ctx, next) => {
+    '/post/add': async (ctx, next) => {
         console.log(JSON.stringify(ctx.request.body))
         var result = await service.add(ctx.request.body);
         ctx.body=result;
@@ -18,14 +18,14 @@ module.exports = {
     //     var result = await post.deleteOne(match);
     //     ctx.body=result;
     // },
-    'findByIdAndDelete': async (ctx, next) => {
+    '/post/findByIdAndDelete': async (ctx, next) => {
         var post = ctx.request.body
         console.log('-----deleteOne get match-------')
         console.log(JSON.stringify(post))
         var result = await service.findByIdAndDelete(post);
         ctx.body=result;
     },
-    'findByIdAndUpdate': async (ctx, next) =>{
+    '/post/findByIdAndUpdate': async (ctx, next) =>{
         // console.log('-----controller findByIdAndUpdate-------')
         var post = ctx.request.body
         var result = await service.findByIdAndUpdate(post);
@@ -37,7 +37,7 @@ module.exports = {
     //     var result = await post.get();
     //     ctx.body=result;
     // },
-    'getByPaginate': async (ctx, next) =>{
+    '/post/getByPaginate': async (ctx, next) =>{
         console.log('--------post getByPaginate------------')
         console.log('page info:')
         // console.log(ctx.request.query.offset)

@@ -8,14 +8,14 @@ const {user:service} = require('../../service')
 
 module.exports = {
 
-    '/user/register': async (ctx, next) => {
+    'register': async (ctx, next) => {
         await ctx.render('user/register/register', {
             title: 'Sign up:',
         })
     },
-    '/user/register/post': registerPost,
+    'register/post': registerPost,
 
-    '/user/login': async (ctx, next) => {
+    'login': async (ctx, next) => {
         console.log('----sign in page-----')
         console.log(ctx.session)
 
@@ -24,28 +24,15 @@ module.exports = {
             title: 'Sign in:',
         })
     },
-    '/user/login/post': loginPost,
+    'login/post': loginPost,
 
-    '/user/logout': async (ctx, next) => {
+    'logout': async (ctx, next) => {
         await ctx.render('user/logout/logout', {
             title: 'Sign out:',
         })
     },
-    '/user/logout/post': logoutPost,
-        
-    '/user/list': async (ctx, next) => {
-        
-        console.log('----render user/list----------1')
-        var users = await service.getUsers()
-        console.log(users.length)
-        console.log('----render user/list----------2')
-        await ctx.render('user/userlist', {
-            title: 'user list',
-            users
-        })
-        console.log('----render user/list----------3')
-    },
-
+    'logout/post': logoutPost,
+    
     'upload/avatar': async (ctx, next) => {
         console.log('----upload-avatar-----')
         await ctx.render('user/upload/upload-avatar', {
@@ -64,6 +51,19 @@ module.exports = {
         // await send(ctx, 'img/coffee.jpg', {root: __dirname + '/download'})
         await send(ctx, 'img/coffee.jpg', {root: 'download'}) //当前项目根目录下的download目录
         console.log('----download-photo/download-----end')
+    },
+    
+    'user/list': async (ctx, next) => {
+        
+        console.log('----render user/list----------1')
+        var users = await service.getUsers()
+        console.log(users.length)
+        console.log('----render user/list----------2')
+        await ctx.render('user/userlist', {
+            title: 'user list',
+            users
+        })
+        console.log('----render user/list----------3')
     },
 
 }

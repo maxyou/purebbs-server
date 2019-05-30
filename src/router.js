@@ -3,6 +3,37 @@ const controller = require('./controller')
 
 module.exports = (app) => {
 
+  //---------user--------------------
+  //login, register, logout
+  router.get('/user/register', controller.user['/user/register'])
+  router.post('/user/register/post', controller.user['/user/register/post'])
+  router.get('/user/login', controller.user['/user/login'])
+  router.post('/user/login/post', controller.user['/user/login/post'])
+  router.get('/user/logout', controller.user['/user/logout'])
+  router.get('/user/logout/post', controller.user['/user/logout/post'])
+  //crud
+  router.get('/user/list', controller.user['/user/list'])
+  //avatar, photo
+  router.get('/upload/avatar', controller.user['upload/avatar'])
+  router.post('/upload/avatar/post', controller.user['upload/avatar/post'])
+  router.get('/download/photo', controller.user['download/photo'])
+  router.get('/download/photo/download', controller.user['download/photo/download'])
+
+  //-----------post--------------------
+  router.post('/post/add', controller.post['/post/add']);
+  // router.get('/post/get', controller.post['get']);
+  router.get('/post/getpages', controller.post['/post/getByPaginate']);
+  router.post('/post/findbyidanddelete', controller.post['/post/findByIdAndDelete']);
+  router.post('/post/findbyidandupdate', controller.post['/post/findByIdAndUpdate']);
+
+  //-----------private message--------------------
+  // router.post('/rbac/access/add', controller.rbac.access.add);
+  // router.get('/rbac/access/get', controller.rbac.access.get);
+  // router.get('/rbac/access/getpages', controller.rbac.access.getByPaginate);
+  // router.post('/rbac/access/findbyidanddelete', controller.rbac.access.findByIdAndDelete);
+  // router.post('/rbac/access/findbyidandupdate', controller.rbac.access.findByIdAndUpdate);
+
+
   //---------home-------------------
   // router.get( '/', controller.home.index )
   // router.get( '/home/index', controller.home.index )  
@@ -27,20 +58,6 @@ module.exports = (app) => {
 
   //-----------tool---------------------
   // router.get('/tool/verify', controller.tool.verify);
-
-  //-----------post--------------------
-  router.post('/post/add', controller.post['add']);
-  // router.get('/post/get', controller.post['get']);
-  router.get('/post/getpages', controller.post['getByPaginate']);
-  router.post('/post/findbyidanddelete', controller.post['findByIdAndDelete']);
-  router.post('/post/findbyidandupdate', controller.post['findByIdAndUpdate']);
-
-  //-----------private message--------------------
-  // router.post('/rbac/access/add', controller.rbac.access.add);
-  // router.get('/rbac/access/get', controller.rbac.access.get);
-  // router.get('/rbac/access/getpages', controller.rbac.access.getByPaginate);
-  // router.post('/rbac/access/findbyidanddelete', controller.rbac.access.findByIdAndDelete);
-  // router.post('/rbac/access/findbyidandupdate', controller.rbac.access.findByIdAndUpdate);
 
   app.use(router.routes())
     .use(router.allowedMethods())
