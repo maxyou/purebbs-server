@@ -5,6 +5,8 @@ module.exports = {
 
     async getByPaginate(pageInfo = {offset: 0, limit: 20}) {
 
+        console.log('---------db getByPaginate pageInfo --------------')
+        console.log(pageInfo)
         var res = await config.getModel('Post').paginate({ }, pageInfo)
         // console.log('---------db getByPaginate res --------------')
         // console.log(res)

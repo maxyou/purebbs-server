@@ -6,6 +6,10 @@ module.exports = {
         console.log(JSON.stringify(ctx.request.body))
         var result = await service.add(ctx.request.body);
         ctx.body=result;
+
+        // for(var i=0;i<100;i++){
+        //     await service.add({title:i, content:i});
+        // }
     },
     // 'deleteOne': async (ctx, next) => {
     //     var match = ctx.request.body
@@ -36,12 +40,14 @@ module.exports = {
     'getByPaginate': async (ctx, next) =>{
         console.log('--------post getByPaginate------------')
         console.log('page info:')
-        console.log(ctx.request.query.offset)
-        console.log(ctx.request.query.limit)
-        var result = await service.getByPaginate({
-            offset: ctx.request.query.offset,
-            limit: ctx.request.query.limit,
-        });
+        // console.log(ctx.request.query.offset)
+        // console.log(ctx.request.query.limit)
+        // console.log(ctx.request.query.sort)
+        // console.log(ctx.request.query.sort._id)
+        const pageInfo = ctx.request.query.pageInfo
+        console.log(pageInfo)
+        var result = await service.getByPaginate(JSON.parse(pageInfo));//必须parse才能把字符串‘-1’解析为数字‘-1’
+        // var result = await service.getByPaginate(pageInfo);//不行
         console.log('-----getByPaginate result------------------')
         // console.log(result)
         ctx.body=result;
