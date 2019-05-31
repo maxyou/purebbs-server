@@ -13,7 +13,7 @@ module.exports = async (ctx, next) => {
   
   let signin = { name, password, code }
   
-  if(code.toUpperCase()!=ctx.session.captchaText.toUpperCase()){
+  if(0 && code.toUpperCase()!=ctx.session.captchaText.toUpperCase()){
     console.log('ctx.session.captchaText.toUpperCase not equ')
     ctx.body = {code:-1, message:'验证码不符'}
   }else{

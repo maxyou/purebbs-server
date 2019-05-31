@@ -10,7 +10,7 @@ module.exports = {
     '/user/status': async (ctx, next) => {
         // if(ctx.session.userinfo.isLogin){
         // }
-        ctx.body={isLogin:ctx.session.userinfo.isLogin};
+        ctx.body={code:0,message:'', data:{isLogin:ctx.session.userinfo.isLogin, name:ctx.session.userinfo.name}};
     },
     '/user/register': async (ctx, next) => {
         await ctx.render('user/register/register', {
