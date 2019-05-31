@@ -70,7 +70,9 @@ module.exports = {
             hmac.update(userFound.salt + user.password);
             var hashpwd = hmac.digest('hex');
             if (hashpwd == userFound.hashpwd) {
-                return { code: 0, message: '认证成功，欢迎 ' + user.name + ' 登录', res:userFound };
+                console.log('userFound:')
+                console.log(userFound)
+                return { code: 0, message: '认证成功', res:userFound };
             } else {
                 return { code: -1, message: '密码错误' };
             }

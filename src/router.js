@@ -5,11 +5,9 @@ module.exports = (app) => {
 
   //---------user--------------------
   //login, register, logout
-  router.get('/user/register', controller.user['/user/register'])
-  router.post('/user/register/post', controller.user['/user/register/post'])
-  router.get('/user/login', controller.user['/user/login'])
-  router.post('/user/login/post', controller.user['/user/login/post'])
-  router.get('/user/logout', controller.user['/user/logout'])
+  router.get('/user/status', controller.user['/user/status'])
+  router.post('/user/register', controller.user['/user/register/post'])
+  router.post('/user/login', controller.user['/user/login/post'])
   router.get('/user/logout/post', controller.user['/user/logout/post'])
   //crud
   router.get('/user/list', controller.user['/user/list'])
@@ -57,7 +55,7 @@ module.exports = (app) => {
   // router.get('/download/photo/download', controller.user['download/photo/download'])
 
   //-----------tool---------------------
-  // router.get('/tool/verify', controller.tool.verify);
+  router.get('/tool/verify', controller.tool.verify);
 
   app.use(router.routes())
     .use(router.allowedMethods())

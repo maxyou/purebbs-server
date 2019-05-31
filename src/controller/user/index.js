@@ -7,7 +7,11 @@ const uploadAvatarPost = require('./upload-avatar-post-multer')
 const {user:service} = require('../../service')
 
 module.exports = {
-
+    '/user/status': async (ctx, next) => {
+        // if(ctx.session.userinfo.isLogin){
+        // }
+        ctx.body={isLogin:ctx.session.userinfo.isLogin};
+    },
     '/user/register': async (ctx, next) => {
         await ctx.render('user/register/register', {
             title: 'Sign up:',

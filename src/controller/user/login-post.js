@@ -15,33 +15,26 @@ module.exports = async (ctx, next) => {
   
   if(code.toUpperCase()!=ctx.session.captchaText.toUpperCase()){
     console.log('ctx.session.captchaText.toUpperCase not equ')
-    return await ctx.render('public/message', {
-      title:'error',
-      message:'captchaText error',
-      delay:'3',
-      redirectUrl:'/login'
-    });    
-  }
-  console.log('sign-in/post:--------2' + name + ' ' + password + ' ' + code)
+    ctx.body = {code:-1, message:'验证码不符'}
+  }else{
+
+    console.log('sign-in/post:--------2' + name + ' ' + password + ' ' + code)
+    
+    var result = await service.authenticateUser(signin);
   
-  var result = await service.authenticateUser(signin);
+    if (result && result.code == 0) {
+      console.log('authen result:')
+      console.log(result)
+      ctx.session.userinfo = { isLogin: true, ...result.res._doc };
+      console.log('session.userinfo:')
+      console.log(ctx.session.userinfo)
+      ctx.body = {code:0, message:result.message, data:{//有选择地返回给客户端
+        _id:result.res._id, 
+        name:result.res.name
+      }}
+    }else{
+      ctx.body = {code:-1, message:result.message, data:{}}
 
-  if (result && result.code == 0) {
-    ctx.session.userinfo = { isLogin: true, ...result.res._doc };
-    console.log('ctx.session:')
-    console.log(ctx.session)
-    await ctx.render('user/login/submit', {
-      title: 'Sign in success',
-      code: result.code,
-      message: result.message,
-    })
-  } else {
-    console.log('user is invalid')
-    await ctx.render('user/login/submit', {
-      title: 'Sign in failed',
-      code: result.code,
-      message: result.message,
-    })
+    }
   }
-
 }
