@@ -19,7 +19,7 @@ module.exports = {
     Post: {//must capitalized
         author: { type: String, default: 'unknown' },
         authorId: { type: String, default: '-1' },
-        postIncId: { type: String},
+        incId: { type: String},
         title: { type: String, default: 'no title' },
         content: { type: String, default: 'no content' },
         updated: { type: Date, default: Date.now },

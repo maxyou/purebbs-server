@@ -23,7 +23,7 @@ module.exports = {
         postIncIdLastNew++
         await config.getModel('Config').findOneAndUpdate({name:'postIncId'}, {content:''+postIncIdLastNew})
 
-        var postWithIncId = {...post, postIncId:postIncIdLastNew}
+        var postWithIncId = {...post, incId:postIncIdLastNew}
         var Model = config.getModel('Post')
         // console.log('--------db/mongodb/user.js-------addUser---getModel')
         //增加用户
