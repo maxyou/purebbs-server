@@ -24,6 +24,36 @@ for(let m in clazz){
 }
 console.log('mongodb connect......2')
 
+
+function initConfigModel({name, content}){
+    const ConfigModel = mongoose.model('Config')
+
+    ConfigModel.findOne({name:name}, function(err, arg){
+        if(err){
+            console.log('arg err:')
+            console.log(err)
+        }else{
+            console.log('arg:')
+            console.log(arg)
+            if(!arg){
+                ConfigModel.create({name:name, content:content}, function(err, arg2){
+                    if(err){
+                        console.log('arg2 err:')
+                        console.log(err)
+                    }else{
+                        console.log('arg2:')
+                        console.log(arg2)
+                    }
+                })
+            }
+        }
+    })    
+}
+
+initConfigModel({name:'postIncId', content:'0'})
+
+// await new ConfigModel({name:}).save()
+
 module.exports = {
     
     getModel: name=>{

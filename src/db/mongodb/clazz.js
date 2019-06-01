@@ -1,4 +1,8 @@
 module.exports = {
+    Config: {//must capitalized
+        name: { type: String },
+        content: { type: String },
+    },
     User: {//must capitalized
         uuid: { type: String },
         name: { type: String },
@@ -13,9 +17,11 @@ module.exports = {
         email: { type: String },
     },
     Post: {//must capitalized
-        author: { type: String },
-        authorId: { type: String },
-        title: { type: String },
-        content: { type: String },
+        author: { type: String, default: 'unknown' },
+        authorId: { type: String, default: '-1' },
+        title: { type: String, default: 'no title' },
+        content: { type: String, default: 'no content' },
+        updated: { type: Date, default: Date.now },
+        created: { type: Date, default: Date.now },
     }
 }
