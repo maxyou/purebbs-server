@@ -15,11 +15,19 @@ module.exports = {
     
     async add(post) {
         
-        // console.log('--------db/mongodb/user.js-------addUser')
+        console.log('--------db/mongodb/user.js-------addUser')
+
+        var postIncIdLast = await config.getModel('Config').findOne({name:'postIncId'})
+        console.log(postIncIdLast)
+        var postIncIdLastNew = parseInt(postIncIdLast.content)
+        postIncIdLastNew++
+        await config.getModel('Config').findOneAndUpdate({name:'postIncId'}, {content:''+postIncIdLastNew})
+
+        var postWithIncId = {...post, postIncId:postIncIdLastNew}
         var Model = config.getModel('Post')
         // console.log('--------db/mongodb/user.js-------addUser---getModel')
         //增加用户
-        return await new Model(post).save(
+        return await new Model(postWithIncId).save(
             //注意，如果添加这个callback，那么await就返回undefined
             // function (err, res) {
             //   console.log(res)
