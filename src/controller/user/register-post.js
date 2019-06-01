@@ -18,9 +18,14 @@ module.exports = async (ctx, next) => {
 
     if (result && result.code == 0) {
       ctx.session.userinfo = { isLogin: true, ...result.res._doc };
-      console.log('ctx.session:')
-      console.log(ctx.session)
-      ctx.body = { code: 0, message: result.message, data: {} }
+      // console.log('ctx.session:')
+      // console.log(ctx.session)
+      console.log('result.res:')
+      console.log(result.res)
+      ctx.body = { code: 0, message: result.message, data: {//有选择地返回给客户端
+        _id: result.res._id,
+        name: result.res.name
+      } }
     } else {
       console.log('user is invalid')
       ctx.body = { code: -1, message: result.message, data: {} }
