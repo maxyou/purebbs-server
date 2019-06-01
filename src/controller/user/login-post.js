@@ -7,19 +7,17 @@ module.exports = async (ctx, next) => {
     code
   } = ctx.request.body
 
-  console.log('sign-in/post:' + name + ' ' + password + ' ' + code)
-  console.log('ctx.session.captchaText.toUpperCase:'+ctx.session.captchaText.toUpperCase())
-  console.log('sign-in/post:--------1' + name + ' ' + password + ' ' + code)
   
   let signin = { name, password, code }
   
-  if(0 && code.toUpperCase()!=ctx.session.captchaText.toUpperCase()){
+  if(ctx.session && ctx.session.captchaText && code.toUpperCase()!=ctx.session.captchaText.toUpperCase()){
+
     console.log('ctx.session.captchaText.toUpperCase not equ')
     ctx.body = {code:-1, message:'验证码不符'}
-  }else{
+  
+  }else{//这里也许应该清除ctx.session.captchaText，防止客户端重复利用这个captchaText
 
-    console.log('sign-in/post:--------2' + name + ' ' + password + ' ' + code)
-    
+    console.log('sign-in/post:--------2' + name + ' ' + password + ' ' + code)    
     var result = await service.authenticateUser(signin);
   
     if (result && result.code == 0) {

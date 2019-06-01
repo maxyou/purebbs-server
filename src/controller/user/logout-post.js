@@ -10,5 +10,5 @@ module.exports = async (ctx, next) => {
     // }
     ctx.session = null
 
-    ctx.redirect('/login')
+    ctx.body = {code:0, message:'logout success'}
 }

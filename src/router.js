@@ -8,7 +8,7 @@ module.exports = (app) => {
   router.get('/user/status', controller.user['/user/status'])
   router.post('/user/register', controller.user['/user/register/post'])
   router.post('/user/login', controller.user['/user/login/post'])
-  router.get('/user/logout/post', controller.user['/user/logout/post'])
+  router.post('/user/logout', controller.user['/user/logout/post'])
   //crud
   router.get('/user/list', controller.user['/user/list'])
   //avatar, photo

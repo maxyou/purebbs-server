@@ -13,11 +13,11 @@ const allowPage = [
 module.exports = () => {
     return async (ctx, next) => {
 
-        console.log('---------url-authen---------------')
+        // console.log('---------url-authen---------------')
         console.log('originalUrl:' + ctx.originalUrl)
         if (ctx.originalUrl == '/favicon.ico') return
         
-        console.log('---------url-authen---------------1'+allowPage.indexOf(ctx.originalUrl))
+        console.log('---------url-authen---------------'+allowPage.indexOf(ctx.originalUrl))
 
         if (allowPage.some(v=>ctx.originalUrl.indexOf(v)>-1)) {
             console.log('====allow page:'+ctx.originalUrl)
