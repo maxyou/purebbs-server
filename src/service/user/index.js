@@ -1,6 +1,7 @@
 const db = require('../../db')
 const config = require('./config')
-const crypto = require('crypto');
+const crypto = require('crypto')
+const uuidv1 = require('uuid/v1')
 
 console.log('--------user/index.js-------')
 
@@ -39,13 +40,14 @@ module.exports = {
             user.hashpwd = hmac.digest('hex');
             user.password = '';
 
+            user.uuid = uuidv1()
 
             console.log('add user ---- call db')
             //增加用户
             var res = await db.user.addUser(user)
 
             console.log('add user ---- after call db')
-            console.log(res)
+            // console.log(res)
 
             if (res) {//或者比较返回值的name属性？
                 return { code: 0, message: '添加用户成功', res:res };

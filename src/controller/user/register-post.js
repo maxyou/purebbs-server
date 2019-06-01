@@ -14,14 +14,14 @@ module.exports = async (ctx, next) => {
   if (ctx.session && ctx.session.captchaText && ctx.session.captchaText.toUpperCase() == code.toUpperCase()) {
 
     let result = await service.addUser(signup)
-    console.log(result)
+    // console.log(result)
 
     if (result && result.code == 0) {
       ctx.session.userinfo = { isLogin: true, ...result.res._doc };
       // console.log('ctx.session:')
       // console.log(ctx.session)
-      console.log('result.res:')
-      console.log(result.res)
+      // console.log('result.res:')
+      // console.log(result.res)
       ctx.body = { code: 0, message: result.message, data: {//有选择地返回给客户端
         _id: result.res._id,
         name: result.res.name

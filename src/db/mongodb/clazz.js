@@ -1,5 +1,6 @@
 module.exports = {
     User: {//must capitalized
+        uuid: { type: String },
         name: { type: String },
         hashpwd: { type: String },
         salt: { type: String },
