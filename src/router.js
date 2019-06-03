@@ -24,6 +24,12 @@ module.exports = (app) => {
   router.post('/post/findbyidanddelete', controller.post['/post/findByIdAndDelete']);
   router.post('/post/findbyidandupdate', controller.post['/post/findByIdAndUpdate']);
 
+  //-----------detail--------------------
+  router.get('/detail/:id', controller.detail['/detail/:id']);  
+  // router.post('/detail/comment/add', controller.detail['/post/comment/add']);
+  // router.get('/detail/comment/getpages', controller.detail['/detail/comment/getByPaginate']);
+
+
   //-----------private message--------------------
   // router.post('/rbac/access/add', controller.rbac.access.add);
   // router.get('/rbac/access/get', controller.rbac.access.get);
