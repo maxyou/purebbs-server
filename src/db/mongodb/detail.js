@@ -3,11 +3,11 @@ const config = require('./config')
 
 module.exports = {
 
-    async detailPostGet(id) {
+    async detailPostGet(condition, select) {
 
         console.log('---------db detail get--------------')
         
-        var res = await config.getModel('Post').findOne({incId: id })
+        var res = await config.getModel('Post').findOne(condition, select)
         console.log('---------db detail post get res --------------')
         console.log(res)
         return res;

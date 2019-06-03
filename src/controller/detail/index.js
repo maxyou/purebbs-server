@@ -2,16 +2,22 @@
 const {detail:service} = require('../../service')
 
 module.exports = {
-    '/detail/:id': async (ctx, next) => {
-        let {id}=ctx.params
-        console.log('/detail/:id')
-        console.log(id)
-        var result
-        try{
-            result = await service.detailPostGet(id);
-        }catch(e){
-            console.log(e)
-        }
+    '/detail': async (ctx, next) => {
+        // let {id}=ctx.params
+        // console.log('/detail/:id')
+        // console.log(id)
+
+        const postInfo = ctx.request.query.postInfo
+        console.log('JSON.stringify(postInfo):')
+        console.log(JSON.stringify(postInfo))
+        var result = await service.detailPostGet(postInfo);//必须parse才能把字符串‘-1’解析为数字‘-1’
+
+        // var result
+        // try{
+        //     result = await service.detailPostGet(id);
+        // }catch(e){
+        //     console.log(e)
+        // }
         ctx.body=result;
     },
     '/post/add': async (ctx, next) => {
