@@ -22,9 +22,8 @@ module.exports = {
         } else {
             return { code: -1, message: '发表异常' };
         }
-
-
     },
+    
     async getByPaginate(query) {
 
         await time.delay(1000)

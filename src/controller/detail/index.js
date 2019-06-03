@@ -20,9 +20,9 @@ module.exports = {
         // }
         ctx.body=result;
     },
-    '/post/add': async (ctx, next) => {
+    '/detail/comment/add': async (ctx, next) => {
         console.log(JSON.stringify(ctx.request.body))
-        var result = await service.add(ctx.request.body);
+        var result = await service.detailCommentAdd(ctx.request.body);
         ctx.body=result;
 
         // for(var i=0;i<100;i++){

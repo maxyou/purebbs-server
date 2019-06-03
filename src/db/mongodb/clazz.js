@@ -24,5 +24,13 @@ module.exports = {
         content: { type: String, default: 'no content' },
         updated: { type: Date, default: Date.now },
         created: { type: Date, default: Date.now },
+    },
+    Comment: {//must capitalized
+        author: { type: String, default: 'unknown' },
+        authorId: { type: String, default: '-1' },
+        postIncId: { type: String, default: '-1' },
+        content: { type: String, default: 'no content' },
+        updated: { type: Date, default: Date.now },
+        created: { type: Date, default: Date.now },
     }
 }

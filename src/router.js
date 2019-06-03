@@ -26,7 +26,7 @@ module.exports = (app) => {
 
   //-----------detail--------------------
   router.get('/detail', controller.detail['/detail']);  
-  // router.post('/detail/comment/add', controller.detail['/post/comment/add']);
+  router.post('/detail/comment/add', controller.detail['/detail/comment/add']);
   // router.get('/detail/comment/getpages', controller.detail['/detail/comment/getByPaginate']);
 
 

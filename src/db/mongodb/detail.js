@@ -13,5 +13,25 @@ module.exports = {
         return res;
     },
     
+    
+    
+    async detailCommentAdd(comment) {
+        
 
+        var Model = config.getModel('Comment')
+        // console.log('--------db/mongodb/user.js-------addUser---getModel')
+
+        return await new Model(comment).save(
+            //注意，如果添加这个callback，那么await就返回undefined
+            // function (err, res) {
+            //   console.log(res)
+            //   console.log(err)//成功时返回null          
+            //   if (err) {
+            //     console.log('mongoose save with err')        
+            //   } else {
+            //     console.log('mongoose save without err')
+            //   }
+            // }
+        );
+    },
 }
