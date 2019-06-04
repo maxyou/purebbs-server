@@ -3,11 +3,12 @@ const config = require('./config')
 
 module.exports = {
 
-    async getByPaginate(pageInfo = {offset: 0, limit: 20}) {
+    async getByPaginate(query = {}, options = {offset: 0, limit: 20}) {
 
-        console.log('---------db getByPaginate pageInfo --------------')
-        console.log(pageInfo)
-        var res = await config.getModel('Post').paginate({ }, pageInfo)
+        // console.log('---------db getByPaginate pageInfo --------------')
+        // console.log(query)
+        // console.log(options)
+        var res = await config.getModel('Post').paginate(query, options)
         // console.log('---------db getByPaginate res --------------')
         // console.log(res)
         return res;
@@ -17,17 +18,17 @@ module.exports = {
         
         console.log('--------db/mongodb/user.js-------addUser')
 
-        var postIncIdLast = await config.getModel('Config').findOne({name:'postIncId'})
-        console.log(postIncIdLast)
-        var postIncIdLastNew = parseInt(postIncIdLast.content)
-        postIncIdLastNew++
-        await config.getModel('Config').findOneAndUpdate({name:'postIncId'}, {content:''+postIncIdLastNew})
+        var postIdLast = await config.getModel('Config').findOne({name:'postId'})
+        console.log(postIdLast)
+        var postIdLastNew = parseInt(postIdLast.content)
+        postIdLastNew++
+        await config.getModel('Config').findOneAndUpdate({name:'postId'}, {content:''+postIdLastNew})
 
-        var postWithIncId = {...post, incId:postIncIdLastNew}
+        var postWithId = {...post, postId:postIdLastNew}
         var Model = config.getModel('Post')
         // console.log('--------db/mongodb/user.js-------addUser---getModel')
         //增加用户
-        return await new Model(postWithIncId).save(
+        return await new Model(postWithId).save(
             //注意，如果添加这个callback，那么await就返回undefined
             // function (err, res) {
             //   console.log(res)

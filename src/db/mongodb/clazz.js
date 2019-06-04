@@ -19,7 +19,7 @@ module.exports = {
     Post: {//must capitalized
         author: { type: String, default: 'unknown' },
         authorId: { type: String, default: '-1' },
-        incId: { type: String},
+        postId: { type: String},
         title: { type: String, default: 'no title' },
         content: { type: String, default: 'no content' },
         updated: { type: Date, default: Date.now },
@@ -28,7 +28,7 @@ module.exports = {
     Comment: {//must capitalized
         author: { type: String, default: 'unknown' },
         authorId: { type: String, default: '-1' },
-        postIncId: { type: String, default: '-1' },
+        postId: { type: String, default: '-1' },
         content: { type: String, default: 'no content' },
         updated: { type: Date, default: Date.now },
         created: { type: Date, default: Date.now },

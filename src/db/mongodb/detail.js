@@ -12,16 +12,16 @@ module.exports = {
         console.log(res)
         return res;
     },
-    
-    async getByPaginate(pageInfo = {offset: 0, limit: 20}) {
+    async getByPaginate(query = {}, options = {offset: 0, limit: 20}) {
 
-        console.log('---------db getByPaginate pageInfo --------------')
-        console.log(pageInfo)
-        var res = await config.getModel('Comment').paginate({ }, pageInfo)
+        console.log('---------db comment getByPaginate pageInfo --------------')
+        console.log(query)
+        console.log(options)
+        var res = await config.getModel('Comment').paginate(query, options)
         // console.log('---------db getByPaginate res --------------')
         // console.log(res)
         return res;
-    },
+    }, 
     
     async detailCommentAdd(comment) {
         
