@@ -42,4 +42,21 @@ module.exports = {
             // }
         );
     },
+
+    async detailPostUpdate(post) {
+
+        console.log('-----db detailPostUpdate-------post:')
+        console.log(post)
+
+        const _id = post._id
+        // const resProps = {...post}
+        console.log('-----db detailPostUpdate-------_id:'+_id)
+        // console.log(resProps)
+
+        var res = await config.getModel('Post').findByIdAndUpdate(_id, post)
+        return res
+    },
+
+
+
 }

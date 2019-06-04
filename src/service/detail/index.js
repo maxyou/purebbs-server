@@ -44,6 +44,14 @@ module.exports = {
         // console.log(res)
 
         if (res) {//或者比较返回值的name属性？
+
+
+            var post = await db.detail.detailPostGet({postId:comment.postId})            
+            console.log('update post comment num')
+            console.log(post)
+            post.commentNum += 1
+            await db.detail.detailPostUpdate(post)
+
             return { code: 0, message: '发表成功', res: res };
         } else {
             return { code: -1, message: '发表异常' };
