@@ -55,8 +55,8 @@ module.exports = {
     //     var result = await post.get();
     //     ctx.body=result;
     // },
-    '/post/getByPaginate': async (ctx, next) =>{
-        console.log('--------post getByPaginate------------')
+    '/detail/comment/getByPaginate': async (ctx, next) =>{
+        console.log('--------comment getByPaginate------------')
         console.log('page info:')
         // console.log(ctx.request.query.offset)
         // console.log(ctx.request.query.limit)
@@ -64,9 +64,9 @@ module.exports = {
         // console.log(ctx.request.query.sort._id)
         const pageInfo = ctx.request.query.pageInfo
         console.log(pageInfo)
-        var result = await service.getByPaginate(JSON.parse(pageInfo));//必须parse才能把字符串‘-1’解析为数字‘-1’
+        var result = await service.getByPaginate(pageInfo);//必须parse才能把字符串‘-1’解析为数字‘-1’
         // var result = await service.getByPaginate(pageInfo);//不行
-        console.log('-----getByPaginate result------------------')
+        console.log('-----comment getByPaginate result------------------')
         // console.log(result)
         ctx.body=result;
     },    

@@ -20,14 +20,14 @@ module.exports = (app) => {
   //-----------post--------------------
   router.post('/post/add', controller.post['/post/add']);
   // router.get('/post/get', controller.post['get']);
-  router.get('/post/getpages', controller.post['/post/getByPaginate']);
+  router.get('/post/getpage', controller.post['/post/getByPaginate']);
   router.post('/post/findbyidanddelete', controller.post['/post/findByIdAndDelete']);
   router.post('/post/findbyidandupdate', controller.post['/post/findByIdAndUpdate']);
 
   //-----------detail--------------------
   router.get('/detail', controller.detail['/detail']);  
   router.post('/detail/comment/add', controller.detail['/detail/comment/add']);
-  // router.get('/detail/comment/getpages', controller.detail['/detail/comment/getByPaginate']);
+  router.get('/detail/comment/getpage', controller.detail['/detail/comment/getByPaginate']);
 
 
   //-----------private message--------------------
