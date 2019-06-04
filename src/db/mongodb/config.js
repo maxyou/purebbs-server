@@ -8,6 +8,8 @@ console.log('--------db/mongodb/config.js-------')
 
 mongoose.connect(url, {useNewUrlParser: true});
 
+mongoose.set('useFindAndModify', false);
+
 console.log('mongodb connect......')
 
 var db = mongoose.connection;

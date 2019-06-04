@@ -11,13 +11,16 @@ module.exports = {
         await time.delay(500)
 
         // console.log('--------post/index.js-------addUser')
-        //增加用户
+        var postId = await db.post.getPostId()
+        postId++
+        post = {...post, postId}
         var res = await db.post.add(post)
 
         // console.log('add post ---- after call db')
         // console.log(res)
 
         if (res) {//或者比较返回值的name属性？
+            await db.post.setPostId(postId)
             return { code: 0, message: '发表成功', res: res };
         } else {
             return { code: -1, message: '发表异常' };

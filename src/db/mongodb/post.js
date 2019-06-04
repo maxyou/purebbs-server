@@ -13,22 +13,29 @@ module.exports = {
         // console.log(res)
         return res;
     },
-    
+    async getPostId(){
+        var postId = await config.getModel('Config').findOne({name:'postId'})
+        return parseInt(postId.content)
+    },
+    async setPostId(postIdNum){
+        return await config.getModel('Config').findOneAndUpdate({name:'postId'}, {content:''+postIdNum})
+    },
     async add(post) {
         
         console.log('--------db/mongodb/user.js-------addUser')
 
-        var postIdLast = await config.getModel('Config').findOne({name:'postId'})
-        console.log(postIdLast)
-        var postIdLastNew = parseInt(postIdLast.content)
-        postIdLastNew++
-        await config.getModel('Config').findOneAndUpdate({name:'postId'}, {content:''+postIdLastNew})
+        // var postIdLast = await config.getModel('Config').findOne({name:'postId'})
+        // console.log(postIdLast)
+        // var postIdLastNew = parseInt(postIdLast.content)
+        // postIdLastNew++
+        // await config.getModel('Config').findOneAndUpdate({name:'postId'}, {content:''+postIdLastNew})
 
-        var postWithId = {...post, postId:postIdLastNew}
+        // var postWithId = {...post, postId:postIdLastNew}
+
         var Model = config.getModel('Post')
         // console.log('--------db/mongodb/user.js-------addUser---getModel')
         //增加用户
-        return await new Model(postWithId).save(
+        return await new Model(post).save(
             //注意，如果添加这个callback，那么await就返回undefined
             // function (err, res) {
             //   console.log(res)
