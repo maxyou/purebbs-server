@@ -8,7 +8,7 @@ module.exports = {
 
     async add(post) {
 
-        await time.delay(1000)
+        await time.delay(500)
 
         // console.log('--------post/index.js-------addUser')
         //增加用户
@@ -26,7 +26,7 @@ module.exports = {
     
     async getByPaginate(query) {
 
-        await time.delay(1000)
+        await time.delay(500)
 
         // console.log('service post getByPaginate')
         var paginateQuery = JSON.parse(query)//parse才能把字符串‘-1’解析为数字‘-1’
@@ -40,7 +40,7 @@ module.exports = {
 
     async findByIdAndDelete(post) {
 
-        await time.delay(1000)
+        await time.delay(500)
 
         // console.log('-----service findByIdAndUpdate-------')
         // console.log(JSON.stringify(post))
@@ -54,7 +54,7 @@ module.exports = {
     },
     async findByIdAndUpdate(post) {
 
-        await time.delay(1000)
+        await time.delay(500)
 
         // console.log('-----service findByIdAndUpdate-------')
         // console.log(JSON.stringify(post))

@@ -22,6 +22,7 @@ module.exports = {
         postId: { type: String},
         title: { type: String, default: 'no title' },
         content: { type: String, default: 'no content' },
+        commentNum: { type: Number, default: 0 },
         updated: { type: Date, default: Date.now },
         created: { type: Date, default: Date.now },
     },

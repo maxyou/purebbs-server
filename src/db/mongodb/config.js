@@ -50,7 +50,7 @@ function initConfigModel({name, content}){
     })    
 }
 
-initConfigModel({name:'postId', content:'0'})
+initConfigModel({name:'postId', content:'10000'})
 
 // await new ConfigModel({name:}).save()
 
