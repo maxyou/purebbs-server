@@ -28,7 +28,7 @@ module.exports = {
 
         if (found.length > 0) {
             console.log('add user fail for duplicated name')
-            return { code: -1, message: '用户名重复' };
+            return { code: -1, message: '用户名重复', data:{} };
         } else {
             console.log('add user ---- salt')
 
@@ -47,12 +47,21 @@ module.exports = {
             var res = await db.user.addUser(user)
 
             console.log('add user ---- after call db')
-            // console.log(res)
+            console.log(res)
 
             if (res) {//或者比较返回值的name属性？
-                return { code: 0, message: '添加用户成功', res:res };
+                return { code: 0, message: '添加用户成功', 
+                    data:{
+                        _id:res._id,
+                        uuid:res.uuid,
+                        name:res.name,
+                        email:res.email,
+                        updated:res.updated,
+                        created:res.created,
+                    } 
+                }
             } else {
-                return { code: -1, message: '添加用户异常' };
+                return { code: -1, message: '添加用户异常', data:{} };
             }
         }
 

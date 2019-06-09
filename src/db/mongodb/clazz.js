@@ -9,6 +9,8 @@ module.exports = {
         hashpwd: { type: String },
         salt: { type: String },
         email: { type: String },
+        updated: { type: Date, default: Date.now },
+        created: { type: Date, default: Date.now },
     },
     Admin: {//must capitalized
         name: { type: String },
