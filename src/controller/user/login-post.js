@@ -18,22 +18,23 @@ module.exports = async (ctx, next) => {
     if (result && result.code == 0) {
       console.log('authen result:')
       console.log(result)
-      ctx.session.userinfo = { isLogin: true, ...result.res._doc };
+      ctx.session.userinfo = { isLogin: true, result };
       console.log('session.userinfo:')
       console.log(ctx.session.userinfo)
-      ctx.body = {
-        code: 0, message: result.message, data: {//有选择地返回给客户端
-          _id: result.res._id,
-          name: result.res.name
-        }
-      }
+      
     } else {
-      ctx.body = { code: -1, message: result.message, data: {} }
+      
     }
+    
+    ctx.body = result
 
   } else {//这里也许应该清除ctx.session.captchaText，防止客户端重复利用这个captchaText
 
     console.log('ctx.session.captchaText.toUpperCase not equ')
+    if(ctx.session.captchaText){
+      console.log('should:'+ctx.session.captchaText.toUpperCase())
+      console.log('get:'+code.toUpperCase())
+    }
     ctx.body = { code: -1, message: '验证码不符' }
 
   }

@@ -19,7 +19,7 @@ module.exports = async (ctx, next) => {
     console.log('controller sign-up/post return===============2')
     
     if (result && result.code == 0) {
-      ctx.session.userinfo = { isLogin: true, ...result.data._doc };
+      ctx.session.userinfo = { isLogin: true, result };
       console.log('ctx.session:')
       console.log(ctx.session)
       // console.log('result.res:')

@@ -9,9 +9,9 @@ const {user:service} = require('../../service')
 module.exports = {
     '/user/status': async (ctx, next) => {
         if(ctx.session && ctx.session.userinfo && ctx.session.userinfo.isLogin){
-            ctx.body={code:0,message:'已经登录', data:{isLogin:ctx.session.userinfo.isLogin, name:ctx.session.userinfo.name}};
+            ctx.body=ctx.session.userinfo.result
         }else{
-            ctx.body={code:0,message:'未登录', data:{isLogin:false, name:''}};
+            ctx.body={code:-1,message:'未登录', data:{}};
         }
     },
     '/user/register': async (ctx, next) => {

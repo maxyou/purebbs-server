@@ -22,7 +22,10 @@ module.exports = () => {
         if (allowPage.some(v=>ctx.originalUrl.indexOf(v)>-1)) {
             console.log('====allow page:'+ctx.originalUrl)
         } else if (ctx.session && ctx.session.userinfo && ctx.session.userinfo.isLogin) {
-            console.log('====already login'+ctx.session.userinfo.name)
+            console.log('====already login 1')
+            console.log(JSON.stringify(ctx.session.userinfo))
+            // console.log('====already login'+ctx.session.userinfo.result.data.name)
+            console.log('====already login 2')
         } else {
             console.log('====redirect to sign-in')
             // ctx.redirect('/login')

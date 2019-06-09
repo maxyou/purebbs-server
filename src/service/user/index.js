@@ -83,7 +83,16 @@ module.exports = {
             if (hashpwd == userFound.hashpwd) {
                 console.log('userFound:')
                 console.log(userFound)
-                return { code: 0, message: '认证成功', res:userFound };
+                return { code: 0, message: '认证成功', 
+                    data:{
+                        _id: userFound._id,
+                        uuid: userFound.uuid,
+                        name: userFound.name,
+                        email: userFound.email,
+                        updated: userFound.updated,
+                        created: userFound.created,
+                    } 
+                }
             } else {
                 return { code: -1, message: '密码错误' };
             }
