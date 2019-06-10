@@ -12,10 +12,10 @@ module.exports = (app) => {
   //crud
   router.get('/user/list', controller.user['/user/list'])
   //avatar, photo
-  router.get('/upload/avatar', controller.user['upload/avatar'])
-  router.post('/upload/avatar/post', controller.user['upload/avatar/post'])
-  router.get('/download/photo', controller.user['download/photo'])
-  router.get('/download/photo/download', controller.user['download/photo/download'])
+  // router.get('/upload/avatar', controller.user['upload/avatar'])
+  router.post('/user/upload/avatar', controller.user['upload/avatar/post'])
+  // router.get('/download/photo', controller.user['download/photo'])
+  // router.get('/download/photo/download', controller.user['download/photo/download'])
 
   //-----------post--------------------
   router.post('/post/add', controller.post['/post/add']);
