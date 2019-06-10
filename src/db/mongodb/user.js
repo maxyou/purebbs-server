@@ -3,6 +3,13 @@ console.log('--------db/mongodb/user.js-------')
 
 module.exports = {
 
+    async uploadAvatar(v, _id){
+        console.log('db uploadAvatar:')
+        console.log(v)
+        console.log(_id)
+        return
+    },
+
     async getUsers() {
 
         //查询user表的数据

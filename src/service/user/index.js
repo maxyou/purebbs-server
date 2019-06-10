@@ -8,6 +8,19 @@ console.log('--------user/index.js-------')
 module.exports = {
 
 
+    async uploadAvatar(v, user) {
+
+        console.log(v)
+        
+        //查询user表的数据
+        console.log('--------service user/uploadAvatar-------1')
+        var result = await db.user.uploadAvatar(v, user._id)
+        // console.log(users)
+        console.log('--------service user/uploadAvatar-------2')
+
+        return result
+    },
+
     async getUsers() {
 
         //查询user表的数据
