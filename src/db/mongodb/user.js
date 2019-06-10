@@ -1,4 +1,6 @@
 const config = require('./config')
+const fs = require('fs')
+
 console.log('--------db/mongodb/user.js-------')
 
 module.exports = {
@@ -7,7 +9,16 @@ module.exports = {
         console.log('db uploadAvatar:')
         console.log(v)
         console.log(_id)
-        return
+
+        console.log('--------db/mongodb/user.js uploadAvatar-------0')
+        var avatar = {}
+        avatar.data = fs.readFileSync(v)
+        avatar.contentType = 'image/png'
+        console.log('--------db/mongodb/user.js uploadAvatar-------1')
+        var res = await config.getModel('User').findByIdAndUpdate(_id, {avatar:avatar})
+        console.log('--------db/mongodb/user.js uploadAvatar-------2')
+        console.log(res)
+        return res
     },
 
     async getUsers() {
