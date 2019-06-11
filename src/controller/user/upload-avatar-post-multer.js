@@ -31,7 +31,7 @@ module.exports = async (ctx, next) => {
     
     console.log('in upload avatar post multer 3')
 
-    await service.uploadAvatar(path.join(uploadDir, fileName), ctx.session.userinfo.result.data)
+    await service.uploadAvatar(path.join(uploadDir, fileName), ctx)
     ctx.body = { code: 0, message: 'upload success' }
 
     console.log('in upload avatar post multer 4')

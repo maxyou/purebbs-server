@@ -8,13 +8,13 @@ console.log('--------user/index.js-------')
 module.exports = {
 
 
-    async uploadAvatar(file, user) {
+    async uploadAvatar(file, ctx) {
 
         console.log(file)
         
         //查询user表的数据
         console.log('--------service user/uploadAvatar-------1')
-        var result = await db.user.uploadAvatar(file, user._id)
+        var result = await db.user.uploadAvatar(file, ctx.session.userinfo.result.data._id)
         // console.log(users)
         console.log('--------service user/uploadAvatar-------2')
 

@@ -1,6 +1,6 @@
 const { user: service } = require('../../service')
 
-module.exports = async (ctx, next) => {
+module.exports = async (ctx, next) => { //1，result存session，2，result返回客户端
   let {
     name,
     password,
@@ -20,8 +20,8 @@ module.exports = async (ctx, next) => {
     
     if (result && result.code == 0) {
       ctx.session.userinfo = { isLogin: true, result };
-      console.log('ctx.session:')
-      console.log(ctx.session)
+      // console.log('ctx.session:')
+      // console.log(ctx.session)
       // console.log('result.res:')
       // console.log(result.res)
       // ctx.body = { code: 0, message: result.message, data: result.data}

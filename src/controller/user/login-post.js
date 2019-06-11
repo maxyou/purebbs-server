@@ -1,26 +1,26 @@
 const { user: service } = require('../../service')
 
-module.exports = async (ctx, next) => {
+module.exports = async (ctx, next) => { //1，result存session，2，result返回客户端
+
   let {
     name,
     password,
     code
   } = ctx.request.body
 
-
   let signin = { name, password, code }
 
   if (ctx.session && ctx.session.captchaText && ctx.session.captchaText.toUpperCase() == code.toUpperCase()) {
 
-    console.log('sign-in/post:--------2' + name + ' ' + password + ' ' + code)
+    // console.log('sign-in/post:--------2' + name + ' ' + password + ' ' + code)
     var result = await service.authenticateUser(signin);
 
     if (result && result.code == 0) {
-      console.log('authen result:')
-      console.log(result)
+      // console.log('authen result:')
+      // console.log(result)
       ctx.session.userinfo = { isLogin: true, result };
-      console.log('session.userinfo:')
-      console.log(ctx.session.userinfo)
+      // console.log('session.userinfo:')
+      // console.log(ctx.session.userinfo)
       
     } else {
       
