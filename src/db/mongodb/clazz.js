@@ -11,7 +11,8 @@ module.exports = {
         email: { type: String },
         updated: { type: Date, default: Date.now },
         created: { type: Date, default: Date.now },
-        avatar: { data: Buffer, contentType: String },
+        // avatar: { data: Buffer, contentType: String },
+        avatarPath: { type: String },
     },
     Admin: {//must capitalized
         name: { type: String },

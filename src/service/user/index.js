@@ -8,13 +8,13 @@ console.log('--------user/index.js-------')
 module.exports = {
 
 
-    async uploadAvatar(file, ctx) {
+    async uploadAvatar(avatarPath, ctx) {
 
-        console.log(file)
+        console.log(avatarPath)
         
         //查询user表的数据
         console.log('--------service user/uploadAvatar-------1')
-        var result = await db.user.uploadAvatar(file, ctx.session.userinfo.result.data._id)
+        var result = await db.user.uploadAvatar(avatarPath, ctx.session.userinfo.result.data._id)
         // console.log(users)
         console.log('--------service user/uploadAvatar-------2')
 
@@ -94,8 +94,8 @@ module.exports = {
             hmac.update(userFound.salt + user.password);
             var hashpwd = hmac.digest('hex');
             if (hashpwd == userFound.hashpwd) {
-                console.log('userFound:')
-                console.log(userFound)
+                // console.log('userFound:')
+                // console.log(userFound)
                 return { code: 0, message: '认证成功', 
                     data:{
                         _id: userFound._id,
@@ -104,6 +104,7 @@ module.exports = {
                         email: userFound.email,
                         updated: userFound.updated,
                         created: userFound.created,
+                        avatarPath:userFound.avatarPath,
                     } 
                 }
             } else {

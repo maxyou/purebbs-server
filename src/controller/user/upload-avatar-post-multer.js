@@ -2,7 +2,7 @@ const multer = require('koa-multer')
 const path = require('path')
 const { user: service } = require('../../service')
 
-const uploadDir = 'upload'
+const uploadDir = 'upload/avatar'
 let fileName
 const genFileNameAndRecord = (file) => {
     let fileFormat = (file.originalname).split(".")

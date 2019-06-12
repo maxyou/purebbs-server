@@ -16,8 +16,8 @@ module.exports = async (ctx, next) => { //1，result存session，2，result返�
     var result = await service.authenticateUser(signin);
 
     if (result && result.code == 0) {
-      // console.log('authen result:')
-      // console.log(result)
+      console.log('authen result:')
+      console.log(result)
       ctx.session.userinfo = { isLogin: true, result };
       // console.log('session.userinfo:')
       // console.log(ctx.session.userinfo)

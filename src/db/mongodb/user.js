@@ -5,17 +5,18 @@ console.log('--------db/mongodb/user.js-------')
 
 module.exports = {
 
-    async uploadAvatar(v, _id){
+    async uploadAvatar(avatarPath, _id){
         console.log('db uploadAvatar:')
-        console.log(v)
+        console.log(avatarPath)
         console.log(_id)
 
         console.log('--------db/mongodb/user.js uploadAvatar-------0')
-        var avatar = {}
-        avatar.data = fs.readFileSync(v)
-        avatar.contentType = 'image/png'
+        // var avatar = {}
+        // avatar.data = fs.readFileSync(v)
+        // avatar.contentType = 'image/png'
         console.log('--------db/mongodb/user.js uploadAvatar-------1')
-        var res = await config.getModel('User').findByIdAndUpdate(_id, {avatar:avatar})
+        // var res = await config.getModel('User').findByIdAndUpdate(_id, {avatar:avatar})
+        var res = await config.getModel('User').findByIdAndUpdate(_id, {avatarPath:avatarPath})
         console.log('--------db/mongodb/user.js uploadAvatar-------2')
         console.log(res)
         return res
