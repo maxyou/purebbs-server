@@ -5,9 +5,9 @@ console.log('--------db/mongodb/user.js-------')
 
 module.exports = {
 
-    async uploadAvatar(avatarPath, _id){
+    async uploadAvatar(avatarFileName, _id){
         console.log('db uploadAvatar:')
-        console.log(avatarPath)
+        console.log(avatarFileName)
         console.log(_id)
 
         console.log('--------db/mongodb/user.js uploadAvatar-------0')
@@ -16,7 +16,7 @@ module.exports = {
         // avatar.contentType = 'image/png'
         console.log('--------db/mongodb/user.js uploadAvatar-------1')
         // var res = await config.getModel('User').findByIdAndUpdate(_id, {avatar:avatar})
-        var res = await config.getModel('User').findByIdAndUpdate(_id, {avatarPath:avatarPath})
+        var res = await config.getModel('User').findByIdAndUpdate(_id, {avatarFileName:avatarFileName})
         console.log('--------db/mongodb/user.js uploadAvatar-------2')
         console.log(res)
         return res

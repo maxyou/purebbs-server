@@ -8,13 +8,13 @@ console.log('--------user/index.js-------')
 module.exports = {
 
 
-    async uploadAvatar(avatarPath, ctx) {
+    async uploadAvatar(avatarFileName, ctx) {
 
-        console.log(avatarPath)
+        console.log(avatarFileName)
         
         //查询user表的数据
         console.log('--------service user/uploadAvatar-------1')
-        var result = await db.user.uploadAvatar(avatarPath, ctx.session.userinfo.result.data._id)
+        var result = await db.user.uploadAvatar(avatarFileName, ctx.session.userinfo.result.data._id)
         // console.log(users)
         console.log('--------service user/uploadAvatar-------2')
 
@@ -104,7 +104,7 @@ module.exports = {
                         email: userFound.email,
                         updated: userFound.updated,
                         created: userFound.created,
-                        avatarPath:userFound.avatarPath,
+                        avatarFileName:userFound.avatarFileName,
                     } 
                 }
             } else {

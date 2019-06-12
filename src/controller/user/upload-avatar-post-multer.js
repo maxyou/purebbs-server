@@ -2,7 +2,7 @@ const multer = require('koa-multer')
 const path = require('path')
 const { user: service } = require('../../service')
 
-const uploadDir = 'upload/avatar'
+const uploadDir = 'upload/user/avatar'
 let fileName
 const genFileNameAndRecord = (file) => {
     let fileFormat = (file.originalname).split(".")
@@ -31,7 +31,7 @@ module.exports = async (ctx, next) => {
     
     console.log('in upload avatar post multer 3')
 
-    await service.uploadAvatar(path.join(uploadDir, fileName), ctx)
+    await service.uploadAvatar(fileName, ctx)
     ctx.body = { code: 0, message: 'upload success' }
 
     console.log('in upload avatar post multer 4')

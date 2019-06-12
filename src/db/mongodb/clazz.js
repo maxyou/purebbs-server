@@ -12,7 +12,7 @@ module.exports = {
         updated: { type: Date, default: Date.now },
         created: { type: Date, default: Date.now },
         // avatar: { data: Buffer, contentType: String },
-        avatarPath: { type: String },
+        avatarFileName: { type: String },
     },
     Admin: {//must capitalized
         name: { type: String },

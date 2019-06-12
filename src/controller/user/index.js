@@ -7,6 +7,13 @@ const uploadAvatarPost = require('./upload-avatar-post-multer')
 const {user:service} = require('../../service')
 
 module.exports = {
+    '/user/avatar': async (ctx, next) => {
+        if(ctx.session && ctx.session.userinfo && ctx.session.userinfo.isLogin){
+            ctx.body=ctx.session.userinfo.result //返回之前登录或注册时的result
+        }else{
+            ctx.body={code:-1,message:'未登录', data:{}};
+        }
+    },
     '/user/status': async (ctx, next) => {
         if(ctx.session && ctx.session.userinfo && ctx.session.userinfo.isLogin){
             ctx.body=ctx.session.userinfo.result //返回之前登录或注册时的result
