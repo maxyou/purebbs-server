@@ -2,6 +2,7 @@ const db = require('../../db')
 const config = require('./config')
 const crypto = require('crypto')
 const uuidv1 = require('uuid/v1')
+const fs = require('fs')
 
 console.log('--------user/index.js-------')
 
@@ -14,18 +15,26 @@ module.exports = {
         
         //查询user表的数据
         console.log('--------service user/uploadAvatar-------1')
-        var result = await db.user.uploadAvatar(avatarFileName, ctx.session.userinfo.result.data._id)
-
+        await db.user.uploadAvatar(avatarFileName, ctx.session.userinfo.result.data._id)
+        console.log('--------service user/uploadAvatar-------2')
+        
         //删除旧头像
+        if(ctx.session.userinfo.result.data.avatarFileName){
+            console.log('upload/user/avatar/'+ctx.session.userinfo.result.data.avatarFileName)
+            try{
+                await fs.unlinkSync('upload/user/avatar/'+ctx.session.userinfo.result.data.avatarFileName)
+            }catch(e){
+                console.log(e)
+            }
+        }
 
+        console.log('--------update session-------'+avatarFileName)
         ctx.session.userinfo.result.data.avatarFileName = avatarFileName
-
-
 
         // console.log(users)
         console.log('--------service user/uploadAvatar-------2')
 
-        return result
+        return
     },
 
     async getUsers() {

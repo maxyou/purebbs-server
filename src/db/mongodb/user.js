@@ -18,7 +18,7 @@ module.exports = {
         // var res = await config.getModel('User').findByIdAndUpdate(_id, {avatar:avatar})
         var res = await config.getModel('User').findByIdAndUpdate(_id, {avatarFileName:avatarFileName})
         console.log('--------db/mongodb/user.js uploadAvatar-------2')
-        console.log(res)
+        console.log(res)//这里返回的似乎是旧数据
         return res
     },
 
