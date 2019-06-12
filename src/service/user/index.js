@@ -15,6 +15,13 @@ module.exports = {
         //查询user表的数据
         console.log('--------service user/uploadAvatar-------1')
         var result = await db.user.uploadAvatar(avatarFileName, ctx.session.userinfo.result.data._id)
+
+        //删除旧头像
+
+        ctx.session.userinfo.result.data.avatarFileName = avatarFileName
+
+
+
         // console.log(users)
         console.log('--------service user/uploadAvatar-------2')
 

@@ -8,8 +8,14 @@ const {user:service} = require('../../service')
 
 module.exports = {
     '/user/avatar': async (ctx, next) => {
+
+        var id = ctx.params.id
+        console.log('avatar id: '+id)
+
         if(ctx.session && ctx.session.userinfo && ctx.session.userinfo.isLogin){
-            ctx.body=ctx.session.userinfo.result //返回之前登录或注册时的result
+            
+            await send(ctx, id, {root: 'upload/user/avatar'}) //当前项目根目录下的download目录
+
         }else{
             ctx.body={code:-1,message:'未登录', data:{}};
         }
