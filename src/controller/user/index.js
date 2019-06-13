@@ -1,4 +1,6 @@
 // const Service = require('./service')
+const fs = require('fs')
+const path = require('path')
 const send = require('koa-send')
 const loginPost = require('./login-post')
 const registerPost = require('./register-post')
@@ -13,10 +15,20 @@ module.exports = {
         console.log('avatar id: '+id)
 
         if(ctx.session && ctx.session.userinfo && ctx.session.userinfo.isLogin){
-            
-            await send(ctx, id, {root: 'upload/user/avatar'}) //当前项目根目录下的download目录
+            // console.log('statSync:-----------1')
+
+            var b = await fs.existsSync(path.join('upload/user/avatar', id))
+            // console.log('statSync:-----------1.1'+b)
+            if(b){
+                await send(ctx, id, {root: 'upload/user/avatar'}) //当前项目根目录下的download目录
+                // console.log('statSync:-----------1.1')
+            }else{                
+                await send(ctx, 'default.png', {root: 'upload/user/avatar'}) //当前项目根目录下的download目录
+                // console.log('statSync:-----------1.2')
+            }
 
         }else{
+            // console.log('statSync:-----------2')
             ctx.body={code:-1,message:'未登录', data:{}};
         }
     },

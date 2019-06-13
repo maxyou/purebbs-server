@@ -21,11 +21,16 @@ module.exports = {
         //删除旧头像
         if(ctx.session.userinfo.result.data.avatarFileName){
             console.log('upload/user/avatar/'+ctx.session.userinfo.result.data.avatarFileName)
-            try{
+
+            var b = fs.existsSync('upload/user/avatar/'+ctx.session.userinfo.result.data.avatarFileName)
+            if(b){
                 await fs.unlinkSync('upload/user/avatar/'+ctx.session.userinfo.result.data.avatarFileName)
-            }catch(e){
-                console.log(e)
             }
+
+            // try{
+            // }catch(e){
+            //     console.log(e)
+            // }
         }
 
         console.log('--------update session-------'+avatarFileName)
