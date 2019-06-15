@@ -18,6 +18,13 @@ module.exports = (app) => {
   // router.get('/download/photo', controller.user['download/photo'])
   // router.get('/download/photo/download', controller.user['download/photo/download'])
 
+  //-----------admin--------------------
+  router.post('/admin/add', controller.admin['/admin/add']);
+  // router.get('/post/get', controller.post['get']);
+  router.get('/admin/getpage', controller.admin['/admin/getByPaginate']);
+  router.post('/admin/findbyidanddelete', controller.admin['/admin/findByIdAndDelete']);
+  router.post('/admin/findbyidandupdate', controller.admin['/admin/findByIdAndUpdate']);
+
   //-----------post--------------------
   router.post('/post/add', controller.post['/post/add']);
   // router.get('/post/get', controller.post['get']);

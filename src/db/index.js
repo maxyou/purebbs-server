@@ -3,7 +3,7 @@
 
 // module.exports = {config, query}
 
-const {user, post, detail} = require('./mongodb')
+const {user, post, detail, admin} = require('./mongodb')
 console.log('--------db/index.js-------')
 
-module.exports = {user, post, detail}
+module.exports = {user, post, detail, admin}

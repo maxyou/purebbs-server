@@ -21,20 +21,25 @@ module.exports = {
         // console.log(res)//这里返回的似乎是旧数据
         return
     },
-
-    async getUsers() {
-
-        //查询user表的数据
-        // console.log('--------db/mongodb/user.js-------1')
-        var User = config.getModel('User')
-        // console.log('--------db/mongodb/user.js-------2')
-        var users = await User.find({});
-        // console.log(users)
-        // console.log('--------db/mongodb/user.js-------3')
-        return users
-        // return await config.getModel('User').find({});
+    async getByPaginate(query = {}, options = {offset: 0, limit: 20}) {
+        var res = await config.getModel('User').paginate(query, options)
+        return res;
     },
-    
+    // async getUsers() {
+    //     var User = config.getModel('User')
+    //     var users = await User.find({});
+    //     return users
+    // },
+    async findByIdAndUpdate({_id, ...resProps}) {
+        var res = await config.getModel('User').findByIdAndUpdate(_id, resProps)
+        return res
+    },
+
+    async findByIdAndDelete({_id}) {
+        var res = await config.getModel('User').findByIdAndDelete(_id)
+        return res
+    },
+
     async addUser(user) {
         
         console.log('--------db/mongodb/user.js-------addUser')

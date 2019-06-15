@@ -50,7 +50,7 @@ module.exports = {
         // console.log(users)
         console.log('--------user/index.js-------2')
 
-        return users
+        return users //这里需过滤，防止返回密码等信息
     },
 
     async addUser(user) {
