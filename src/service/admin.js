@@ -56,14 +56,14 @@ module.exports = {
         return { code: 0, message: '更新数据成功', data: res };
 
     },
-    async findByIdAndUpdate(post) {
+    async findByIdAndUpdate(user) {
 
         await time.delay(100)
 
         // console.log('-----service findByIdAndUpdate-------')
         // console.log(JSON.stringify(post))
 
-        var res = await db.admin.findByIdAndUpdate(post)
+        var res = await db.admin.findByIdAndUpdate(user)
         // console.log('--------update--------')
         // console.log(JSON.stringify(res))
         // console.log('--------update--------')

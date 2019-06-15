@@ -52,9 +52,9 @@ module.exports = {
     async findByIdAndUpdate({_id, ...resProps}) {
 
         // console.log('-----db findByIdAndUpdate-------_id:'+_id)
-        // console.log(resProps)
+        console.log(resProps)
 
-        var res = await config.getModel('Post').findByIdAndUpdate(_id, resProps)
+        var res = await config.getModel('User').findByIdAndUpdate(_id, resProps)
         return res
     },
 
