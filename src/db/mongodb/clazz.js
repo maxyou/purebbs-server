@@ -13,7 +13,7 @@ module.exports = {
         created: { type: Date, default: Date.now },
         // avatar: { data: Buffer, contentType: String },
         avatarFileName: { type: String },
-        role: { type: [String], default: ['user'] },
+        role: { type: String, default: 'user' },
     },
     Admin: {//must capitalized
         name: { type: String },

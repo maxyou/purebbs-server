@@ -7,7 +7,7 @@ module.exports = {
 
     async detailPostGet(v) {        
         console.log('service detail post get----')
-        await time.delay(500)
+        await time.delay(100)
 
         const params = JSON.parse(v)
 
@@ -21,7 +21,7 @@ module.exports = {
 
     async getByPaginate(query) {
 
-        await time.delay(500)
+        await time.delay(100)
 
         console.log('service comment getByPaginate')
         var paginateQuery = JSON.parse(query)//parse才能把字符串‘-1’解析为数字‘-1’
@@ -34,7 +34,7 @@ module.exports = {
 
     async detailCommentAdd(comment) {
 
-        await time.delay(500)
+        await time.delay(100)
 
         // console.log('--------post/index.js-------addUser')
         //增加用户

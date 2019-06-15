@@ -8,7 +8,7 @@ module.exports = {
 
     async add(post) {
 
-        await time.delay(500)
+        await time.delay(100)
 
         // console.log('--------post/index.js-------addUser')
         var postId = await db.admin.getPostId()
@@ -29,7 +29,7 @@ module.exports = {
     
     async getByPaginate(query) {
 
-        await time.delay(500)
+        await time.delay(100)
 
         console.log('service admin getByPaginate')
         var paginateQuery = JSON.parse(query)//parse才能把字符串‘-1’解析为数字‘-1’
@@ -44,7 +44,7 @@ module.exports = {
 
     async findByIdAndDelete(post) {
 
-        await time.delay(500)
+        await time.delay(100)
 
         // console.log('-----service findByIdAndUpdate-------')
         // console.log(JSON.stringify(post))
@@ -58,7 +58,7 @@ module.exports = {
     },
     async findByIdAndUpdate(post) {
 
-        await time.delay(500)
+        await time.delay(100)
 
         // console.log('-----service findByIdAndUpdate-------')
         // console.log(JSON.stringify(post))
