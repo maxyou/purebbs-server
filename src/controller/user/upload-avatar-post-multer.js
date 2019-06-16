@@ -1,16 +1,14 @@
 const multer = require('koa-multer')
 const path = require('path')
 const { user: service } = require('../../service')
+const { calc } = require('../../tool')
 
 const uploadDir = 'upload/user/avatar'
-let fileName
-const genFileNameAndRecord = (file) => {
-    let fileFormat = (file.originalname).split(".")
-    fileName = Date.now() + "." + fileFormat[fileFormat.length - 1]
-    return fileName
-}
+
 
 module.exports = async (ctx, next) => {
+
+    let fileName
 
     console.log('in upload avatar post multer')
 
@@ -19,7 +17,7 @@ module.exports = async (ctx, next) => {
             cb(null, uploadDir) //项目根目录的upload目录
         },
         filename: function (req, file, cb) {
-            cb(null, genFileNameAndRecord(file))
+            cb(null, calc.genFileNameAndRecord(file, function(name){fileName=name}))
         }
     })
     
