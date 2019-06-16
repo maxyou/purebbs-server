@@ -1,5 +1,6 @@
 // const Service = require('./service')
-const {admin:service} = require('../service')
+const {admin:service} = require('../../service')
+const adminUpdateAvatarPost = require('./admin-update-avatar-post')
 
 module.exports = {
     '/admin/add': async (ctx, next) => {
@@ -15,11 +16,12 @@ module.exports = {
         ctx.body=result;
     },
     '/admin/findByIdAndUpdate': async (ctx, next) =>{
-        // console.log('-----controller findByIdAndUpdate-------')
+        console.log('-----controller /admin/findByIdAndUpdate-------')
         var post = ctx.request.body
         var result = await service.findByIdAndUpdate(post);
         ctx.body=result;
     },
+    '/admin/findByIdAndUpdateAvatar': adminUpdateAvatarPost,
     '/admin/getByPaginate': async (ctx, next) =>{
         console.log('--------admin getByPaginate------------')
         console.log('page info:')

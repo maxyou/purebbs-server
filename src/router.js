@@ -24,6 +24,7 @@ module.exports = (app) => {
   router.get('/admin/getpage', controller.admin['/admin/getByPaginate']);
   router.post('/admin/findbyidanddelete', controller.admin['/admin/findByIdAndDelete']);
   router.post('/admin/findbyidandupdate', controller.admin['/admin/findByIdAndUpdate']);
+  router.post('/admin/findbyidandupdateavatar', controller.admin['/admin/findByIdAndUpdateAvatar']);
 
   //-----------post--------------------
   router.post('/post/add', controller.post['/post/add']);

@@ -53,20 +53,33 @@ module.exports = {
         // console.log('--------update--------')
         // console.log(JSON.stringify(res))
         // console.log('--------update--------')
-        return { code: 0, message: '更新数据成功', data: res };
+        return { code: 0, message: 'findByIdAndDelete更新数据成功', data: res };
 
     },
     async findByIdAndUpdate(user) {
 
         await time.delay(100)
 
-        // console.log('-----service findByIdAndUpdate-------')
+        console.log('-----admin service findByIdAndUpdate-------')
         // console.log(JSON.stringify(post))
 
         var res = await db.admin.findByIdAndUpdate(user)
-        // console.log('--------update--------')
+        console.log('--------admin update--------')
         // console.log(JSON.stringify(res))
         // console.log('--------update--------')
-        return { code: 0, message: '更新数据成功', data: res };
+        return { code: 0, message: 'admin findByIdAndUpdate更新数据成功', data: res };
+    },
+    async findByIdAndUpdateAvatar(filename, _id) {
+
+        await time.delay(100)
+
+        console.log('-----service findByIdAndUpdateAvatar-------')
+        // console.log(JSON.stringify(post))
+
+        var res = await db.admin.findByIdAndUpdateAvatar(filename, _id)
+        console.log('--------update avatar--------')
+        // console.log(JSON.stringify(res))
+        // console.log('--------update--------')
+        return { code: 0, message: 'admin findByIdAndUpdateAvatar更新数据成功', data: res };
     }
 }

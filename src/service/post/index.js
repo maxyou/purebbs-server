@@ -52,7 +52,7 @@ module.exports = {
         // console.log('--------update--------')
         // console.log(JSON.stringify(res))
         // console.log('--------update--------')
-        return { code: 0, message: '更新数据成功', data: res };
+        return { code: 0, message: 'findByIdAndDelete更新数据成功', data: res };
 
     },
     async findByIdAndUpdate(post) {
@@ -66,6 +66,6 @@ module.exports = {
         // console.log('--------update--------')
         // console.log(JSON.stringify(res))
         // console.log('--------update--------')
-        return { code: 0, message: '更新数据成功', data: res };
+        return { code: 0, message: 'post findByIdAndUpdate更新数据成功', data: res };
     }
 }

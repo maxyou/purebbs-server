@@ -12,7 +12,7 @@ module.exports = {
     '/user/avatar': async (ctx, next) => {
 
         var id = ctx.params.id
-        console.log('avatar id: '+id)
+        // console.log('avatar id: '+id)
 
         if(ctx.session && ctx.session.userinfo && ctx.session.userinfo.isLogin){
             // console.log('statSync:-----------1')

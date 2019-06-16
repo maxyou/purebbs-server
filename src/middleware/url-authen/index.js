@@ -30,7 +30,8 @@ module.exports = () => {
             console.log('====redirect to sign-in')
             // ctx.redirect('/login')
         }
-
+        
+        console.log('====await next()')
         await next()
     }
 }
