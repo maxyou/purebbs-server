@@ -22,7 +22,7 @@ module.exports = {
     },
     '/detail/comment/add': async (ctx, next) => {
         console.log(JSON.stringify(ctx.request.body))
-        var result = await service.detailCommentAdd(ctx.request.body);
+        var result = await service.detailCommentAdd(ctx.request.body, ctx);
         ctx.body=result;
 
         // for(var i=0;i<100;i++){

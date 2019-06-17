@@ -6,14 +6,19 @@ console.log('--------post/index.js-------')
 module.exports = {
 
 
-    async add(post) {
+    async add(post, ctx) {
 
         await time.delay(100)
 
         // console.log('--------post/index.js-------addUser')
         var postId = await db.post.getPostId()
         postId++
-        post = {...post, postId}
+        post = {...post, 
+            postId, 
+            author:ctx.session.userinfo.result.data.name,
+            authorId:ctx.session.userinfo.result.data._id,
+            avatarFileName:ctx.session.userinfo.result.data.avatarFileName
+        }
         var res = await db.post.add(post)
 
         // console.log('add post ---- after call db')

@@ -16,7 +16,7 @@ module.exports = (app) => {
   app.use(httpError())
   app.use(staticFiles(path.resolve(__dirname, "../public")))
   app.use(session(app))
-  // app.use(urlAuthen()) //must after session middleware
+  app.use(urlAuthen()) //must after session middleware
 
   // app.use(views(path.join(__dirname, './view'),{
   //   extension: 'ejs'

@@ -24,6 +24,7 @@ module.exports = {
     Post: {//must capitalized
         author: { type: String, default: 'unknown' },
         authorId: { type: String, default: '-1' },
+        avatarFileName: { type: String},
         postId: { type: String},
         title: { type: String, default: 'no title' },
         content: { type: String, default: 'no content' },
@@ -34,6 +35,7 @@ module.exports = {
     Comment: {//must capitalized
         author: { type: String, default: 'unknown' },
         authorId: { type: String, default: '-1' },
+        avatarFileName: { type: String},
         postId: { type: String, default: '-1' },
         content: { type: String, default: 'no content' },
         updated: { type: Date, default: Date.now },

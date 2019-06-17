@@ -32,12 +32,17 @@ module.exports = {
 
     },
 
-    async detailCommentAdd(comment) {
+    async detailCommentAdd(comment, ctx) {
 
         await time.delay(100)
 
         // console.log('--------post/index.js-------addUser')
-        //增加用户
+        comment = {...comment, 
+            author:ctx.session.userinfo.result.data.name,
+            authorId:ctx.session.userinfo.result.data._id,
+            avatarFileName:ctx.session.userinfo.result.data.avatarFileName
+        }
+        
         var res = await db.detail.detailCommentAdd(comment)
 
         // console.log('add post ---- after call db')
