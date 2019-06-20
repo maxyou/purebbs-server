@@ -39,37 +39,27 @@ module.exports = {
                                     authorId:"$authorId"
                                   },
                                   pipeline: [
-                                      {
-                                        "$project": {
-                                          "_id": {
-                                            "$toString": "$_id"
-                                          },
-                                          avatarFileName: 1
-                                        }
-                                      },
+                                      { "$addFields": { "userId": { "$toString": "$_id" }}},
                                       {
                                           $match:{
                                               $expr:{
-                                                  $eq: ["$_id", "$$authorId"]
+                                                  $eq: ["$userId", "$$authorId"]
                                               }
                                           }
                                       },
-                                    //   { "$project": {avatarFileName: 1}},
+                                      {
+                                        "$project": {
+                                        //   "_id": {
+                                        //     "$toString": "$_id"
+                                        //   },
+                                          avatarFileName: 1
+                                        }
+                                      },
                                   ],
-                                //   localField: "author",
-                                //   foreignField: "name",
                                   as: "fromUser"
                                 }
                             },
 
-                            // { "$addFields": { "avatar": "$avatarName[0].avatarFileName" } }
-                            // { "$addFields": { "avatarzzzzzzzzzzzzzzzzzzz": "12345" } },
-                            // { "$addFields": { "avatarxxxxxxxxxxxxxxxxxxx": "$avatarName[0].avatarFileName" } },
-                            // { "$addFields": { 
-                            //     "avatarxxxxxxxxxxxxxxxxxxx": "$fromUser" 
-                            //     } 
-                            // },
-                            // { "$addFields": { "avatarooooooooooooooooo": "$title" } }
                         ],
                         "totalDocs":[
                             { "$count": "count" }
