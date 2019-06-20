@@ -1,17 +1,76 @@
 const config = require('./config')
+const native = require('./native')
 // console.log('--------db/mongodb/user.js-------')
 
 module.exports = {
 
     async getByPaginate(query = {}, options = {offset: 0, limit: 20}) {
 
-        // console.log('---------db getByPaginate pageInfo --------------')
-        // console.log(query)
-        // console.log(options)
-        var res = await config.getModel('Post').paginate(query, options)
+        console.log('---------db getByPaginate pageInfo --------------')
+        console.log(query)
+        console.log(options)
+        
+        var project = {}
+        if(options.select){
+            var s = options.select.split(' ')
+            s.forEach((ss)=>{
+                project[ss] = 1
+            })
+            console.log(project)
+        }
+        
+        // var res = await config.getModel('Post').paginate(query, options)
+        var db = native.getDb()
+        try{
+            var a = await db.collection('posts').aggregate([
+    
+                {
+                    "$facet":{
+                        "docs":[
+                            { "$match": { }},
+                            { "$project": project},
+                            { "$sort": options.sort }, //注意次序，要先sort，再skip+limit
+                            { "$skip": options.offset },
+                            { "$limit": options.limit },
+                        ],
+                        "totalDocs":[
+                            { "$count": "count" }
+                        ]
+                    }
+                }
+            ]).toArray()
+        }catch(e){
+            console.log(e)
+        }
+        
+        console.log('----------a---------')
+        console.log(JSON.stringify(a))
+
+        // var res = await db.collection('posts').find()
+        //     .limit(options.limit)
+        //     .skip(options.offset)
+        //     .sort({_id:-1})
+        //     .toArray()
+
         // console.log('---------db getByPaginate res --------------')
         // console.log(res)
-        return res;
+
+        // var totalDocs
+        // try{
+        //     const c = db.collection('posts')
+        //     console.log('---------db getByPaginate totalDocs --------------2')
+        //     totalDocs = await c.estimatedDocumentCount()
+        // }catch(e){
+        //     console.log(e)
+        // }
+
+        // console.log('---------db getByPaginate totalDocs --------------3')
+        // console.log(totalDocs)
+
+        return {
+            docs:a[0].docs, 
+            totalDocs:a[0].totalDocs[0].count,
+        }
     },
     async getPostId(){
         var postId = await config.getModel('Config').findOne({name:'postId'})
