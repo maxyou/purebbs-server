@@ -36,17 +36,25 @@ module.exports = {
                                 {
                                   from:"users",
                                   let: {
-                                    autho2r:"$author"
+                                    authorId:"$authorId"
                                   },
                                   pipeline: [
                                       {
+                                        "$project": {
+                                          "_id": {
+                                            "$toString": "$_id"
+                                          },
+                                          avatarFileName: 1
+                                        }
+                                      },
+                                      {
                                           $match:{
                                               $expr:{
-                                                  $eq: ["$$autho2r","$name"]
+                                                  $eq: ["$_id", "$$authorId"]
                                               }
                                           }
                                       },
-                                      { "$project": {avatarFileName: 1}},
+                                    //   { "$project": {avatarFileName: 1}},
                                   ],
                                 //   localField: "author",
                                 //   foreignField: "name",
