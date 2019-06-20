@@ -32,6 +32,36 @@ module.exports = {
                             { "$sort": options.sort }, //注意次序，要先sort，再skip+limit
                             { "$skip": options.offset },
                             { "$limit": options.limit },
+                            { "$lookup":
+                                {
+                                  from:"users",
+                                  let: {
+                                    autho2r:"$author"
+                                  },
+                                  pipeline: [
+                                      {
+                                          $match:{
+                                              $expr:{
+                                                  $eq: ["$$autho2r","$name"]
+                                              }
+                                          }
+                                      },
+                                      { "$project": {avatarFileName: 1}},
+                                  ],
+                                //   localField: "author",
+                                //   foreignField: "name",
+                                  as: "fromUser"
+                                }
+                            },
+
+                            // { "$addFields": { "avatar": "$avatarName[0].avatarFileName" } }
+                            // { "$addFields": { "avatarzzzzzzzzzzzzzzzzzzz": "12345" } },
+                            // { "$addFields": { "avatarxxxxxxxxxxxxxxxxxxx": "$avatarName[0].avatarFileName" } },
+                            // { "$addFields": { 
+                            //     "avatarxxxxxxxxxxxxxxxxxxx": "$fromUser" 
+                            //     } 
+                            // },
+                            // { "$addFields": { "avatarooooooooooooooooo": "$title" } }
                         ],
                         "totalDocs":[
                             { "$count": "count" }
