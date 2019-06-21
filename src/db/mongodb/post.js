@@ -16,7 +16,7 @@ module.exports = {
             s.forEach((ss)=>{
                 project[ss] = 1
             })
-            console.log(project)
+            // console.log(project)
         }
         
         // var res = await config.getModel('Post').paginate(query, options)
@@ -72,7 +72,7 @@ module.exports = {
         }
         
         console.log('----------a---------')
-        console.log(JSON.stringify(a))
+        // console.log(JSON.stringify(a))
 
         // var res = await db.collection('posts').find()
         //     .limit(options.limit)

@@ -1,4 +1,5 @@
 const config = require('./config')
+const native = require('./native')
 // console.log('--------db/mongodb/user.js-------')
 
 module.exports = {
@@ -17,10 +18,80 @@ module.exports = {
         console.log('---------db comment getByPaginate pageInfo --------------')
         console.log(query)
         console.log(options)
-        var res = await config.getModel('Comment').paginate(query, options)
+
+        var project = {}
+        if(options.select){
+            var s = options.select.split(' ')
+            s.forEach((ss)=>{
+                project[ss] = 1
+            })
+            // console.log(project)
+        }
+
+        var db = native.getDb()
+        try{
+            var a = await db.collection('comments').aggregate([
+    
+                {
+                    "$facet":{
+                        "docs":[
+                            { "$match": { }},
+                            { "$project": project},
+                            { "$sort": options.sort }, //注意次序，要先sort，再skip+limit
+                            { "$skip": options.offset },
+                            { "$limit": options.limit },
+                            { "$lookup":
+                                {
+                                  from:"users",
+                                  let: {
+                                    authorId:"$authorId"
+                                  },
+                                  pipeline: [
+                                      { "$addFields": { "userId": { "$toString": "$_id" }}},
+                                      {
+                                          $match:{
+                                              $expr:{
+                                                  $eq: ["$userId", "$$authorId"]
+                                              }
+                                          }
+                                      },
+                                      {
+                                        "$project": {
+                                        //   "_id": {
+                                        //     "$toString": "$_id"
+                                        //   },
+                                          avatarFileName: 1
+                                        }
+                                      },
+                                  ],
+                                  as: "fromUser"
+                                }
+                            },
+
+                        ],
+                        "totalDocs":[
+                            { "$count": "count" }
+                        ]
+                    }
+                }
+            ]).toArray()
+        }catch(e){
+            console.log(e)
+        }
+        
+        console.log('----------a---------')
+        // console.log(JSON.stringify(a))
+
+        
+        return {
+            docs:a[0].docs, 
+            totalDocs:a[0].totalDocs[0].count,
+        }
+
+        // var res = await config.getModel('Comment').paginate(query, options)
         // console.log('---------db getByPaginate res --------------')
         // console.log(res)
-        return res;
+        // return res;
     }, 
     
     async detailCommentAdd(comment) {
