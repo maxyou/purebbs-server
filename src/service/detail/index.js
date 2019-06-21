@@ -27,7 +27,7 @@ module.exports = {
         var paginateQuery = JSON.parse(query)//parse才能把字符串‘-1’解析为数字‘-1’
         var res = await db.detail.getByPaginate(paginateQuery.query, paginateQuery.options)
         console.log('service comment getByPaginate----2')
-        console.log(res.docs)
+        console.log(res)
         return { code: 0, message: '获取数据成功', data: res.docs, totalDocs: res.totalDocs };
 
     },

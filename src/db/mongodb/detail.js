@@ -88,7 +88,7 @@ module.exports = {
                 {
                     "$facet":{
                         "docs":[
-                            { "$match": { }},
+                            { "$match": query},
                             { "$project": project},
                             { "$sort": options.sort }, //注意次序，要先sort，再skip+limit
                             { "$skip": options.offset },
@@ -123,6 +123,7 @@ module.exports = {
 
                         ],
                         "totalDocs":[
+                            { "$match": query},
                             { "$count": "count" }
                         ]
                     }
@@ -133,12 +134,11 @@ module.exports = {
         }
         
         console.log('----------a---------')
-        // console.log(JSON.stringify(a))
-
+        console.log(JSON.stringify(a))
         
         return {
             docs:a[0].docs, 
-            totalDocs:a[0].totalDocs[0].count,
+            totalDocs: a[0].totalDocs[0]&&a[0].totalDocs[0].count?a[0].totalDocs[0].count:0,
         }
 
         // var res = await config.getModel('Comment').paginate(query, options)
