@@ -7,11 +7,64 @@ module.exports = {
     async detailPostGet(condition, select) {
 
         console.log('---------db detail get--------------')
+
+        var project = {}
+        if(select){
+            var s = select.split(' ')
+            s.forEach((ss)=>{
+                project[ss] = 1
+            })
+            // console.log(project)
+        }
+
+        var db = native.getDb()
+        try{
+            var a = await db.collection('posts').aggregate([
+                { "$match": condition},
+                { "$project": project},
+                { "$limit": 1 },
+                { "$lookup":
+                    {
+                      from:"users",
+                      let: {
+                        authorId:"$authorId"
+                      },
+                      pipeline: [
+                          { "$addFields": { "userId": { "$toString": "$_id" }}},
+                          {
+                              $match:{
+                                  $expr:{
+                                      $eq: ["$userId", "$$authorId"]
+                                  }
+                              }
+                          },
+                          {
+                            "$project": {
+                            //   "_id": {
+                            //     "$toString": "$_id"
+                            //   },
+                              avatarFileName: 1
+                            }
+                          },
+                      ],
+                      as: "fromUser"
+                    }
+                },    
+            ]).toArray()
+        }catch(e){
+            console.log(e)
+        }
         
-        var res = await config.getModel('Post').findOne(condition, select)
-        console.log('---------db detail post get res --------------')
-        console.log(res)
-        return res;
+        console.log('----------a---------')
+        // console.log(JSON.stringify(a[0].docs))
+        // console.log(a[0])
+
+        return a[0]
+        
+        // var res = await config.getModel('Post').findOne(condition, select)
+        // console.log('---------db detail post get res --------------')
+        // console.log(res)
+        // return res;
     },
     async getByPaginate(query = {}, options = {offset: 0, limit: 20}) {
 
