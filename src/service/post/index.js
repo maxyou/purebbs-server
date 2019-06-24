@@ -50,14 +50,19 @@ module.exports = {
 
         await time.delay(100)
 
-        // console.log('-----service findByIdAndUpdate-------')
+        console.log('-----service findByIdAndUpdate-------')
         // console.log(JSON.stringify(post))
-
+        
         var res = await db.post.findByIdAndDelete(post)
-        // console.log('--------update--------')
-        // console.log(JSON.stringify(res))
-        // console.log('--------update--------')
-        return { code: 0, message: 'findByIdAndDelete更新数据成功', data: res };
+        console.log('-----service findByIdAndUpdate-------1')
+        
+        if(res){
+            await db.post.findCommentByPostIdAndDelete(post)
+            console.log('-----service findByIdAndUpdate-------2')
+        }
+        
+        console.log('-----service findByIdAndUpdate-------3')
+        return { code: 0, message: '删除数据成功', data: res };
 
     },
     async findByIdAndUpdate(post) {

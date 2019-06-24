@@ -153,5 +153,15 @@ module.exports = {
         var res = await config.getModel('Post').findByIdAndDelete(_id)
         return res
     },
+    async findCommentByPostIdAndDelete({postId}) {
+
+        console.log('-----db findCommentByPostIdAndDelete-------postId:'+postId)
+        // console.log(resProps)
+        
+        var res = await config.getModel('Comment').deleteMany({postId: postId})
+        console.log('-----db findCommentByPostIdAndDelete-------res:')
+        console.log(res)
+        return res
+    },
 
 }

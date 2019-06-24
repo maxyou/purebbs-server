@@ -166,10 +166,10 @@ module.exports = {
             // }
         );
     },
-    async findByIdAndDelete(id) {        
+    async findByIdAndDelete({_id}) {        
 
         // console.log('--------db/mongodb/user.js-------addUser---getModel')
-        return await config.getModel('Comment').findByIdAndDelete(id);
+        return await config.getModel('Comment').findByIdAndDelete(_id);
     },
 
     async detailPostUpdate(post) {

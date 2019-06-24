@@ -78,7 +78,7 @@ module.exports = {
         // console.log('-----service findByIdAndUpdate-------')
         // console.log(JSON.stringify(post))
 
-        var res = await db.detail.findByIdAndDelete(comment._id)
+        var res = await db.detail.findByIdAndDelete(comment)
         // console.log('--------update--------')
         // console.log(JSON.stringify(res))
         // console.log('--------update--------')
