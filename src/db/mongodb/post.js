@@ -72,7 +72,7 @@ module.exports = {
         }
         
         console.log('----------a---------')
-        // console.log(JSON.stringify(a))
+        console.log(JSON.stringify(a))
 
         // var res = await db.collection('posts').find()
         //     .limit(options.limit)
@@ -97,7 +97,7 @@ module.exports = {
 
         return {
             docs:a[0].docs, 
-            totalDocs:a[0].totalDocs[0].count,
+            totalDocs:a[0].totalDocs[0]?a[0].totalDocs[0].count:0,
         }
     },
     async getPostId(){

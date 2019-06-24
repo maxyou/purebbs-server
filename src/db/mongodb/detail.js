@@ -138,7 +138,7 @@ module.exports = {
         
         return {
             docs:a[0].docs, 
-            totalDocs: a[0].totalDocs[0]&&a[0].totalDocs[0].count?a[0].totalDocs[0].count:0,
+            totalDocs:a[0].totalDocs[0]?a[0].totalDocs[0].count:0,
         }
 
         // var res = await config.getModel('Comment').paginate(query, options)
@@ -171,13 +171,21 @@ module.exports = {
 
         console.log('-----db detailPostUpdate-------post:')
         console.log(post)
-
+        
         const _id = post._id
         // const resProps = {...post}
         console.log('-----db detailPostUpdate-------_id:'+_id)
         // console.log(resProps)
+        
+        var res
+        try{
+            res = await config.getModel('Post').findByIdAndUpdate(_id, post)
+        }catch(e){
+            console.log(e)
+        }
+        
+        console.log('-----db detailPostUpdate-------end:')
 
-        var res = await config.getModel('Post').findByIdAndUpdate(_id, post)
         return res
     },
 

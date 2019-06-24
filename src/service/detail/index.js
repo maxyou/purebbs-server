@@ -50,10 +50,19 @@ module.exports = {
 
         if (res) {//或者比较返回值的name属性？
 
+            console.log('get comment keys-----------------------')
+            console.log(Object.keys(comment))
+            var project
+            Object.keys(comment).forEach((v)=>{
+                project = project +' '+v
+            })
+            console.log(project)
 
-            var post = await db.detail.detailPostGet({postId:comment.postId})            
+            // var post = await db.detail.detailPostGet({postId:comment.postId}, 'postId content author authorId updated created avatarFileName')            
+            var post = await db.detail.detailPostGet({postId:comment.postId}, 'commentNum')
             console.log('update post comment num')
             console.log(post)
+            post.commentNum = post.commentNum || 0
             post.commentNum += 1
             await db.detail.detailPostUpdate(post)
 

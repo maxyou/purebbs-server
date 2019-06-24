@@ -12,7 +12,7 @@ module.exports = {
     '/user/avatar': async (ctx, next) => {
 
         var id = ctx.params.id
-        // console.log('avatar id: '+id)
+        console.log('avatar id: '+id)
 
         var b = await fs.existsSync(path.join('upload/user/avatar', id))
         // console.log('statSync:-----------1.1'+b)
