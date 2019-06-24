@@ -71,4 +71,42 @@ module.exports = {
             return { code: -1, message: '发表异常' };
         }
     },
+    async findByIdAndDelete(comment) {
+
+        await time.delay(100)
+
+        // console.log('-----service findByIdAndUpdate-------')
+        // console.log(JSON.stringify(post))
+
+        var res = await db.detail.findByIdAndDelete(comment._id)
+        // console.log('--------update--------')
+        // console.log(JSON.stringify(res))
+        // console.log('--------update--------')
+
+        if (res) {//或者比较返回值的name属性？
+
+            console.log('get comment keys-----------------------')
+            console.log(Object.keys(comment))
+            var project
+            Object.keys(comment).forEach((v)=>{
+                project = project +' '+v
+            })
+            console.log(project)
+
+            // var post = await db.detail.detailPostGet({postId:comment.postId}, 'postId content author authorId updated created avatarFileName')            
+            var post = await db.detail.detailPostGet({postId:comment.postId}, 'commentNum')
+            console.log('update post comment num')
+            console.log(post)
+            post.commentNum = post.commentNum || 0
+            if(post.commentNum > 0){
+                post.commentNum -= 1
+            }
+            await db.detail.detailPostUpdate(post)
+
+            return { code: 0, message: '删除成功', res: res };
+        } else {
+            return { code: -1, message: '删除异常' };
+        }
+
+    },
 }

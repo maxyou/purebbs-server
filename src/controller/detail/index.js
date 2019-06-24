@@ -36,11 +36,11 @@ module.exports = {
     //     var result = await post.deleteOne(match);
     //     ctx.body=result;
     // },
-    '/post/findByIdAndDelete': async (ctx, next) => {
-        var post = ctx.request.body
+    '/detail/comment/findByIdAndDelete': async (ctx, next) => {
+        var comment = ctx.request.body
         console.log('-----deleteOne get match-------')
-        console.log(JSON.stringify(post))
-        var result = await service.findByIdAndDelete(post);
+        console.log(JSON.stringify(comment))
+        var result = await service.findByIdAndDelete(comment);
         ctx.body=result;
     },
     '/post/findByIdAndUpdate': async (ctx, next) =>{
