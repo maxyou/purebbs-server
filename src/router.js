@@ -37,6 +37,7 @@ module.exports = (app) => {
   router.get('/detail/post', controller.detail['/detail/post']);  
   router.post('/detail/comment/add', controller.detail['/detail/comment/add']);
   router.post('/detail/comment/findbyidanddelete', controller.detail['/detail/comment/findByIdAndDelete']);
+  router.post('/detail/comment/findbyidandupdate', controller.detail['/detail/comment/findByIdAndUpdate']);
   router.get('/detail/comment/getpage', controller.detail['/detail/comment/getByPaginate']);
 
 

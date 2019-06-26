@@ -75,13 +75,13 @@ module.exports = {
 
         await time.delay(100)
 
-        // console.log('-----service findByIdAndUpdate-------')
+        // console.log('-----service findByIdAndDelete-------')
         // console.log(JSON.stringify(post))
 
         var res = await db.detail.findByIdAndDelete(comment)
-        // console.log('--------update--------')
+        // console.log('--------delete--------')
         // console.log(JSON.stringify(res))
-        // console.log('--------update--------')
+        // console.log('--------delete--------')
 
         if (res) {//或者比较返回值的name属性？
 
@@ -106,6 +106,25 @@ module.exports = {
             return { code: 0, message: '删除成功', res: res };
         } else {
             return { code: -1, message: '删除异常' };
+        }
+
+    },
+    async findByIdAndUpdate(comment) {
+
+        await time.delay(100)
+
+        // console.log('-----service findByIdAndUpdate-------')
+        // console.log(JSON.stringify(post))
+
+        var res = await db.detail.findByIdAndUpdate(comment)
+        // console.log('--------update--------')
+        // console.log(JSON.stringify(res))
+        // console.log('--------update--------')
+
+        if (res) {//或者比较返回值的name属性？
+            return { code: 0, message: '更改成功', res: res };
+        } else {
+            return { code: -1, message: '更改异常' };
         }
 
     },

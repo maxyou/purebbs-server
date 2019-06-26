@@ -171,6 +171,11 @@ module.exports = {
         // console.log('--------db/mongodb/user.js-------addUser---getModel')
         return await config.getModel('Comment').findByIdAndDelete(_id);
     },
+    async findByIdAndUpdate(comment) {        
+
+        // console.log('--------db/mongodb/user.js-------addUser---getModel')
+        return await config.getModel('Comment').findByIdAndUpdate(comment._id, comment);
+    },
 
     async detailPostUpdate(post) {
 

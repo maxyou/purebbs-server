@@ -26,6 +26,9 @@ module.exports = {
     },
     '/user/status': async (ctx, next) => {
         if(ctx.session && ctx.session.userinfo && ctx.session.userinfo.isLogin){
+            
+            //可能用户信息有更新，这里考虑更新用户信息再返回
+
             ctx.body=ctx.session.userinfo.result //返回之前登录或注册时的result
         }else{
             ctx.body={code:-1,message:'未登录', data:{}};
