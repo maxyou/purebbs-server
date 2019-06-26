@@ -151,7 +151,7 @@ module.exports = {
         
 
         var Model = config.getModel('Comment')
-        // console.log('--------db/mongodb/user.js-------addUser---getModel')
+        // console.log('--------db/mongodb/detail.js-------detailCommentAdd')
 
         return await new Model(comment).save(
             //注意，如果添加这个callback，那么await就返回undefined

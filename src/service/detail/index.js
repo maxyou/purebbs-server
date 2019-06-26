@@ -36,13 +36,13 @@ module.exports = {
 
         await time.delay(100)
 
-        // console.log('--------post/index.js-------addUser')
         comment = {...comment, 
             author:ctx.session.userinfo.result.data.name,
             authorId:ctx.session.userinfo.result.data._id,
             avatarFileName:ctx.session.userinfo.result.data.avatarFileName
         }
         
+        console.log('--------post/index.js-------detailCommentAdd')
         var res = await db.detail.detailCommentAdd(comment)
 
         // console.log('add post ---- after call db')

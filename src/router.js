@@ -34,7 +34,7 @@ module.exports = (app) => {
   router.post('/post/findbyidandupdate', controller.post['/post/findByIdAndUpdate']);
 
   //-----------detail--------------------
-  router.get('/detail', controller.detail['/detail']);  
+  router.get('/detail/post', controller.detail['/detail/post']);  
   router.post('/detail/comment/add', controller.detail['/detail/comment/add']);
   router.post('/detail/comment/findbyidanddelete', controller.detail['/detail/comment/findByIdAndDelete']);
   router.get('/detail/comment/getpage', controller.detail['/detail/comment/getByPaginate']);

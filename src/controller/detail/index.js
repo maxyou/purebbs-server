@@ -2,7 +2,7 @@
 const {detail:service} = require('../../service')
 
 module.exports = {
-    '/detail': async (ctx, next) => {
+    '/detail/post': async (ctx, next) => {
         // let {id}=ctx.params
         // console.log('/detail/:id')
         // console.log(id)
@@ -21,7 +21,8 @@ module.exports = {
         ctx.body=result;
     },
     '/detail/comment/add': async (ctx, next) => {
-        console.log(JSON.stringify(ctx.request.body))
+        console.log('/detail/comment/add----------controller')
+        // console.log(JSON.stringify(ctx.request.body))
         var result = await service.detailCommentAdd(ctx.request.body, ctx);
         ctx.body=result;
 
