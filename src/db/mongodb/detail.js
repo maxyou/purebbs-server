@@ -177,26 +177,11 @@ module.exports = {
         return await config.getModel('Comment').findByIdAndUpdate(comment._id, comment);
     },
 
-    async detailPostUpdate(post) {
+    async postFindByIdAndUpdate(post) {
 
-        console.log('-----db detailPostUpdate-------post:')
-        console.log(post)
-        
-        const _id = post._id
-        // const resProps = {...post}
-        console.log('-----db detailPostUpdate-------_id:'+_id)
-        // console.log(resProps)
-        
-        var res
-        try{
-            res = await config.getModel('Post').findByIdAndUpdate(_id, post)
-        }catch(e){
-            console.log(e)
-        }
-        
-        console.log('-----db detailPostUpdate-------end:')
+        console.log('-----db postFindByIdAndUpdate-------post:')
 
-        return res
+        return await config.getModel('Post').findByIdAndUpdate(post._id, post)
     },
 
 

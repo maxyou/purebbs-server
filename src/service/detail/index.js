@@ -128,4 +128,23 @@ module.exports = {
         }
 
     },
+    async postFindByIdAndUpdate(post) {
+
+        await time.delay(100)
+
+        // console.log('-----service postFindByIdAndUpdate-------')
+        // console.log(JSON.stringify(post))
+
+        var res = await db.detail.postFindByIdAndUpdate(post)
+        // console.log('--------update--------')
+        // console.log(JSON.stringify(res))
+        // console.log('--------update--------')
+
+        if (res) {//或者比较返回值的name属性？
+            return { code: 0, message: '更改成功', res: res };
+        } else {
+            return { code: -1, message: '更改异常' };
+        }
+
+    },
 }

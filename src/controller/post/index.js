@@ -25,18 +25,13 @@ module.exports = {
         var result = await service.findByIdAndDelete(post);
         ctx.body=result;
     },
-    '/post/findByIdAndUpdate': async (ctx, next) =>{
-        // console.log('-----controller findByIdAndUpdate-------')
-        var post = ctx.request.body
-        var result = await service.findByIdAndUpdate(post);
-        ctx.body=result;
-    },
-    // 'update': async (ctx, next) =>{
-    // },
-    // 'get': async (ctx, next) =>{
-    //     var result = await post.get();
+    // '/post/findByIdAndUpdate': async (ctx, next) =>{
+    //     // console.log('-----controller findByIdAndUpdate-------')
+    //     var post = ctx.request.body
+    //     var result = await service.findByIdAndUpdate(post);
     //     ctx.body=result;
     // },
+
     '/post/getByPaginate': async (ctx, next) =>{
         console.log('--------post getByPaginate------------')
         console.log('page info:')

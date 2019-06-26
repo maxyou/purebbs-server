@@ -31,13 +31,14 @@ module.exports = (app) => {
   // router.get('/post/get', controller.post['get']);
   router.get('/post/getpage', controller.post['/post/getByPaginate']);
   router.post('/post/findbyidanddelete', controller.post['/post/findByIdAndDelete']);
-  router.post('/post/findbyidandupdate', controller.post['/post/findByIdAndUpdate']);
+  // router.post('/post/findbyidandupdate', controller.post['/post/findByIdAndUpdate']);
 
   //-----------detail--------------------
   router.get('/detail/post', controller.detail['/detail/post']);  
   router.post('/detail/comment/add', controller.detail['/detail/comment/add']);
   router.post('/detail/comment/findbyidanddelete', controller.detail['/detail/comment/findByIdAndDelete']);
   router.post('/detail/comment/findbyidandupdate', controller.detail['/detail/comment/findByIdAndUpdate']);
+  router.post('/detail/post/findbyidandupdate', controller.detail['/detail/post/findByIdAndUpdate']);
   router.get('/detail/comment/getpage', controller.detail['/detail/comment/getByPaginate']);
 
 

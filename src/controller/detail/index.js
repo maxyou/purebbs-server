@@ -31,10 +31,10 @@ module.exports = {
         var result = await service.findByIdAndUpdate(comment);
         ctx.body=result;
     },
-    '/post/findByIdAndUpdate': async (ctx, next) =>{
+    '/detail/post/findByIdAndUpdate': async (ctx, next) =>{
         // console.log('-----controller findByIdAndUpdate-------')
         var post = ctx.request.body
-        var result = await service.findByIdAndUpdate(post);
+        var result = await service.postFindByIdAndUpdate(post);
         ctx.body=result;
     },
 
