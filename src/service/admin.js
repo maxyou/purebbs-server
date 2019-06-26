@@ -3,8 +3,22 @@ const { time } = require('../tool')
 
 console.log('--------post/index.js-------')
 
-module.exports = {
+function isAdmin(ctx){
+    if (ctx.session 
+            && ctx.session.userinfo 
+            && ctx.session.userinfo.isLogin 
+            && ctx.session.userinfo.result.data.name=='admin'
+            && ctx.session.userinfo.result.data.role=='admin'
+            ) {
+        console.log('-----admin service findByIdAndUpdate-------you are admin')
+        return true
+    }else{
+        console.log('-----admin service findByIdAndUpdate-------need admin authen')
+        return false
+    }
+}
 
+module.exports = {
 
     async add(post) {
 
@@ -27,9 +41,15 @@ module.exports = {
         }
     },
     
-    async getByPaginate(query) {
+    async getByPaginate(query, ctx) {
 
         await time.delay(100)
+
+        if(isAdmin(ctx)){
+
+        }else{
+            return { code: 0, message: '需要admin权限', data: {}}
+        }
 
         console.log('service admin getByPaginate')
         var paginateQuery = JSON.parse(query)//parse才能把字符串‘-1’解析为数字‘-1’
@@ -46,6 +66,11 @@ module.exports = {
 
         await time.delay(100)
 
+        if(isAdmin(ctx)){
+
+        }else{
+            return { code: 0, message: '需要admin权限', data: {}}
+        }
         // console.log('-----service findByIdAndUpdate-------')
         // console.log(JSON.stringify(user))
 
@@ -60,11 +85,20 @@ module.exports = {
 
         await time.delay(100)
 
-        if (ctx.session && ctx.session.userinfo && ctx.session.userinfo.isLogin && ctx.session.userinfo.result.data.role=='admin') {
+        if(isAdmin(ctx)){
 
         }else{
-            console.log('-----admin service findByIdAndUpdate-------need admin authen')
-            return { code: 0, message: '需要admin权限'}
+            return { code: 0, message: '需要admin权限', data: {}}
+        }
+
+
+        /**
+         * 1，禁止修改admin账号
+         * 2，禁止将其他账号升级为admin
+         */
+        if(user.name == 'admin' || user.role == 'admin'){
+            console.log('-----admin service findByIdAndUpdate-------can not set user as admin')
+            return { code: 0, message: '不能修改admin账户，或者不能将用户升级为admin'}
         }
 
         console.log('-----admin service findByIdAndUpdate-------')
@@ -76,6 +110,7 @@ module.exports = {
         // console.log('--------update--------')
         return { code: 0, message: 'admin findByIdAndUpdate更新数据成功', data: res };
     },
+
     async findByIdAndUpdateAvatar(filename, _id) {
 
         await time.delay(100)

@@ -31,7 +31,7 @@ module.exports = {
         // console.log(ctx.request.query.sort._id)
         const pageInfo = ctx.request.query.pageInfo
         // console.log(pageInfo)
-        var result = await service.getByPaginate(pageInfo);
+        var result = await service.getByPaginate(pageInfo, ctx);
         // var result = await service.getByPaginate(pageInfo);//不行
         console.log('-----admin getByPaginate result------------------')
         // console.log(result)
