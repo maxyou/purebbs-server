@@ -64,7 +64,7 @@ module.exports = {
             console.log(post)
             post.commentNum = post.commentNum || 0
             post.commentNum += 1
-            await db.detail.detailPostUpdate(post)
+            await db.detail.postFindByIdAndUpdate(post)
 
             return { code: 0, message: '发表成功', res: res };
         } else {
@@ -101,7 +101,7 @@ module.exports = {
             if(post.commentNum > 0){
                 post.commentNum -= 1
             }
-            await db.detail.detailPostUpdate(post)
+            await db.detail.postFindByIdAndUpdate(post)
 
             return { code: 0, message: '删除成功', res: res };
         } else {
