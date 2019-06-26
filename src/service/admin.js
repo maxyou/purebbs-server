@@ -42,23 +42,30 @@ module.exports = {
     },
 
 
-    async findByIdAndDelete(post) {
+    async findByIdAndDelete(user) {
 
         await time.delay(100)
 
         // console.log('-----service findByIdAndUpdate-------')
-        // console.log(JSON.stringify(post))
+        // console.log(JSON.stringify(user))
 
-        var res = await db.admin.findByIdAndDelete(post)
+        var res = await db.admin.findByIdAndDelete(user)
         // console.log('--------update--------')
         // console.log(JSON.stringify(res))
         // console.log('--------update--------')
         return { code: 0, message: 'findByIdAndDelete更新数据成功', data: res };
 
     },
-    async findByIdAndUpdate(user) {
+    async findByIdAndUpdate(user, ctx) {
 
         await time.delay(100)
+
+        if (ctx.session && ctx.session.userinfo && ctx.session.userinfo.isLogin && ctx.session.userinfo.result.data.role=='admin') {
+
+        }else{
+            console.log('-----admin service findByIdAndUpdate-------need admin authen')
+            return { code: 0, message: '需要admin权限'}
+        }
 
         console.log('-----admin service findByIdAndUpdate-------')
         // console.log(JSON.stringify(post))

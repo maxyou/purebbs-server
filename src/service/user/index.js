@@ -55,6 +55,13 @@ module.exports = {
 
     async addUser(user) {
 
+        /**
+         * 建议策略
+         *  1，管理员：admin
+         *  2，版主或普通用户的名字必须都是英文，并且长度超过6个字母
+         */
+
+
         console.log('--------user/index.js-------addUser')
 
         //查询用户名是否冲突，返回一个数组
@@ -76,8 +83,18 @@ module.exports = {
 
             user.uuid = uuidv1()
 
-            console.log('add user ---- call db')
+            console.log('add user ------------- call db')
+            console.log(user)
+            
             //增加用户
+            if(user.name == 'admin'){
+                user.role = 'admin'
+                // console.log('add admin ----------'+user.role)
+            }else if(user.name.length <= 6){
+                return { code: -1, message: '用户名需6个字符或以上', data:{} };
+            }
+            // console.log(user.name)
+            // console.log(user.role)
             var res = await db.user.addUser(user)
 
             console.log('add user ---- after call db')
@@ -90,6 +107,7 @@ module.exports = {
                         uuid:res.uuid,
                         name:res.name,
                         email:res.email,
+                        role:res.role,
                         updated:res.updated,
                         created:res.created,
                     } 
@@ -123,6 +141,7 @@ module.exports = {
                         uuid: userFound.uuid,
                         name: userFound.name,
                         email: userFound.email,
+                        role: userFound.role,
                         updated: userFound.updated,
                         created: userFound.created,
                         avatarFileName:userFound.avatarFileName,

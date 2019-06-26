@@ -9,16 +9,16 @@ module.exports = {
         ctx.body=result;
     },
     '/admin/findByIdAndDelete': async (ctx, next) => {
-        var post = ctx.request.body
+        var user = ctx.request.body
         console.log('-----deleteOne get match-------')
-        console.log(JSON.stringify(post))
-        var result = await service.findByIdAndDelete(post);
+        console.log(JSON.stringify(user))
+        var result = await service.findByIdAndDelete(user, ctx);
         ctx.body=result;
     },
     '/admin/findByIdAndUpdate': async (ctx, next) =>{
         console.log('-----controller /admin/findByIdAndUpdate-------')
-        var post = ctx.request.body
-        var result = await service.findByIdAndUpdate(post);
+        var user = ctx.request.body
+        var result = await service.findByIdAndUpdate(user, ctx);
         ctx.body=result;
     },
     '/admin/findByIdAndUpdateAvatar': adminUpdateAvatarPost,

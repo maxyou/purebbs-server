@@ -42,7 +42,8 @@ module.exports = {
 
     async addUser(user) {
         
-        console.log('--------db/mongodb/user.js-------addUser')
+        console.log('--------db/mongodb/user.js-------addUser----role:')
+        console.log(user.role)
         var Model = config.getModel('User')
         console.log('--------db/mongodb/user.js-------addUser---getModel')
         //增加用户
