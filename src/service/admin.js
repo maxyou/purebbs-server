@@ -1,14 +1,12 @@
 const db = require('../db')
-const { time } = require('../tool')
+const { time, calc } = require('../tool')
 
 console.log('--------post/index.js-------')
 
 function isAdmin(ctx){
-    if (ctx.session 
-            && ctx.session.userinfo 
-            && ctx.session.userinfo.isLogin 
-            && ctx.session.userinfo.result.data.name=='admin'
-            && ctx.session.userinfo.result.data.role=='admin'
+    if (calc.isLogin(ctx) 
+            && calc.getUserData(ctx).name=='admin'
+            && calc.getUserData(ctx).role=='admin'
             ) {
         console.log('-----admin service findByIdAndUpdate-------you are admin')
         return true

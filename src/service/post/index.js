@@ -1,5 +1,5 @@
 const db = require('../../db')
-const { time } = require('../../tool')
+const { time, calc } = require('../../tool')
 
 console.log('--------post/index.js-------')
 
@@ -15,9 +15,9 @@ module.exports = {
         postId++
         post = {...post, 
             postId, 
-            author:ctx.session.userinfo.result.data.name,
-            authorId:ctx.session.userinfo.result.data._id,
-            avatarFileName:ctx.session.userinfo.result.data.avatarFileName
+            author:calc.getUserData(ctx).name,
+            authorId:calc.getUserData(ctx)._id,
+            avatarFileName:calc.getUserData(ctx).avatarFileName
         }
         var res = await db.post.add(post)
 

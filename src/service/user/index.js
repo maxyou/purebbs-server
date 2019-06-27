@@ -3,6 +3,7 @@ const config = require('./config')
 const crypto = require('crypto')
 const uuidv1 = require('uuid/v1')
 const fs = require('fs')
+const { calc } = require('../../tool')
 
 console.log('--------user/index.js-------')
 
@@ -15,16 +16,16 @@ module.exports = {
         
         //查询user表的数据
         console.log('--------service user/uploadAvatar-------1')
-        await db.user.uploadAvatar(avatarFileName, ctx.session.userinfo.result.data._id)
+        await db.user.uploadAvatar(avatarFileName, calc.getUserData(ctx)._id)
         console.log('--------service user/uploadAvatar-------2')
         
         //删除旧头像
-        if(ctx.session.userinfo.result.data.avatarFileName){
-            console.log('upload/user/avatar/'+ctx.session.userinfo.result.data.avatarFileName)
+        if(calc.getUserData(ctx).avatarFileName){
+            console.log('upload/user/avatar/'+calc.getUserData(ctx).avatarFileName)
 
-            var b = fs.existsSync('upload/user/avatar/'+ctx.session.userinfo.result.data.avatarFileName)
+            var b = fs.existsSync('upload/user/avatar/'+calc.getUserData(ctx).avatarFileName)
             if(b){
-                await fs.unlinkSync('upload/user/avatar/'+ctx.session.userinfo.result.data.avatarFileName)
+                await fs.unlinkSync('upload/user/avatar/'+calc.getUserData(ctx).avatarFileName)
             }
 
             // try{

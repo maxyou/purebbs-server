@@ -7,6 +7,7 @@ const registerPost = require('./register-post')
 const logoutPost = require('./logout-post')
 const uploadAvatarPost = require('./upload-avatar-post-multer')
 const {user:service} = require('../../service')
+const { calc } = require('../../tool')
 
 module.exports = {
     '/user/avatar': async (ctx, next) => {
@@ -25,10 +26,10 @@ module.exports = {
         }
     },
     '/user/status': async (ctx, next) => {
-        if(ctx.session && ctx.session.userinfo && ctx.session.userinfo.isLogin){
+        if(calc.isLogin(ctx)){
             
             //可能用户信息有更新，这里考虑更新用户信息再返回
-
+            // todo 这里可能需要避免密码数据泄露到客户端
             ctx.body=ctx.session.userinfo.result //返回之前登录或注册时的result
         }else{
             ctx.body={code:-1,message:'未登录', data:{}};

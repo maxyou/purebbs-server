@@ -1,5 +1,5 @@
 const db = require('../../db')
-const { time } = require('../../tool')
+const { time, calc } = require('../../tool')
 
 console.log('--------detail/index.js-------')
 
@@ -37,9 +37,9 @@ module.exports = {
         await time.delay(100)
 
         comment = {...comment, 
-            author:ctx.session.userinfo.result.data.name,
-            authorId:ctx.session.userinfo.result.data._id,
-            avatarFileName:ctx.session.userinfo.result.data.avatarFileName
+            author:calc.getUserData(ctx).name,
+            authorId:calc.getUserData(ctx)._id,
+            avatarFileName:calc.getUserData(ctx).avatarFileName
         }
         
         console.log('--------post/index.js-------detailCommentAdd')

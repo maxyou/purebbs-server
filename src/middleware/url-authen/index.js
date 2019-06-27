@@ -1,3 +1,5 @@
+const { calc } = require('../../tool')
+
 const allowUrl = [
     '/login',
     '/register',
@@ -28,7 +30,7 @@ module.exports = () => {
             return await next()
         }
 
-        if (ctx.session && ctx.session.userinfo && ctx.session.userinfo.isLogin) {
+        if (calc.isLogin(ctx)) {
             console.log('====already login 1')
             console.log(JSON.stringify(ctx.session.userinfo))
             // console.log('====already login'+ctx.session.userinfo.result.data.name)
