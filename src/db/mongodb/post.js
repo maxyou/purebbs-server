@@ -71,8 +71,8 @@ module.exports = {
             console.log(e)
         }
         
-        console.log('----------a---------')
-        console.log(JSON.stringify(a))
+        // console.log('----------a---------')
+        // console.log(JSON.stringify(a))
 
         // var res = await db.collection('posts').find()
         //     .limit(options.limit)

@@ -71,7 +71,7 @@ module.exports = {
             return { code: -1, message: '发表异常' };
         }
     },
-    async findByIdAndDelete(comment) {
+    async findByIdAndDelete(comment, ctx) {
 
         await time.delay(100)
 
@@ -109,7 +109,7 @@ module.exports = {
         }
 
     },
-    async findByIdAndUpdate(comment) {
+    async findByIdAndUpdate(comment, ctx) {
 
         await time.delay(100)
 
@@ -128,7 +128,7 @@ module.exports = {
         }
 
     },
-    async postFindByIdAndUpdate(post) {
+    async postFindByIdAndUpdate(post, ctx) {
 
         await time.delay(100)
 

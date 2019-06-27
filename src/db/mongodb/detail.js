@@ -55,7 +55,7 @@ module.exports = {
             console.log(e)
         }
         
-        console.log('----------a---------')
+        // console.log('----------a---------')
         // console.log(JSON.stringify(a[0].docs))
         // console.log(a[0])
 
@@ -133,8 +133,8 @@ module.exports = {
             console.log(e)
         }
         
-        console.log('----------a---------')
-        console.log(JSON.stringify(a))
+        // console.log('----------a---------')
+        // console.log(JSON.stringify(a))
         
         return {
             docs:a[0].docs, 

@@ -21,20 +21,20 @@ module.exports = {
         var comment = ctx.request.body
         console.log('-----deleteOne get match-------')
         console.log(JSON.stringify(comment))
-        var result = await service.findByIdAndDelete(comment);
+        var result = await service.findByIdAndDelete(comment, ctx);
         ctx.body=result;
     },
     '/detail/comment/findByIdAndUpdate': async (ctx, next) => {
         var comment = ctx.request.body
         console.log('-----/detail/comment/findByIdAndUpdate-------')
         console.log(JSON.stringify(comment))
-        var result = await service.findByIdAndUpdate(comment);
+        var result = await service.findByIdAndUpdate(comment, ctx);
         ctx.body=result;
     },
     '/detail/post/findByIdAndUpdate': async (ctx, next) =>{
         // console.log('-----controller findByIdAndUpdate-------')
         var post = ctx.request.body
-        var result = await service.postFindByIdAndUpdate(post);
+        var result = await service.postFindByIdAndUpdate(post, ctx);
         ctx.body=result;
     },
 
