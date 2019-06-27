@@ -46,9 +46,19 @@ module.exports = {
     },
 
 
-    async findByIdAndDelete(post) {
+    async findByIdAndDelete(post, ctx) {
 
         await time.delay(100)
+        
+        const user = calc.getUserData(ctx)
+        if(user.role=='bm'){
+            console.log('-----you are bm-------')
+        }else if(user._id==post.authorId){
+            console.log('-----you delete your post-------')
+        }else{
+            console.log('-----you delete failed for authority-------')
+            return { code: -2, message: '权限不够' };
+        }
 
         console.log('-----service findByIdAndUpdate-------')
         // console.log(JSON.stringify(post))
@@ -65,17 +75,17 @@ module.exports = {
         return { code: 0, message: '删除数据成功', data: res };
 
     },
-    async findByIdAndUpdate(post) {
+    // async findByIdAndUpdate(post) {
 
-        await time.delay(100)
+    //     await time.delay(100)
 
-        // console.log('-----service findByIdAndUpdate-------')
-        // console.log(JSON.stringify(post))
+    //     // console.log('-----service findByIdAndUpdate-------')
+    //     // console.log(JSON.stringify(post))
 
-        var res = await db.post.findByIdAndUpdate(post)
-        // console.log('--------update--------')
-        // console.log(JSON.stringify(res))
-        // console.log('--------update--------')
-        return { code: 0, message: 'post findByIdAndUpdate更新数据成功', data: res };
-    }
+    //     var res = await db.post.findByIdAndUpdate(post)
+    //     // console.log('--------update--------')
+    //     // console.log(JSON.stringify(res))
+    //     // console.log('--------update--------')
+    //     return { code: 0, message: 'post findByIdAndUpdate更新数据成功', data: res };
+    // }
 }

@@ -20,7 +20,9 @@ module.exports = () => {
 
         // console.log('---------url-authen---------------')
         console.log('originalUrl:' + ctx.originalUrl)
-        if (ctx.originalUrl == '/favicon.ico') return
+        if (ctx.originalUrl == '/favicon.ico'){
+            return
+        } 
 
         // console.log('---------url-authen---------------' + allowUrl.indexOf(ctx.originalUrl))
 

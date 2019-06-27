@@ -124,6 +124,16 @@ module.exports = {
 
         await time.delay(100)
 
+        const user = calc.getUserData(ctx)
+        if(user.role=='bm'){
+            console.log('-----you are bm-------')
+        }else if(user._id==comment.authorId){
+            console.log('-----you update your comment-------')
+        }else{
+            console.log('-----you update failed for authority-------')
+            return { code: -2, message: '权限不够' };
+        }
+
         // console.log('-----service findByIdAndUpdate-------')
         // console.log(JSON.stringify(post))
 
@@ -142,6 +152,16 @@ module.exports = {
     async postFindByIdAndUpdate(post, ctx) {
 
         await time.delay(100)
+
+        const user = calc.getUserData(ctx)
+        if(user.role=='bm'){
+            console.log('-----you are bm-------')
+        }else if(user._id==post.authorId){
+            console.log('-----you update your post-------')
+        }else{
+            console.log('-----you update failed for authority-------')
+            return { code: -2, message: '权限不够' };
+        }
 
         // console.log('-----service postFindByIdAndUpdate-------')
         // console.log(JSON.stringify(post))

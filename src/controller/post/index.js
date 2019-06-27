@@ -20,9 +20,9 @@ module.exports = {
     // },
     '/post/findByIdAndDelete': async (ctx, next) => {
         var post = ctx.request.body
-        // console.log('-----deleteOne get match-------')
-        // console.log(JSON.stringify(post))
-        var result = await service.findByIdAndDelete(post);
+        console.log('-----deleteOne get match-------')
+        console.log(JSON.stringify(post))
+        var result = await service.findByIdAndDelete(post, ctx);
         ctx.body=result;
     },
     // '/post/findByIdAndUpdate': async (ctx, next) =>{
