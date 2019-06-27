@@ -1,7 +1,7 @@
 const db = require('../db')
 const { time, calc } = require('../tool')
 
-console.log('--------post/index.js-------')
+// console.log('--------post/index.js-------')
 
 function isAdmin(ctx){
     if (calc.isLogin(ctx) 

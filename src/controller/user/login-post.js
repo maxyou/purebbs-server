@@ -19,8 +19,8 @@ module.exports = async (ctx, next) => { //1，result存session，2，result返�
       console.log('authen result:')
       console.log(result)
       ctx.session.userinfo = { isLogin: true, result };
-      console.log('session.userinfo:')
-      console.log(ctx.session.userinfo)
+      // console.log('session.userinfo:')
+      // console.log(ctx.session.userinfo)
       
     } else {
       

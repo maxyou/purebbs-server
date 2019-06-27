@@ -1,7 +1,7 @@
 const db = require('../../db')
 const { time, calc } = require('../../tool')
 
-console.log('--------detail/index.js-------')
+// console.log('--------detail/index.js-------')
 
 module.exports = {
 
@@ -14,8 +14,8 @@ module.exports = {
         console.log(params.condition)
         console.log(params.select)
         var res = await db.detail.detailPostGet(params.condition, params.select)
-        console.log('service detail post get----')
-        console.log(res)
+        // console.log('service detail post get----')
+        // console.log(res)
         return { code: 0, message: '获取数据成功', data: res};
     },
 
@@ -23,11 +23,11 @@ module.exports = {
 
         await time.delay(100)
 
-        console.log('service comment getByPaginate')
+        // console.log('service comment getByPaginate')
         var paginateQuery = JSON.parse(query)//parse才能把字符串‘-1’解析为数字‘-1’
         var res = await db.detail.getByPaginate(paginateQuery.query, paginateQuery.options)
-        console.log('service comment getByPaginate----2')
-        console.log(res)
+        // console.log('service comment getByPaginate----2')
+        // console.log(res)
         return { code: 0, message: '获取数据成功', data: res.docs, totalDocs: res.totalDocs };
 
     },
@@ -42,7 +42,7 @@ module.exports = {
             avatarFileName:calc.getUserData(ctx).avatarFileName
         }
         
-        console.log('--------post/index.js-------detailCommentAdd')
+        // console.log('--------post/index.js-------detailCommentAdd')
         var res = await db.detail.detailCommentAdd(comment)
 
         // console.log('add post ---- after call db')
@@ -50,13 +50,13 @@ module.exports = {
 
         if (res) {//或者比较返回值的name属性？
 
-            console.log('get comment keys-----------------------')
-            console.log(Object.keys(comment))
-            var project
-            Object.keys(comment).forEach((v)=>{
-                project = project +' '+v
-            })
-            console.log(project)
+            // console.log('get comment keys-----------------------')
+            // console.log(Object.keys(comment))
+            // var project
+            // Object.keys(comment).forEach((v)=>{
+            //     project = project +' '+v
+            // })
+            // console.log(project)
 
             // var post = await db.detail.detailPostGet({postId:comment.postId}, 'postId content author authorId updated created avatarFileName')            
             var post = await db.detail.detailPostGet({postId:comment.postId}, 'commentNum')
@@ -75,6 +75,17 @@ module.exports = {
 
         await time.delay(100)
 
+        const user = calc.getUserData(ctx)
+        if(user.role=='bm'){
+            console.log('-----you are bm-------')
+        }else if(user._id==comment.authorId){
+            console.log('-----you delete your comment-------')
+        }else{
+            console.log('-----you delete failed for authority-------')
+            return { code: -2, message: '权限不够' };
+        }
+
+
         // console.log('-----service findByIdAndDelete-------')
         // console.log(JSON.stringify(post))
 
@@ -85,13 +96,13 @@ module.exports = {
 
         if (res) {//或者比较返回值的name属性？
 
-            console.log('get comment keys-----------------------')
-            console.log(Object.keys(comment))
-            var project
-            Object.keys(comment).forEach((v)=>{
-                project = project +' '+v
-            })
-            console.log(project)
+            // console.log('get comment keys-----------------------')
+            // console.log(Object.keys(comment))
+            // var project
+            // Object.keys(comment).forEach((v)=>{
+            //     project = project +' '+v
+            // })
+            // console.log(project)
 
             // var post = await db.detail.detailPostGet({postId:comment.postId}, 'postId content author authorId updated created avatarFileName')            
             var post = await db.detail.detailPostGet({postId:comment.postId}, 'commentNum')

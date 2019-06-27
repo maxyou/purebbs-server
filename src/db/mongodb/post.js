@@ -6,9 +6,9 @@ module.exports = {
 
     async getByPaginate(query = {}, options = {offset: 0, limit: 20}) {
 
-        console.log('---------db getByPaginate pageInfo --------------')
-        console.log(query)
-        console.log(options)
+        // console.log('---------db getByPaginate pageInfo --------------')
+        // console.log(query)
+        // console.log(options)
         
         var project = {}
         if(options.select){
@@ -109,7 +109,7 @@ module.exports = {
     },
     async add(post) {
         
-        console.log('--------db/mongodb/user.js-------addUser')
+        // console.log('--------db/mongodb/user.js-------addUser')
 
         // var postIdLast = await config.getModel('Config').findOne({name:'postId'})
         // console.log(postIdLast)
@@ -155,12 +155,12 @@ module.exports = {
     },
     async findCommentByPostIdAndDelete({postId}) {
 
-        console.log('-----db findCommentByPostIdAndDelete-------postId:'+postId)
+        // console.log('-----db findCommentByPostIdAndDelete-------postId:'+postId)
         // console.log(resProps)
         
         var res = await config.getModel('Comment').deleteMany({postId: postId})
-        console.log('-----db findCommentByPostIdAndDelete-------res:')
-        console.log(res)
+        // console.log('-----db findCommentByPostIdAndDelete-------res:')
+        // console.log(res)
         return res
     },
 

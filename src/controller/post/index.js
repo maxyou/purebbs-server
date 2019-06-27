@@ -20,8 +20,8 @@ module.exports = {
     // },
     '/post/findByIdAndDelete': async (ctx, next) => {
         var post = ctx.request.body
-        console.log('-----deleteOne get match-------')
-        console.log(JSON.stringify(post))
+        // console.log('-----deleteOne get match-------')
+        // console.log(JSON.stringify(post))
         var result = await service.findByIdAndDelete(post);
         ctx.body=result;
     },
@@ -33,8 +33,8 @@ module.exports = {
     // },
 
     '/post/getByPaginate': async (ctx, next) =>{
-        console.log('--------post getByPaginate------------')
-        console.log('page info:')
+        // console.log('--------post getByPaginate------------')
+        // console.log('page info:')
         // console.log(ctx.request.query.offset)
         // console.log(ctx.request.query.limit)
         // console.log(ctx.request.query.sort)
@@ -43,7 +43,7 @@ module.exports = {
         // console.log(pageInfo)
         var result = await service.getByPaginate(pageInfo);
         // var result = await service.getByPaginate(pageInfo);//不行
-        console.log('-----getByPaginate result------------------')
+        // console.log('-----getByPaginate result------------------')
         // console.log(result)
         ctx.body=result;
     },    

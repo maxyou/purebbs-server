@@ -1,7 +1,7 @@
 const config = require('./config')
 const fs = require('fs')
 
-console.log('--------db/mongodb/user.js-------')
+// console.log('--------db/mongodb/user.js-------')
 
 module.exports = {
 

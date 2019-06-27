@@ -19,15 +19,15 @@ module.exports = {
     },
     '/detail/comment/findByIdAndDelete': async (ctx, next) => {
         var comment = ctx.request.body
-        console.log('-----deleteOne get match-------')
-        console.log(JSON.stringify(comment))
+        // console.log('-----deleteOne get match-------')
+        // console.log(JSON.stringify(comment))
         var result = await service.findByIdAndDelete(comment, ctx);
         ctx.body=result;
     },
     '/detail/comment/findByIdAndUpdate': async (ctx, next) => {
         var comment = ctx.request.body
-        console.log('-----/detail/comment/findByIdAndUpdate-------')
-        console.log(JSON.stringify(comment))
+        // console.log('-----/detail/comment/findByIdAndUpdate-------')
+        // console.log(JSON.stringify(comment))
         var result = await service.findByIdAndUpdate(comment, ctx);
         ctx.body=result;
     },
@@ -39,17 +39,17 @@ module.exports = {
     },
 
     '/detail/comment/getByPaginate': async (ctx, next) =>{
-        console.log('--------comment getByPaginate------------')
-        console.log('page info:')
+        // console.log('--------comment getByPaginate------------')
+        // console.log('page info:')
         // console.log(ctx.request.query.offset)
         // console.log(ctx.request.query.limit)
         // console.log(ctx.request.query.sort)
         // console.log(ctx.request.query.sort._id)
         const pageInfo = ctx.request.query.pageInfo
-        console.log(pageInfo)
+        // console.log(pageInfo)
         var result = await service.getByPaginate(pageInfo);//必须parse才能把字符串‘-1’解析为数字‘-1’
         // var result = await service.getByPaginate(pageInfo);//不行
-        console.log('-----comment getByPaginate result------------------')
+        // console.log('-----comment getByPaginate result------------------')
         // console.log(result)
         ctx.body=result;
     },    

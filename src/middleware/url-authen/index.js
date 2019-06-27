@@ -22,20 +22,20 @@ module.exports = () => {
         console.log('originalUrl:' + ctx.originalUrl)
         if (ctx.originalUrl == '/favicon.ico') return
 
-        console.log('---------url-authen---------------' + allowUrl.indexOf(ctx.originalUrl))
+        // console.log('---------url-authen---------------' + allowUrl.indexOf(ctx.originalUrl))
 
         if (allowUrl.some(v => ctx.originalUrl.indexOf(v) > -1)) {
-            console.log('====allow page:' + ctx.originalUrl)
-            console.log('====await next()')
+            // console.log('====allow page:' + ctx.originalUrl)
+            // console.log('====await next()')
             return await next()
         }
 
         if (calc.isLogin(ctx)) {
-            console.log('====already login 1')
-            console.log(JSON.stringify(ctx.session.userinfo))
+            // console.log('====already login 1')
+            // console.log(JSON.stringify(ctx.session.userinfo))
             // console.log('====already login'+ctx.session.userinfo.result.data.name)
-            console.log('====already login 2')
-            console.log('====await next()')
+            // console.log('====already login 2')
+            // console.log('====await next()')
             return await next()
         }
 

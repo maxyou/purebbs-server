@@ -22,7 +22,7 @@ module.exports = {
     },
     async add(post) {
         
-        console.log('--------db/mongodb/user.js-------addUser')
+        // console.log('--------db/mongodb/user.js-------addUser')
 
         // var postIdLast = await config.getModel('Config').findOne({name:'postId'})
         // console.log(postIdLast)

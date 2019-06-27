@@ -68,9 +68,9 @@ module.exports = {
     },
     async getByPaginate(query = {}, options = {offset: 0, limit: 20}) {
 
-        console.log('---------db comment getByPaginate pageInfo --------------')
-        console.log(query)
-        console.log(options)
+        // console.log('---------db comment getByPaginate pageInfo --------------')
+        // console.log(query)
+        // console.log(options)
 
         var project = {}
         if(options.select){

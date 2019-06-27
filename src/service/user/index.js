@@ -5,7 +5,7 @@ const uuidv1 = require('uuid/v1')
 const fs = require('fs')
 const { calc } = require('../../tool')
 
-console.log('--------user/index.js-------')
+// console.log('--------user/index.js-------')
 
 module.exports = {
 

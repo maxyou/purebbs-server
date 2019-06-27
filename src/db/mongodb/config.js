@@ -4,7 +4,7 @@ var clazz = require('./clazz')
 
 const url = 'mongodb://rbacAdmin:123456@127.0.0.1:27017/rbac'
 
-console.log('--------db/mongodb/config.js-------')
+// console.log('--------db/mongodb/config.js-------')
 
 mongoose.connect(url, {useNewUrlParser: true});
 
@@ -24,7 +24,7 @@ for(let m in clazz){
     Schema.plugin(mongoosePaginate)
     mongoose.model(m, Schema)
 }
-console.log('mongodb connect......2')
+// console.log('mongodb connect......2')
 
 
 function initConfigModel({name, content}){
@@ -35,8 +35,8 @@ function initConfigModel({name, content}){
             console.log('arg err:')
             console.log(err)
         }else{
-            console.log('arg:')
-            console.log(arg)
+            // console.log('arg:')
+            // console.log(arg)
             if(!arg){
                 ConfigModel.create({name:name, content:content}, function(err, arg2){
                     if(err){

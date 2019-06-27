@@ -1,7 +1,7 @@
 const db = require('../../db')
 const { time, calc } = require('../../tool')
 
-console.log('--------post/index.js-------')
+// console.log('--------post/index.js-------')
 
 module.exports = {
 
@@ -39,8 +39,8 @@ module.exports = {
         // console.log('service post getByPaginate')
         var paginateQuery = JSON.parse(query)//parse才能把字符串‘-1’解析为数字‘-1’
         var res = await db.post.getByPaginate(paginateQuery.query, paginateQuery.options)
-        console.log('service post getByPaginate----2')
-        console.log(res.docs)
+        // console.log('service post getByPaginate----2')
+        // console.log(res.docs)
         return { code: 0, message: '获取数据成功', data: res.docs, totalDocs: res.totalDocs };
 
     },
