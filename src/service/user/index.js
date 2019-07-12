@@ -52,7 +52,7 @@ module.exports = {
         if(calc.getUserData(ctx)._id == user._id){
 
         }else{
-            return { code: 0, message: '登录用户只能修改自己的资料', data: {}}
+            return { code: -1, message: '登录用户只能修改自己的资料', data: {}}
         }
 
         // if(isAdmin(ctx)){
