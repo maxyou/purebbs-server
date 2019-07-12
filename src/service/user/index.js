@@ -3,12 +3,29 @@ const config = require('./config')
 const crypto = require('crypto')
 const uuidv1 = require('uuid/v1')
 const fs = require('fs')
-const { calc } = require('../../tool')
+const { calc, time } = require('../../tool')
 
 // console.log('--------user/index.js-------')
 
 module.exports = {
 
+    async findByIdAndUpdate(user, ctx) {
+
+        await time.delay(100)
+        
+        console.log('--------service user update--------')
+
+        // if(isAdmin(ctx)){
+
+        // }else{
+        //     return { code: 0, message: '需要admin权限', data: {}}
+        // }
+
+        var res = await db.user.findByIdAndUpdate(user)
+        // console.log(JSON.stringify(res))
+        console.log('--------user update--------2')
+        return { code: 0, message: 'user findByIdAndUpdate更新数据成功', data: res };
+    },
 
     async uploadAvatar(avatarFileName, ctx) {
 
@@ -91,7 +108,7 @@ module.exports = {
             if(user.name == 'admin'){
                 user.role = 'admin'
                 // console.log('add admin ----------'+user.role)
-            }else if(user.name.length <= 6){
+            }else if(user.name.length < 6){
                 return { code: -1, message: '用户名需6个字符或以上', data:{} };
             }
             // console.log(user.name)

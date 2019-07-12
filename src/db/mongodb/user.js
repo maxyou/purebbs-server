@@ -30,8 +30,14 @@ module.exports = {
     //     var users = await User.find({});
     //     return users
     // },
-    async findByIdAndUpdate({_id, ...resProps}) {
+    // async findByIdAndUpdate({_id, ...resProps}) {
+    async findByIdAndUpdate(user) {
+        console.log('-------db user findByIdAndUpdate-----------')
+        const {_id, ...resProps} = user
+        console.log(_id)
+        console.log(resProps)
         var res = await config.getModel('User').findByIdAndUpdate(_id, resProps)
+        console.log('-------db user findByIdAndUpdate-----------2')
         return res
     },
 

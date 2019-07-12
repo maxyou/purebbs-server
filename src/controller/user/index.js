@@ -10,6 +10,13 @@ const {user:service} = require('../../service')
 const { calc } = require('../../tool')
 
 module.exports = {
+    '/user/update/post': async (ctx, next) => {
+        console.log('-----controller /user/update/post-------')
+        var user = ctx.request.body
+        console.log(JSON.stringify(user))
+        var result = await service.findByIdAndUpdate(user, ctx);
+        ctx.body=result;
+    },
     '/user/avatar': async (ctx, next) => {
 
         var id = ctx.params.id
