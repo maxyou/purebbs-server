@@ -35,9 +35,17 @@ module.exports = {
     '/user/status': async (ctx, next) => {
         if(calc.isLogin(ctx)){
             
-            //可能用户信息有更新，这里考虑更新用户信息再返回
-            // todo 这里可能需要避免密码数据泄露到客户端
-            ctx.body=ctx.session.userinfo.result //返回之前登录或注册时的result
+            // ctx.body=ctx.session.userinfo.result //返回之前登录或注册时的result
+
+            var data = calc.getUserData(ctx)
+            if(data._id){
+                var result = await service.getUserInfoById(data._id)
+                ctx.session.userinfo = { isLogin: true, result }
+                ctx.body=ctx.session.userinfo.result
+        }else{
+                ctx.body={code:-1,message:'未登录', data:{}};
+            }
+
         }else{
             ctx.body={code:-1,message:'未登录', data:{}};
         }

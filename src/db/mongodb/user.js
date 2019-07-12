@@ -67,9 +67,15 @@ module.exports = {
         );
     },
 
-    async searchUserByName(user) {
+    async findUserByName(user) {
 
         return await config.getModel('User').find({ "name": user.name });
+
+    },
+
+    async findUserById(_id) {
+
+        return await config.getModel('User').find({ "_id": _id });
 
     }
 

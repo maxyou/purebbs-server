@@ -9,11 +9,51 @@ const { calc, time } = require('../../tool')
 
 module.exports = {
 
+    async getUserInfoById(_id) {
+
+        await time.delay(100)
+        
+        console.log('--------service getSessionInfo by id--------')
+
+
+        var allFound = await db.user.findUserById(_id)
+        console.log(JSON.stringify(allFound))
+
+        var res = allFound[0]
+        if(res){
+            //这里必须过滤掉敏感信息，如同login时的处理
+            return { code: 0, message: '获取用户信息成功', 
+                data:{
+                    _id: res._id,
+                    uuid: res.uuid,
+                    name: res.name,
+                    email: res.email,
+                    role: res.role,
+                    updated: res.updated,
+                    created: res.created,
+                    avatarFileName:res.avatarFileName,
+                } 
+            }
+        }else{
+            return {code:-1, message:'用户未找到', data:{}}
+        }
+        
+    },
+
     async findByIdAndUpdate(user, ctx) {
 
         await time.delay(100)
         
         console.log('--------service user update--------')
+
+        // console.log(calc.getUserData(ctx)._id)
+        // console.log(user._id)
+
+        if(calc.getUserData(ctx)._id == user._id){
+
+        }else{
+            return { code: 0, message: '登录用户只能修改自己的资料', data: {}}
+        }
 
         // if(isAdmin(ctx)){
 
@@ -83,7 +123,7 @@ module.exports = {
         console.log('--------user/index.js-------addUser')
 
         //查询用户名是否冲突，返回一个数组
-        var found = await db.user.searchUserByName({ "name": user.name });
+        var found = await db.user.findUserByName({ "name": user.name });
 
         if (found.length > 0) {
             console.log('add user fail for duplicated name')
@@ -140,7 +180,7 @@ module.exports = {
     async authenticateUser(user) {
 
         //查询用户名是否存在，取第一个
-        var found = await db.user.searchUserByName({ "name": user.name });
+        var found = await db.user.findUserByName({ "name": user.name });
 
         if (found.length > 0) {
 
