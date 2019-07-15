@@ -9,37 +9,6 @@ const { calc, time } = require('../../tool')
 
 module.exports = {
 
-    async getUserInfoById(_id) {
-
-        await time.delay(100)
-        
-        console.log('--------service getSessionInfo by id--------')
-
-
-        var allFound = await db.user.findUserById(_id)
-        console.log(JSON.stringify(allFound))
-
-        var res = allFound[0]
-        if(res){
-            //这里必须过滤掉敏感信息，如同login时的处理
-            return { code: 0, message: '获取用户信息成功', 
-                data:{
-                    _id: res._id,
-                    uuid: res.uuid,
-                    name: res.name,
-                    email: res.email,
-                    role: res.role,
-                    updated: res.updated,
-                    created: res.created,
-                    avatarFileName:res.avatarFileName,
-                } 
-            }
-        }else{
-            return {code:-1, message:'用户未找到', data:{}}
-        }
-        
-    },
-
     async findByIdAndUpdate(user, ctx) {
 
         await time.delay(100)
@@ -177,10 +146,41 @@ module.exports = {
 
     },
 
+    async getUserInfoById(_id) {
+
+        await time.delay(100)
+        
+        console.log('--------service getSessionInfo by id--------')
+
+
+        var allFound = await db.user.findUserById(_id)//mongodb返回的user可能不支持“...”的结构分解
+        console.log(JSON.stringify(allFound))
+
+        var res = allFound[0]
+        if(res){
+            //这里必须过滤掉敏感信息，如同login时的处理
+            return { code: 0, message: '获取用户信息成功', 
+                data:{
+                    _id: res._id,
+                    uuid: res.uuid,
+                    name: res.name,
+                    email: res.email,
+                    role: res.role,
+                    updated: res.updated,
+                    created: res.created,
+                    avatarFileName:res.avatarFileName,
+                } 
+            }
+        }else{
+            return {code:-1, message:'用户未找到', data:{}}
+        }
+        
+    },
+
     async authenticateUser(user) {
 
         //查询用户名是否存在，取第一个
-        var found = await db.user.findUserByName({ "name": user.name });
+        var found = await db.user.findUserByName({ "name": user.name });//mongodb返回的user可能不支持“...”的结构分解
 
         if (found.length > 0) {
 
@@ -211,6 +211,82 @@ module.exports = {
 
         } else {
             return { code: -1, message: '没有找到用户' };
+        }
+
+    },
+
+    async userChangePassword(userChangePassword, ctx) {
+
+        if(calc.getUserData(ctx)._id == userChangePassword._id){
+
+        }else{
+            return { code: -1, message: '登录用户只能修改自己的密码', data: {}}
+        }
+
+
+        var allFound = await db.user.findUserById(userChangePassword._id)
+        console.log(JSON.stringify(allFound))
+
+        var userFound = allFound[0]
+
+        // console.log('----------userFound--------------0')
+        // console.log(userFound)
+        // console.log('----------userFound--------------1')
+        // var seperate = {...userFound._doc, hashpwd:'123456'}
+        // console.log(seperate)
+        // console.log('----------userFound--------------2')
+        // console.log(seperate)
+        // console.log('----------userFound--------------3')
+
+        if(userFound){
+
+            //核对旧密码
+            const hmac = crypto.createHmac('sha256', config.hmackey);            
+            hmac.update(userFound.salt + userChangePassword.oldPwd);
+            var hashpwd = hmac.digest('hex');
+            if (hashpwd == userFound.hashpwd) {
+                console.log('旧密码正确')
+
+                // user.salt = crypto.randomBytes(32).toString('hex');//salt大概不能更新，如果salt也用于pwd之外其他项目的话
+
+                const newHmac = crypto.createHmac('sha256', config.hmackey);
+
+                newHmac.update(userFound.salt + userChangePassword.newPwd);
+                newHashpwd = newHmac.digest('hex');
+                
+                console.log('--------user userChangePassword--------1')
+
+                var res = await db.user.findByIdAndUpdate({_id:userFound._id, hashpwd:newHashpwd})
+                // console.log(JSON.stringify(res))
+                console.log('--------user userChangePassword--------2')
+                return { code: 0, message: 'user findByIdAndUpdate更新数据成功', data: res };
+                
+            } else {
+                console.log('--------user userChangePassword--------old pwd error')
+                return { code: -1, message: '密码错误' };
+            }
+
+            //采纳新密码
+            
+
+
+
+
+            //这里必须过滤掉敏感信息，如同login时的处理
+            return { code: 0, message: '获取用户信息成功', 
+                data:{
+                    _id: res._id,
+                    uuid: res.uuid,
+                    name: res.name,
+                    email: res.email,
+                    role: res.role,
+                    updated: res.updated,
+                    created: res.created,
+                    avatarFileName:res.avatarFileName,
+                } 
+            }
+        }else{
+            return {code:-1, message:'用户未找到', data:{}}
         }
 
     }

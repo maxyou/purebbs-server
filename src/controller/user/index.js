@@ -10,6 +10,13 @@ const {user:service} = require('../../service')
 const { calc } = require('../../tool')
 
 module.exports = {
+    '/user/password/change': async (ctx, next) => {
+        console.log('-----controller /user/password/change-------')
+        var userChangePassword = ctx.request.body
+        console.log(JSON.stringify(userChangePassword))
+        var result = await service.userChangePassword(userChangePassword, ctx);
+        ctx.body=result;
+    },
     '/user/update/post': async (ctx, next) => {
         console.log('-----controller /user/update/post-------')
         var user = ctx.request.body
