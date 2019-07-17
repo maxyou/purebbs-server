@@ -4,6 +4,7 @@ const allowUrl = [
     '/login',
     '/register',
     '/logout',
+    '/user/password/reset',
     '/user/avatar',
     '/user/status',
     '/user/list',

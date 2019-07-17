@@ -7,6 +7,8 @@ module.exports = {
         uuid: { type: String },
         name: { type: String },
         hashpwd: { type: String },
+        resetPasswordCode: { type: String },
+        resetPasswordTime: { type: Date },
         salt: { type: String },
         email: { type: String },
         updated: { type: Date, default: Date.now },

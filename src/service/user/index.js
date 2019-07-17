@@ -4,6 +4,7 @@ const crypto = require('crypto')
 const uuidv1 = require('uuid/v1')
 const fs = require('fs')
 const { calc, time } = require('../../tool')
+const nodemailer = require("nodemailer")
 
 // console.log('--------user/index.js-------')
 
@@ -265,28 +266,59 @@ module.exports = {
                 console.log('--------user userChangePassword--------old pwd error')
                 return { code: -1, message: '密码错误' };
             }
-
-            //采纳新密码
             
-
-
-
-
-            //这里必须过滤掉敏感信息，如同login时的处理
-            return { code: 0, message: '获取用户信息成功', 
-                data:{
-                    _id: res._id,
-                    uuid: res.uuid,
-                    name: res.name,
-                    email: res.email,
-                    role: res.role,
-                    updated: res.updated,
-                    created: res.created,
-                    avatarFileName:res.avatarFileName,
-                } 
-            }
         }else{
             return {code:-1, message:'用户未找到', data:{}}
+        }
+
+    },
+
+    async userResetPassword(userResetPassword, ctx) {
+
+        console.log('----------userResetPassword-------------')
+        console.log(userResetPassword)
+
+        var allFound = await db.user.findUserByName({ "name": userResetPassword.name })
+        console.log(JSON.stringify(allFound))
+
+        var userFound = allFound[0]
+
+        if(userFound && userFound.email){
+            //生成重置code并记录时间
+            resetPasswordCode = crypto.randomBytes(32).toString('hex');//32字节，也即256bit
+            resetPasswordTime = Date.now
+
+            try{
+                //发送code给用户
+                let transporter = nodemailer.createTransport({
+                    host: "smtp.126.com",
+                    port: 25,
+                    secure: false, // true for 465, false for other ports
+                    auth: {
+                    user: 'hyyouwork', // generated ethereal user
+                    pass: 'FlYrtxItfYeS9JRr' // generated ethereal password
+                    }
+                });
+                
+                // send mail with defined transport object
+                let info = await transporter.sendMail({
+                    from: '"Hyyou Work" <hyyouwork@126.com>', // sender address
+                    to: userFound.email, // list of receivers
+                    subject: "Hello from hyyouwork at 126", // Subject line
+                    // text: "Hello text world?", // plain text body
+                    html: "Welcome to reset password<br />" // html body
+                        + `Please click to reset page:
+                            <a href="http://localhost:3000/#/login">reset page</a> 
+                        `
+                });
+
+            }catch(e){
+                console.log(e)
+            }
+
+            return { code: 0, message: '请查收邮件', data:{}}
+        }else{
+            return {code:-1, message:'用户未找到或用户未设置电邮'}
         }
 
     }
