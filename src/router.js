@@ -18,6 +18,7 @@ module.exports = (app) => {
   router.post('/user/update', controller.user['/user/update/post'])
   router.post('/user/password/change', controller.user['/user/password/change'])
   router.post('/user/password/reset', controller.user['/user/password/reset'])
+  router.post('/user/password/new', controller.user['/user/password/new'])
   // router.get('/download/photo', controller.user['download/photo'])
   // router.get('/download/photo/download', controller.user['download/photo/download'])
 

@@ -67,13 +67,19 @@ module.exports = {
         );
     },
 
-    async findUserByName(user) {
+    async findUserByName(user) {//可能涉及附加name，所以传入user对象
 
         return await config.getModel('User').find({ "name": user.name });
 
     },
 
-    async findUserById(_id) {
+    async findUserByResetPasswordCode(user) {
+
+        return await config.getModel('User').find({ "resetPasswordCode": user.resetPasswordCode });
+
+    },
+
+    async findUserById(_id) {//唯一id，所以直接传入id字符串
 
         return await config.getModel('User').find({ "_id": _id });
 

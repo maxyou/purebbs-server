@@ -32,9 +32,10 @@ module.exports = {
         // }
 
         var res = await db.user.findByIdAndUpdate(user)
-        // console.log(JSON.stringify(res))
-        console.log('--------user update--------2')
-        return { code: 0, message: 'user findByIdAndUpdate更新数据成功', data: res };
+        console.log('--------user update--------2------must filter important info')
+        console.log(JSON.stringify(res))
+        console.log('--------user update--------3')
+        return { code: 0, message: 'user findByIdAndUpdate更新数据成功' };
     },
 
     async uploadAvatar(avatarFileName, ctx) {
@@ -260,7 +261,7 @@ module.exports = {
                 var res = await db.user.findByIdAndUpdate({_id:userFound._id, hashpwd:newHashpwd})
                 // console.log(JSON.stringify(res))
                 console.log('--------user userChangePassword--------2')
-                return { code: 0, message: 'user findByIdAndUpdate更新数据成功', data: res };
+                return { code: 0, message: 'user findByIdAndUpdate更新数据成功' };
                 
             } else {
                 console.log('--------user userChangePassword--------old pwd error')
@@ -284,9 +285,17 @@ module.exports = {
         var userFound = allFound[0]
 
         if(userFound && userFound.email){
-            //生成重置code并记录时间
+            //生成重置code及时间
             resetPasswordCode = crypto.randomBytes(32).toString('hex');//32字节，也即256bit
-            resetPasswordTime = Date.now
+            resetPasswordTime = Date.now()
+
+            var res = await db.user.findByIdAndUpdate({
+                _id:userFound._id, 
+                resetPasswordCode:resetPasswordCode,
+                resetPasswordTime:resetPasswordTime,
+            })
+
+            if(res){ }else{ return {code:-1, message:'禁止修改密码'} }
 
             try{
                 //发送code给用户
@@ -308,7 +317,7 @@ module.exports = {
                     // text: "Hello text world?", // plain text body
                     html: "Welcome to reset password<br />" // html body
                         + `Please click to reset page:
-                            <a href="http://localhost:3000/#/login">reset page</a> 
+                            <a href="http://localhost:3000/#/resetpwd/newpwd/${resetPasswordCode}">goto reset password page</a> 
                         `
                 });
 
@@ -319,6 +328,39 @@ module.exports = {
             return { code: 0, message: '请查收邮件', data:{}}
         }else{
             return {code:-1, message:'用户未找到或用户未设置电邮'}
+        }
+
+    },
+
+    async userResetPasswordNew(userNewPassword, ctx) {
+
+        console.log('----------userResetPasswordNew-------------')
+        console.log(userNewPassword)
+
+        var allFound = await db.user.findUserByResetPasswordCode({ "resetPasswordCode": userNewPassword.resetPasswordCode })
+        console.log(JSON.stringify(allFound))
+
+        var userFound = allFound[0]
+
+        if(userFound){
+            //判断时间是否过期
+            //resetPasswordTime = Date.now
+
+
+
+            const newHmac = crypto.createHmac('sha256', config.hmackey);
+            newHmac.update(userFound.salt + userNewPassword.password);
+            newHashpwd = newHmac.digest('hex');
+            
+            console.log('--------user userResetPasswordNew--------1')
+
+            var res = await db.user.findByIdAndUpdate({_id:userFound._id, hashpwd:newHashpwd})
+            // console.log(JSON.stringify(res))
+            console.log('--------user userResetPasswordNew--------2')
+            return { code: 0, message: '用户修改密码成功' };
+            
+        }else{
+            return {code:-1, message:'用户未找到'}
         }
 
     }
