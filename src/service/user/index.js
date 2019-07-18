@@ -325,8 +325,10 @@ module.exports = {
                 console.log(e)
             }
 
-            return { code: 0, message: '请查收邮件', data:{}}
+            console.log('已发送邮件，请查收')
+            return { code: 0, message: '已发送邮件，请查收', data:{}}
         }else{
+            console.log('用户未找到或用户未设置电邮')
             return {code:-1, message:'用户未找到或用户未设置电邮'}
         }
 
@@ -354,7 +356,12 @@ module.exports = {
             
             console.log('--------user userResetPasswordNew--------1')
 
-            var res = await db.user.findByIdAndUpdate({_id:userFound._id, hashpwd:newHashpwd})
+            var res = await db.user.findByIdAndUpdate({
+                _id:userFound._id, 
+                hashpwd:newHashpwd,
+                resetPasswordCode:'',
+                resetPasswordTime:null
+            })
             // console.log(JSON.stringify(res))
             console.log('--------user userResetPasswordNew--------2')
             return { code: 0, message: '用户修改密码成功' };
