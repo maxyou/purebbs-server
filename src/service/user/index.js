@@ -179,13 +179,13 @@ module.exports = {
         
     },
 
-    async getOtherInfo(user) {
+    async getOtherInfo(other) {
 
         console.log('--------service getOtherInfo by user--------')
 
         await time.delay(100)
 
-        const user = JSON.parse(user)
+        const user = JSON.parse(other)
 
         var allFound = await db.user.findUserById(user._id)//mongodb返回的user可能不支持“...”的结构分解
         console.log(JSON.stringify(allFound))

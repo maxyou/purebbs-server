@@ -75,17 +75,11 @@ module.exports = {
         
         console.log('/user/other/info')
         
-        const use2r = ctx.request.query.user
+        const user = ctx.request.query.user
 
         console.log('/user/other/info 2-----')
         
-        var result
-
-        try{
-            result = await service.getOtherInfo(use2r)            
-        }catch(e){
-            console.log(e)
-        }
+        var result = await service.getOtherInfo(user)
 
         if(result){            
             ctx.body=result
