@@ -71,6 +71,28 @@ module.exports = {
             ctx.body={code:-1,message:'未登录', data:{}};
         }
     },
+    '/user/other/info': async (ctx, next) => {
+        
+        console.log('/user/other/info')
+        
+        const use2r = ctx.request.query.user
+
+        console.log('/user/other/info 2-----')
+        
+        var result
+
+        try{
+            result = await service.getOtherInfo(use2r)            
+        }catch(e){
+            console.log(e)
+        }
+
+        if(result){            
+            ctx.body=result
+        }else{
+            ctx.body={code:-1,message:'not fount', data:{}};
+        }
+    },
     '/user/register': async (ctx, next) => {
         await ctx.render('user/register/register', {
             title: 'Sign up:',

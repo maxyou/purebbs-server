@@ -8,6 +8,7 @@ const allowUrl = [
     '/user/password/new',
     '/user/avatar',
     '/user/status',
+    '/user/other/info',
     '/user/list',
     '/favicon.ico',
     '/tool/verify',

@@ -179,6 +179,37 @@ module.exports = {
         
     },
 
+    async getOtherInfo(user) {
+
+        console.log('--------service getOtherInfo by user--------')
+
+        await time.delay(100)
+
+        const user = JSON.parse(user)
+
+        var allFound = await db.user.findUserById(user._id)//mongodb返回的user可能不支持“...”的结构分解
+        console.log(JSON.stringify(allFound))
+
+        var res = allFound[0]
+        if(res){
+            //看别人可以看到什么信息？在这里过滤
+            return { code: 0, message: '获取用户信息成功', 
+                data:{
+                    _id: res._id,
+                    name: res.name,
+                    // email: res.email,
+                    role: res.role,
+                    // updated: res.updated,
+                    created: res.created,
+                    avatarFileName:res.avatarFileName,
+                } 
+            }
+        }else{
+            return {code:-1, message:'用户未找到', data:{}}
+        }
+        
+    },
+
     async authenticateUser(user) {
 
         //查询用户名是否存在，取第一个

@@ -7,6 +7,7 @@ module.exports = (app) => {
   //login, register, logout
   router.get('/user/avatar/:id', controller.user['/user/avatar'])
   router.get('/user/status', controller.user['/user/status'])
+  router.get('/user/other/info', controller.user['/user/other/info'])
   router.post('/user/register', controller.user['/user/register/post'])
   router.post('/user/login', controller.user['/user/login/post'])
   router.post('/user/logout', controller.user['/user/logout/post'])
