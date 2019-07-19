@@ -249,7 +249,7 @@ module.exports = {
             if (hashpwd == userFound.hashpwd) {
                 console.log('旧密码正确')
 
-                // user.salt = crypto.randomBytes(32).toString('hex');//salt大概不能更新，如果salt也用于pwd之外其他项目的话
+                // user.salt = crypto.randomBytes(32).toString('hex');//salt大概不能更新，担心salt也用于pwd之外其他项目
 
                 const newHmac = crypto.createHmac('sha256', config.hmackey);
 
@@ -347,8 +347,13 @@ module.exports = {
         if(userFound){
             //判断时间是否过期
             //resetPasswordTime = Date.now
+            console.log('compare date time:')
+            console.log(Date.now())
+            console.log(userFound.resetPasswordTime.getTime())
 
-
+            if( (Date.now() - userFound.resetPasswordTime.getTime()) > (24*60*60*1000) ){ //1天后过期
+                return {code:-1, message:'链接已经过期'}
+            }
 
             const newHmac = crypto.createHmac('sha256', config.hmackey);
             newHmac.update(userFound.salt + userNewPassword.password);
