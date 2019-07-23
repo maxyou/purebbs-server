@@ -33,6 +33,22 @@ module.exports = {
         commentNum: { type: Number, default: 0 },
         updated: { type: Date, default: Date.now },
         created: { type: Date, default: Date.now },
+        extend: { 
+            addChoice:{type: String},
+            addLineup:{
+                anonymous:{type: Boolean, default: false}, 
+                halfanonymous:{type: Boolean, default: false}, 
+                hasMessage:{type: Boolean, default: false}, 
+            },
+            lineupData: [{
+                id: String, //ObjectId,
+                name: String,
+                anonymous: String,
+                message: String
+            }],
+            addVote:{type: String}
+        },
+
     },
     Comment: {//must capitalized
         author: { type: String, default: 'unknown' },

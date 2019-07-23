@@ -46,6 +46,9 @@ module.exports = (app) => {
   router.post('/detail/post/findbyidandupdate', controller.detail['/detail/post/findByIdAndUpdate']);
   router.get('/detail/comment/getpage', controller.detail['/detail/comment/getByPaginate']);
 
+  //-----------extend--------------------
+  router.post('/extend/lineup/join', controller.extend['/extend/lineup/join']);
+  
 
   //-----------private message--------------------
   // router.post('/rbac/access/add', controller.rbac.access.add);

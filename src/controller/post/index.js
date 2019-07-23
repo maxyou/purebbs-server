@@ -3,6 +3,7 @@ const {post:service} = require('../../service')
 
 module.exports = {
     '/post/add': async (ctx, next) => {
+        console.log('--------/post/add-----------')
         console.log(JSON.stringify(ctx.request.body))
         var result = await service.add(ctx.request.body, ctx);
         ctx.body=result;

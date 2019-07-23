@@ -10,7 +10,9 @@ module.exports = {
 
         await time.delay(100)
 
-        // console.log('--------post/index.js-------addUser')
+        console.log('--------post/index.js-------addUser')
+        console.log(post)
+        
         var postId = await db.post.getPostId()
         postId++
         post = {...post, 

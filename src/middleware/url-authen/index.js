@@ -14,6 +14,7 @@ const allowUrl = [
     '/tool/verify',
     '/post/getpage',
     '/detail/post',
+    '/extend',
     '/detail/comment/getpage',
 ]
 

@@ -2,6 +2,7 @@ const user = require('./user')
 const post = require('./post')
 const detail = require('./detail')
 const admin = require('./admin')
+const extend = require('./extend')
 const tool = require('./tool')
 
 module.exports = {
@@ -9,5 +10,6 @@ module.exports = {
     post,
     detail,
     admin,
+    extend,
     tool,
 }
