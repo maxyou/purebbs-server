@@ -46,7 +46,11 @@ module.exports = {
                 anonymous: Boolean,
                 message: String
             }],
-            addVote:{type: String}
+            addVote:{
+                anonymous:{type: Boolean, default: false}, 
+                ifMulti:{type: String, default: 'single'}, 
+                options:{type:[String], default:['']}
+            }
         },
 
     },
