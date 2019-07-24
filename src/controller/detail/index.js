@@ -7,7 +7,7 @@ module.exports = {
         const postInfo = ctx.request.query.postInfo
         // console.log('JSON.stringify(postInfo):')
         // console.log(JSON.stringify(postInfo))
-        var result = await service.detailPostGet(postInfo);//必须parse才能把字符串‘-1’解析为数字‘-1’
+        var result = await service.detailPostGet(postInfo, ctx);//必须parse才能把字符串‘-1’解析为数字‘-1’
 
         ctx.body=result;
     },

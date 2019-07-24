@@ -5,7 +5,7 @@ const { time, calc } = require('../../tool')
 
 module.exports = {
 
-    async detailPostGet(v) {        
+    async detailPostGet(v, ctx) {        
         await time.delay(100)
         
         const params = JSON.parse(v)
@@ -15,7 +15,34 @@ module.exports = {
         console.log(params.select)
         var res = await db.detail.detailPostGet(params.condition, params.select)
         // console.log('service detail post get----')
-        // console.log(res)
+        console.log(res)
+
+        //过滤匿名数据
+        var user = calc.getUserData(ctx)
+        if(res && res.extend && res.extend.lineupData){
+            var hasCtxUser = false
+            var afterFilter = res.extend.lineupData.map((v)=>{
+                if(v._id == user._id){
+                    hasCtxUser = true
+                }
+                if(v.anonymous){
+                    return {
+                        ...v,
+                        _id: 'anonymous',
+                        name: 'anonymous',
+                        anonymous: 'anonymous',
+                    }
+                }else{
+                    return v
+                }
+            })
+            res.extend.hasCtxUser = hasCtxUser
+            res.extend.lineupData = afterFilter
+        }
+
+        console.log('----------after filter-------------')
+        console.log(res)
+
         return { code: 0, message: '获取数据成功', data: res};
     },
 

@@ -37,13 +37,13 @@ module.exports = {
             addChoice:{type: String},
             addLineup:{
                 anonymous:{type: Boolean, default: false}, 
-                halfanonymous:{type: Boolean, default: false}, 
-                hasMessage:{type: Boolean, default: false}, 
+                // halfanonymous:{type: Boolean, default: false}, 
+                // hasMessage:{type: Boolean, default: false}, 
             },
             lineupData: [{
                 id: String, //ObjectId,
                 name: String,
-                anonymous: String,
+                anonymous: Boolean,
                 message: String
             }],
             addVote:{type: String}
