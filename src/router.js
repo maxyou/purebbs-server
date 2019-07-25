@@ -49,6 +49,8 @@ module.exports = (app) => {
   //-----------extend--------------------
   router.post('/extend/lineup/join', controller.extend['/extend/lineup/join']);
   router.post('/extend/lineup/quit', controller.extend['/extend/lineup/quit']);
+  router.post('/extend/vote/join', controller.extend['/extend/vote/join']);
+  router.post('/extend/vote/quit', controller.extend['/extend/vote/quit']);
   
 
   //-----------private message--------------------

@@ -14,4 +14,16 @@ module.exports = {
         var result = await service.lineupQuit(ctx.request.body, ctx);
         ctx.body=result;    
     },
+    '/extend/vote/join': async (ctx, next) => {
+        console.log('--------/extend/vote/join-----------')
+        console.log(JSON.stringify(ctx.request.body))
+        var result = await service.voteJoin(ctx.request.body, ctx);
+        ctx.body=result;    
+    },
+    '/extend/vote/quit': async (ctx, next) => {
+        console.log('--------/extend/vote/quit-----------')
+        console.log(JSON.stringify(ctx.request.body))
+        var result = await service.voteQuit(ctx.request.body, ctx);
+        ctx.body=result;    
+    },
 }
