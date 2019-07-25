@@ -19,25 +19,57 @@ module.exports = {
 
         //过滤匿名数据
         var user = calc.getUserData(ctx)
-        if(res && res.extend && res.extend.lineupData){
-            var hasCtxUser = false
-            var afterFilter = res.extend.lineupData.map((v)=>{
-                if(v._id == user._id){
-                    hasCtxUser = true
-                }
-                if(v.anonymous){
-                    return {
-                        ...v,
-                        _id: 'anonymous',
-                        name: 'anonymous',
-                        anonymous: 'anonymous',
+        if(res && res.extend){
+            if(res.extend.lineupData){
+                var hasCtxUser = false
+                var afterFilter = res.extend.lineupData.map((v)=>{
+                    if(v._id == user._id){
+                        hasCtxUser = true
                     }
-                }else{
-                    return v
-                }
-            })
-            res.extend.hasCtxUser = hasCtxUser
-            res.extend.lineupData = afterFilter
+                    if(v.anonymous){
+                        return {
+                            ...v,
+                            _id: 'anonymous',
+                            name: 'anonymous',
+                            anonymous: 'anonymous',
+                        }
+                    }else{
+                        return v
+                    }
+                })
+                res.extend.hasCtxUser = hasCtxUser
+                res.extend.lineupData = afterFilter
+            }
+            if(res.extend.voteData){
+                var hasCtxUser = false
+                var afterFilter = res.extend.voteData.map((vv)=>{
+                    console.log('vv:')
+                    console.log(vv)
+                    return vv.map((v)=>{
+                        console.log('v:')
+                        console.log(v)
+                        if(v._id == user._id){
+                            hasCtxUser = true
+                        }
+                        if(v.anonymous){
+                            return {
+                                ...v,
+                                _id: 'anonymous',
+                                name: 'anonymous',
+                                anonymous: 'anonymous',
+                            }
+                        }else{
+                            return v
+                        }
+                    })
+                    // if(vv){
+                    // }else{
+                    //     return vv
+                    // }
+                })
+                res.extend.hasCtxUser = hasCtxUser
+                res.extend.voteData = afterFilter
+            }
         }
 
         console.log('----------after filter-------------')

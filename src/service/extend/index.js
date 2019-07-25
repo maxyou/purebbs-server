@@ -29,6 +29,10 @@ module.exports = {
             })
 
             if(someResult){
+                /**
+                 * 在多端登录的情况下，接龙以最先一端为准，而投票是最后一端为准
+                 * 所以忽略第二次发出的接龙，但投票是后面一次覆盖前面一次
+                 */
                 return { code: -1, message: '已经接龙了' };
             }
 
@@ -114,22 +118,20 @@ module.exports = {
             console.log(res)
 
             var voteArray = res.extend.voteData
-            if(!voteArray){ //或者为空，或者按option数量初始化
+            if(!voteArray || voteArray.length==0){ //或者为空，或者按option数量初始化
                 voteArray = []
-                console.log('--------init voteArray--------------')
                 const length = res.extend.addVote.options.length
-                console.log('--------init voteArray--------------1')
                 for(var i=0;i<length;i++){
-                    console.log('--------init voteArray--------------loop:'+i)
                     voteArray.push([])
                 }
             }
+
             console.log('--------JSON.stringify(voteArray)--------------')
             console.log(JSON.stringify(voteArray))
 
             /**
              * 在多端登录情况下存在“加入投票，未退出投票，再次加入投票”的情况，所以后端总是允许用户再次投票
-             * 每次加入投票之前总是清除该用户所有之前的投票
+             * 每次加入投票之前总是清除该用户所有之前的投票，也即以最后一次投票为准
              * 
              * 在前端控制用户必须先退出投票，然后才能再次投票
              */
@@ -188,7 +190,7 @@ module.exports = {
         await time.delay(100)
 
         console.log('--------extend/index.js-------voteQuit')
-        console.log(post) //{"anonymous":"","message":""}
+        // console.log(post) //{"anonymous":"","message":""}
         
         if(calc.isLogin(ctx)){
             
@@ -197,17 +199,17 @@ module.exports = {
             var user = calc.getUserData(ctx)
             
             var res = await db.detail.detailPostGet({postId: post.postId}, 'title content postId author extend')
-            console.log('--------extend/index.js-------detailPostGet')
-            console.log(res)
+            // console.log('--------extend/index.js-------detailPostGet')
+            // console.log(res)
             
             var voteArray = res.extend.voteData
             if(!voteArray){ //或者为空，或者按option数量初始化
                 voteArray = []
-                console.log('--------init voteArray--------------')
+                // console.log('--------init voteArray--------------')
                 const length = res.extend.addVote.options.length
-                console.log('--------init voteArray--------------1')
+                // console.log('--------init voteArray--------------1')
                 for(var i=0;i<length;i++){
-                    console.log('--------init voteArray--------------loop:'+i)
+                    // console.log('--------init voteArray--------------loop:'+i)
                     voteArray.push([])
                 }
             }
@@ -220,12 +222,12 @@ module.exports = {
 
 
             res.extend.voteData = cleanVoteArray
-            console.log('--------extend/index.js-------before update')
-            console.log(res)
+            // console.log('--------extend/index.js-------before update')
+            // console.log(res)
             
             var updateRes = await db.detail.postFindByIdAndUpdate(res)
-            console.log('--------extend/index.js-------after update')
-            console.log(updateRes)
+            // console.log('--------extend/index.js-------after update')
+            // console.log(updateRes)
 
             return { code: 0, message: '已经退出'}
         }else{
