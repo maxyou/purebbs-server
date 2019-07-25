@@ -97,7 +97,7 @@ module.exports = {
         await time.delay(100)
 
         console.log('--------extend/index.js-------voteJoin')
-        console.log(post) //{"anonymous":"","message":""}
+        console.log(JSON.stringify(post)) //{"anonymous":"","message":""}
         
         if(0){
             return { code: 0, message: '发表成功'}
@@ -115,11 +115,17 @@ module.exports = {
 
             var voteArray = res.extend.voteData
             if(!voteArray){ //或者为空，或者按option数量初始化
+                voteArray = []
+                console.log('--------init voteArray--------------')
                 const length = res.extend.addVote.options.length
+                console.log('--------init voteArray--------------1')
                 for(var i=0;i<length;i++){
+                    console.log('--------init voteArray--------------loop:'+i)
                     voteArray.push([])
                 }
             }
+            console.log('--------JSON.stringify(voteArray)--------------')
+            console.log(JSON.stringify(voteArray))
 
             /**
              * 在多端登录情况下存在“加入投票，未退出投票，再次加入投票”的情况，所以后端总是允许用户再次投票
@@ -127,14 +133,11 @@ module.exports = {
              * 
              * 在前端控制用户必须先退出投票，然后才能再次投票
              */
-
             var cleanVoteArray = voteArray.map(function(item, index, array){
                 return item.filter(function(itemInner, index, array){
                     return itemInner._id != user._id
                 })
             })
-            console.log('--------JSON.stringify(voteArray)--------------')
-            console.log(JSON.stringify(voteArray))
             console.log('--------JSON.stringify(cleanVoteArray)--------------')
             console.log(JSON.stringify(cleanVoteArray))
 
@@ -148,13 +151,15 @@ module.exports = {
                         anonymous: post.anonymous,
                     })
                     break
-                case 'multiple':
-                    for(var i in post.multiVote){
-                        cleanVoteArray[i].push({
-                            _id: user._id,
-                            name: user.name,
-                            anonymous: post.anonymous,
-                        })    
+                case 'multiple':                    
+                    for(var i = 0; i < post.multiVote.length; i++){
+                        if(post.multiVote[i]){
+                            cleanVoteArray[i].push({
+                                _id: user._id,
+                                name: user.name,
+                                anonymous: post.anonymous,
+                            })    
+                        }
                     }
                     break
             }
@@ -194,14 +199,27 @@ module.exports = {
             var res = await db.detail.detailPostGet({postId: post.postId}, 'title content postId author extend')
             console.log('--------extend/index.js-------detailPostGet')
             console.log(res)
+            
+            var voteArray = res.extend.voteData
+            if(!voteArray){ //或者为空，或者按option数量初始化
+                voteArray = []
+                console.log('--------init voteArray--------------')
+                const length = res.extend.addVote.options.length
+                console.log('--------init voteArray--------------1')
+                for(var i=0;i<length;i++){
+                    console.log('--------init voteArray--------------loop:'+i)
+                    voteArray.push([])
+                }
+            }
 
-            var voteArray = res.extend.voteData || []
-
-            var filterResult = voteArray.filter(function(item, index, array){
-                return item._id != user._id
+            var cleanVoteArray = voteArray.map(function(item, index, array){
+                return item.filter(function(itemInner, index, array){
+                    return itemInner._id != user._id
+                })
             })
 
-            res.extend.voteData = filterResult
+
+            res.extend.voteData = cleanVoteArray
             console.log('--------extend/index.js-------before update')
             console.log(res)
             
