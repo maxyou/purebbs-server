@@ -15,7 +15,7 @@ module.exports = {
         console.log(params.select)
         var res = await db.detail.detailPostGet(params.condition, params.select)
         // console.log('service detail post get----')
-        console.log(res)
+        // console.log(res)
 
         //过滤匿名数据
         var user = calc.getUserData(ctx)
@@ -73,7 +73,8 @@ module.exports = {
         }
 
         console.log('----------after filter-------------')
-        console.log(res)
+        // console.log(res)
+        
 
         return { code: 0, message: '获取数据成功', data: res};
     },

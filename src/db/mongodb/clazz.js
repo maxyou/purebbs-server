@@ -39,6 +39,7 @@ module.exports = {
                 anonymous:{type: Boolean, default: false}, 
                 // halfanonymous:{type: Boolean, default: false}, 
                 // hasMessage:{type: Boolean, default: false}, 
+                expireTime: { type: Date },
             },
             lineupData: [{
                 id: String, //ObjectId,
@@ -49,7 +50,9 @@ module.exports = {
             addVote:{
                 anonymous:{type: Boolean, default: false}, 
                 ifMulti:{type: String, default: 'single'}, 
-                options:{type:[String], default:['']}
+                options:{type:[String], default:['']},
+                expireTime: { type: Date },
+                // expireTimeUTC: { type: Date },                
             },
             voteData:[[{
                 id: String, //ObjectId,
