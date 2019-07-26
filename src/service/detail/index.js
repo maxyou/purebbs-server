@@ -74,7 +74,7 @@ module.exports = {
 
         console.log('----------after filter-------------')
         // console.log(res)
-        
+
 
         return { code: 0, message: '获取数据成功', data: res};
     },
@@ -96,14 +96,14 @@ module.exports = {
 
         await time.delay(100)
 
-        comment = {...comment, 
+        var commentWithAuthor = {...comment, 
             author:calc.getUserData(ctx).name,
             authorId:calc.getUserData(ctx)._id,
             avatarFileName:calc.getUserData(ctx).avatarFileName
         }
         
         // console.log('--------post/index.js-------detailCommentAdd')
-        var res = await db.detail.detailCommentAdd(comment)
+        var res = await db.detail.detailCommentAdd(commentWithAuthor)
 
         // console.log('add post ---- after call db')
         // console.log(res)
@@ -124,6 +124,15 @@ module.exports = {
             console.log(post)
             post.commentNum = post.commentNum || 0
             post.commentNum += 1
+            
+            console.log('update post lastReply')
+            post.lastReply = {
+                lastReplyId: commentWithAuthor.authorId,
+                lastReplyName: commentWithAuthor.author,
+                lastReplyTime: Date.now(),
+            }
+            console.log('update post lastReply 2')
+
             await db.detail.postFindByIdAndUpdate(post)
 
             return { code: 0, message: '发表成功', res: res };

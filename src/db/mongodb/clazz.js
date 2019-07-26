@@ -31,6 +31,11 @@ module.exports = {
         title: { type: String, default: 'no title' },
         content: { type: String, default: 'no content' },
         commentNum: { type: Number, default: 0 },
+        lastReply:{
+            lastReplyId: { type: String},
+            lastReplyName: { type: String},
+            lastReplyTime: { type: Date },
+        },
         updated: { type: Date, default: Date.now },
         created: { type: Date, default: Date.now },
         extend: { 
