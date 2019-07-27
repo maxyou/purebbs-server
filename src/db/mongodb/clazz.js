@@ -33,17 +33,19 @@ module.exports = {
         commentNum: { type: Number, default: 0 },
         
         lastReplyId: { type: String},
-        lastReplyName: { type: String},
-        
+        lastReplyName: { type: String},        
         lastReplyTime: { type: Date },
+        updatedById: { type: String},//可能被作者以外的比如bm修改，所以需要记录
+        updatedByName: { type: String},
         updated: { type: Date },
-        created: { type: Date },
-        
+        created: { type: Date },        
         /**
          * 包含created+updated+lastReplyTime
          * 但是comment的update不包含，这个更新通常不影响帖子排序
          */
         allUpdated:{ type: Date },
+
+        stickTop:{type: Boolean, default: false}, 
 
         extend: { 
             addChoice:{type: String},
@@ -80,6 +82,8 @@ module.exports = {
         // avatarFileName: { type: String},
         postId: { type: String, default: '-1' },
         content: { type: String, default: 'no content' },
+        updatedById: { type: String},//可能被作者以外的比如bm修改，所以需要记录
+        updatedByName: { type: String},
         updated: { type: Date },
         created: { type: Date },
     }

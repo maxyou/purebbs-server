@@ -37,6 +37,12 @@ module.exports = {
         var result = await service.postFindByIdAndUpdate(post, ctx);
         ctx.body=result;
     },
+    '/detail/post/findByIdAndAttach': async (ctx, next) =>{
+        // console.log('-----controller findByIdAndAttach-------')
+        var post = ctx.request.body
+        var result = await service.postFindByIdAndAttach(post, ctx);
+        ctx.body=result;
+    },
 
     '/detail/comment/getByPaginate': async (ctx, next) =>{
         // console.log('--------comment getByPaginate------------')

@@ -204,6 +204,8 @@ module.exports = {
             return { code: -2, message: '权限不够' };
         }
 
+        comment.updatedById = user._id
+        comment.updatedByName = user.name
         comment.updated = Date.now() //但是post的allUpdated不更新
 
         var res = await db.detail.findByIdAndUpdate(comment)
@@ -232,11 +234,39 @@ module.exports = {
         // console.log('-----service postFindByIdAndUpdate-------')
         // console.log(JSON.stringify(post))
 
+        post.updatedById = user._id
+        post.updatedByName = user.name
         post.updated = Date.now()
         post.allUpdated = Date.now()
 
         var res = await db.detail.postFindByIdAndUpdate(post)
+        console.log('--------update------------------------stickTop:'+post.stickTop)
+        // console.log(JSON.stringify(res))
         // console.log('--------update--------')
+
+        if (res) {//或者比较返回值的name属性？
+            return { code: 0, message: '更改成功', res: res };
+        } else {
+            return { code: -1, message: '更改异常' };
+        }
+
+    },
+    async postFindByIdAndAttach(post, ctx) {
+
+        await time.delay(100)
+
+        const user = calc.getUserData(ctx)
+        if(user.role=='bm'){
+            console.log('-----you are bm-------')
+        }else if(user._id==post.authorId){
+            console.log('-----you update your post-------')
+        }else{
+            console.log('-----you update failed for authority-------')
+            return { code: -2, message: '权限不够' };
+        }
+
+        var res = await db.detail.postFindByIdAndUpdate(post)
+        console.log('--------attach------------------------stickTop:'+post.stickTop)
         // console.log(JSON.stringify(res))
         // console.log('--------update--------')
 
