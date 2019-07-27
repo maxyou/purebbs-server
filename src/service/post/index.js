@@ -19,7 +19,10 @@ module.exports = {
             postId, 
             author:calc.getUserData(ctx).name,
             authorId:calc.getUserData(ctx)._id,
-            avatarFileName:calc.getUserData(ctx).avatarFileName
+            avatarFileName:calc.getUserData(ctx).avatarFileName,
+            created:Date.now(),
+            updated:Date.now(),
+            allUpdated:Date.now(),
         }
         var res = await db.post.add(post)
 

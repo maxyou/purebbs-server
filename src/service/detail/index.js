@@ -99,7 +99,9 @@ module.exports = {
         var commentWithAuthor = {...comment, 
             author:calc.getUserData(ctx).name,
             authorId:calc.getUserData(ctx)._id,
-            avatarFileName:calc.getUserData(ctx).avatarFileName
+            avatarFileName:calc.getUserData(ctx).avatarFileName,
+            created: Date.now(),
+            updated: Date.now(),
         }
         
         // console.log('--------post/index.js-------detailCommentAdd')
@@ -126,11 +128,10 @@ module.exports = {
             post.commentNum += 1
             
             console.log('update post lastReply')
-            post.lastReply = {
-                lastReplyId: commentWithAuthor.authorId,
-                lastReplyName: commentWithAuthor.author,
-                lastReplyTime: Date.now(),
-            }
+            post.lastReplyId = commentWithAuthor.authorId
+            post.lastReplyName = commentWithAuthor.author
+            post.lastReplyTime = Date.now()
+            post.allUpdated =  Date.now()
             console.log('update post lastReply 2')
 
             await db.detail.postFindByIdAndUpdate(post)
@@ -203,13 +204,9 @@ module.exports = {
             return { code: -2, message: '权限不够' };
         }
 
-        // console.log('-----service findByIdAndUpdate-------')
-        // console.log(JSON.stringify(post))
+        comment.updated = Date.now() //但是post的allUpdated不更新
 
         var res = await db.detail.findByIdAndUpdate(comment)
-        // console.log('--------update--------')
-        // console.log(JSON.stringify(res))
-        // console.log('--------update--------')
 
         if (res) {//或者比较返回值的name属性？
             return { code: 0, message: '更改成功', res: res };
@@ -234,6 +231,9 @@ module.exports = {
 
         // console.log('-----service postFindByIdAndUpdate-------')
         // console.log(JSON.stringify(post))
+
+        post.updated = Date.now()
+        post.allUpdated = Date.now()
 
         var res = await db.detail.postFindByIdAndUpdate(post)
         // console.log('--------update--------')

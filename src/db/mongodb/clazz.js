@@ -26,18 +26,25 @@ module.exports = {
     Post: {//must capitalized
         author: { type: String, default: 'unknown' },
         authorId: { type: String, default: '-1' },
-        // avatarFileName: { type: String},
         postId: { type: String},
+        
         title: { type: String, default: 'no title' },
         content: { type: String, default: 'no content' },
         commentNum: { type: Number, default: 0 },
-        lastReply:{
-            lastReplyId: { type: String},
-            lastReplyName: { type: String},
-            lastReplyTime: { type: Date },
-        },
-        updated: { type: Date, default: Date.now },
-        created: { type: Date, default: Date.now },
+        
+        lastReplyId: { type: String},
+        lastReplyName: { type: String},
+        
+        lastReplyTime: { type: Date },
+        updated: { type: Date },
+        created: { type: Date },
+        
+        /**
+         * 包含created+updated+lastReplyTime
+         * 但是comment的update不包含，这个更新通常不影响帖子排序
+         */
+        allUpdated:{ type: Date },
+
         extend: { 
             addChoice:{type: String},
             addLineup:{
@@ -73,7 +80,7 @@ module.exports = {
         // avatarFileName: { type: String},
         postId: { type: String, default: '-1' },
         content: { type: String, default: 'no content' },
-        updated: { type: Date, default: Date.now },
-        created: { type: Date, default: Date.now },
+        updated: { type: Date },
+        created: { type: Date },
     }
 }
