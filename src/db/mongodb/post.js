@@ -27,7 +27,7 @@ module.exports = {
                 {
                     "$facet":{
                         "docs":[
-                            { "$match": { }},
+                            { "$match": query},
                             { "$project": project},
                             { "$sort": options.sort }, //注意次序，要先sort，再skip+limit
                             { "$skip": options.offset },
@@ -160,6 +160,14 @@ module.exports = {
         
         var res = await config.getModel('Comment').deleteMany({postId: postId})
         // console.log('-----db findCommentByPostIdAndDelete-------res:')
+        // console.log(res)
+        return res
+    },
+    async findAndCount(query) {
+        
+        console.log('-----db findAndCount-------')
+        var res = await await config.getModel('Post').countDocuments(query)
+        console.log('-----db findAndCount-------res:')
         // console.log(res)
         return res
     },
