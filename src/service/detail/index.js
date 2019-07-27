@@ -1,15 +1,16 @@
 const db = require('../../db')
 const { time, calc } = require('../../tool')
+const { command } = require('../common')
 
 // console.log('--------detail/index.js-------')
 
 module.exports = {
 
-    async detailPostGet(v, ctx) {        
+    async detailPostGet(v, ctx) {
         await time.delay(100)
-        
+
         const params = JSON.parse(v)
-        
+
         console.log('service params:')
         console.log(params.condition)
         console.log(params.select)
@@ -19,46 +20,46 @@ module.exports = {
 
         //过滤匿名数据
         var user = calc.getUserData(ctx)
-        if(res && res.extend){
-            if(res.extend.lineupData){
+        if (res && res.extend) {
+            if (res.extend.lineupData) {
                 var hasCtxUser = false
-                var afterFilter = res.extend.lineupData.map((v)=>{
-                    if(v._id == user._id){
+                var afterFilter = res.extend.lineupData.map((v) => {
+                    if (v._id == user._id) {
                         hasCtxUser = true
                     }
-                    if(v.anonymous){
+                    if (v.anonymous) {
                         return {
                             ...v,
                             _id: 'anonymous',
                             name: 'anonymous',
                             anonymous: 'anonymous',
                         }
-                    }else{
+                    } else {
                         return v
                     }
                 })
                 res.extend.hasCtxUser = hasCtxUser
                 res.extend.lineupData = afterFilter
             }
-            if(res.extend.voteData){
+            if (res.extend.voteData) {
                 var hasCtxUser = false
-                var afterFilter = res.extend.voteData.map((vv)=>{
+                var afterFilter = res.extend.voteData.map((vv) => {
                     console.log('vv:')
                     console.log(vv)
-                    return vv.map((v)=>{
+                    return vv.map((v) => {
                         console.log('v:')
                         console.log(v)
-                        if(v._id == user._id){
+                        if (v._id == user._id) {
                             hasCtxUser = true
                         }
-                        if(v.anonymous){
+                        if (v.anonymous) {
                             return {
                                 ...v,
                                 _id: 'anonymous',
                                 name: 'anonymous',
                                 anonymous: 'anonymous',
                             }
-                        }else{
+                        } else {
                             return v
                         }
                     })
@@ -76,7 +77,7 @@ module.exports = {
         // console.log(res)
 
 
-        return { code: 0, message: '获取数据成功', data: res};
+        return { code: 0, message: '获取数据成功', data: res };
     },
 
     async getByPaginate(query) {
@@ -96,14 +97,15 @@ module.exports = {
 
         await time.delay(100)
 
-        var commentWithAuthor = {...comment, 
-            author:calc.getUserData(ctx).name,
-            authorId:calc.getUserData(ctx)._id,
-            avatarFileName:calc.getUserData(ctx).avatarFileName,
+        var commentWithAuthor = {
+            ...comment,
+            author: calc.getUserData(ctx).name,
+            authorId: calc.getUserData(ctx)._id,
+            avatarFileName: calc.getUserData(ctx).avatarFileName,
             created: Date.now(),
             updated: Date.now(),
         }
-        
+
         // console.log('--------post/index.js-------detailCommentAdd')
         var res = await db.detail.detailCommentAdd(commentWithAuthor)
 
@@ -121,17 +123,17 @@ module.exports = {
             // console.log(project)
 
             // var post = await db.detail.detailPostGet({postId:comment.postId}, 'postId content author authorId updated created avatarFileName')            
-            var post = await db.detail.detailPostGet({postId:comment.postId}, 'commentNum')
+            var post = await db.detail.detailPostGet({ postId: comment.postId }, 'commentNum')
             console.log('update post comment num')
             console.log(post)
             post.commentNum = post.commentNum || 0
             post.commentNum += 1
-            
+
             console.log('update post lastReply')
             post.lastReplyId = commentWithAuthor.authorId
             post.lastReplyName = commentWithAuthor.author
             post.lastReplyTime = Date.now()
-            post.allUpdated =  Date.now()
+            post.allUpdated = Date.now()
             console.log('update post lastReply 2')
 
             await db.detail.postFindByIdAndUpdate(post)
@@ -146,11 +148,11 @@ module.exports = {
         await time.delay(100)
 
         const user = calc.getUserData(ctx)
-        if(user.role=='bm'){
+        if (user.role == 'bm') {
             console.log('-----you are bm-------')
-        }else if(user._id==comment.authorId){
+        } else if (user._id == comment.authorId) {
             console.log('-----you delete your comment-------')
-        }else{
+        } else {
             console.log('-----you delete failed for authority-------')
             return { code: -2, message: '权限不够' };
         }
@@ -175,11 +177,11 @@ module.exports = {
             // console.log(project)
 
             // var post = await db.detail.detailPostGet({postId:comment.postId}, 'postId content author authorId updated created avatarFileName')            
-            var post = await db.detail.detailPostGet({postId:comment.postId}, 'commentNum')
+            var post = await db.detail.detailPostGet({ postId: comment.postId }, 'commentNum')
             console.log('update post comment num')
             console.log(post)
             post.commentNum = post.commentNum || 0
-            if(post.commentNum > 0){
+            if (post.commentNum > 0) {
                 post.commentNum -= 1
             }
             await db.detail.postFindByIdAndUpdate(post)
@@ -195,11 +197,11 @@ module.exports = {
         await time.delay(100)
 
         const user = calc.getUserData(ctx)
-        if(user.role=='bm'){
+        if (user.role == 'bm') {
             console.log('-----you are bm-------')
-        }else if(user._id==comment.authorId){
+        } else if (user._id == comment.authorId) {
             console.log('-----you update your comment-------')
-        }else{
+        } else {
             console.log('-----you update failed for authority-------')
             return { code: -2, message: '权限不够' };
         }
@@ -222,11 +224,11 @@ module.exports = {
         await time.delay(100)
 
         const user = calc.getUserData(ctx)
-        if(user.role=='bm'){
+        if (user.role == 'bm') {
             console.log('-----you are bm-------')
-        }else if(user._id==post.authorId){
+        } else if (user._id == post.authorId) {
             console.log('-----you update your post-------')
-        }else{
+        } else {
             console.log('-----you update failed for authority-------')
             return { code: -2, message: '权限不够' };
         }
@@ -240,7 +242,7 @@ module.exports = {
         post.allUpdated = Date.now()
 
         var res = await db.detail.postFindByIdAndUpdate(post)
-        console.log('--------update------------------------stickTop:'+post.stickTop)
+        console.log('--------update------------------------stickTop:' + post.stickTop)
         // console.log(JSON.stringify(res))
         // console.log('--------update--------')
 
@@ -256,17 +258,48 @@ module.exports = {
         await time.delay(100)
 
         const user = calc.getUserData(ctx)
-        if(user.role=='bm'){
-            console.log('-----you are bm-------')
-        }else if(user._id==post.authorId){
-            console.log('-----you update your post-------')
-        }else{
-            console.log('-----you update failed for authority-------')
-            return { code: -2, message: '权限不够' };
+        // if (user.role == 'bm') {
+        //     console.log('-----you are bm-------')
+        // } else if (user._id == post.authorId) {
+        //     console.log('-----you update your post-------')
+        // } else {
+        //     console.log('-----you update failed for authority-------')
+        //     return { code: -2, message: '权限不够' };
+        // }
+
+        console.log('--------attach------------------------post:')
+        console.log(JSON.stringify(post))
+        console.log(post.postId)
+        console.log(post._id)
+
+        console.log('--------attach-----------:' + command.ATTACH_ACTION.ATTACH_STICK_TOP_SET)
+        console.log('--------attach-----------:' + command.ATTACH_ACTION.ATTACH_STICK_TOP_CANCEL)
+
+        switch (post.attachCmd) {
+            case command.ATTACH_ACTION.ATTACH_STICK_TOP_SET:
+                if (user.role == 'bm') {
+
+                } else {
+                    break
+                }
+                console.log('--------attach-----------:' + command.ATTACH_ACTION.ATTACH_STICK_TOP_SET)
+                post.stickTop = true
+                break
+            case command.ATTACH_ACTION.ATTACH_STICK_TOP_CANCEL:
+                if (user.role == 'bm') {
+
+                } else {
+                    break
+                }
+                console.log('--------attach-----------:' + command.ATTACH_ACTION.ATTACH_STICK_TOP_CANCEL)
+                post.stickTop = false
+                break
+            default:
         }
 
+        console.log(JSON.stringify(post))
+
         var res = await db.detail.postFindByIdAndUpdate(post)
-        console.log('--------attach------------------------stickTop:'+post.stickTop)
         // console.log(JSON.stringify(res))
         // console.log('--------update--------')
 

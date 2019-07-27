@@ -181,6 +181,9 @@ module.exports = {
     async postFindByIdAndUpdate(post) {
 
         console.log('-----db postFindByIdAndUpdate-------post:')
+        console.log(JSON.stringify(post))
+        console.log(post.postId)
+        console.log(post._id)
 
         return await config.getModel('Post').findByIdAndUpdate(post._id, post)
     },
