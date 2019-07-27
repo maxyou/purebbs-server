@@ -45,13 +45,13 @@ module.exports = {
 
         var paginateQuery = JSON.parse(query)//parse才能把字符串‘-1’解析为数字‘-1’
         const {offset, limit} = paginateQuery.options
-        console.log('=========service post count================0')
-        console.log(offset)
-        console.log(limit)
-        console.log('=========service post count================1')
+        // console.log('=========service post count================0')
+        // console.log(offset)
+        // console.log(limit)
+        // console.log('=========service post count================1')
         var stickTopCount = await db.post.findAndCount({stickTop: {$eq:true}})
-        console.log('=========service post count================2')
-        console.log(stickTopCount)
+        // console.log('=========service post count================2')
+        // console.log(stickTopCount)
 
         /**
          * 判断所需页面里面有没有stickTop的
@@ -67,40 +67,40 @@ module.exports = {
          */
         if(offset > (stickTopCount-1)){ //没有stickTop
 
-            console.log('=========service post offset > stickTopCount, no stick================')
+            // console.log('=========service post offset > stickTopCount, no stick================')
             
             paginateQuery.options = {...paginateQuery.options, offset:offset-stickTopCount}
             paginateQuery.query = {...paginateQuery.query, stickTop: false}
             
             var res = await db.post.getByPaginate(paginateQuery.query, paginateQuery.options)
             // console.log('service post getByPaginate----2')
-            console.log(res.docs)
+            // console.log(res.docs)
             return { code: 0, message: '获取数据成功', data: res.docs, totalDocs: totalDocs };
                 
         }else if((offset+limit-1) <= (stickTopCount-1)){ //全是stickTop
 
-            console.log('=========service post offset+limit < stickTopCount, all stick================')
+            // console.log('=========service post offset+limit < stickTopCount, all stick================')
             
             paginateQuery.query = {...paginateQuery.query, stickTop: true}
 
             var res = await db.post.getByPaginate(paginateQuery.query, paginateQuery.options)
             // console.log('service post getByPaginate----2')
-            console.log(res.docs)
+            // console.log(res.docs)
             return { code: 0, message: '获取数据成功', data: res.docs, totalDocs: totalDocs };
                 
         }else{ //一部分是stickTop
 
-            console.log('=========service post offset < stickTopCount < offset+limit, some stick================')
+            // console.log('=========service post offset < stickTopCount < offset+limit, some stick================')
 
             paginateQuery.options = {...paginateQuery.options, limit:stickTopCount}
             paginateQuery.query = {...paginateQuery.query, stickTop: true}
             var resStickTop = await db.post.getByPaginate(paginateQuery.query, paginateQuery.options)
-            console.log(resStickTop.docs)
+            // console.log(resStickTop.docs)
             
             paginateQuery.options = {...paginateQuery.options, offset:0, limit:offset+limit-stickTopCount}
             paginateQuery.query = {...paginateQuery.query, stickTop: false}
             var resNoneStickTop = await db.post.getByPaginate(paginateQuery.query, paginateQuery.options)
-            console.log(resNoneStickTop.docs)
+            // console.log(resNoneStickTop.docs)
 
 
 
