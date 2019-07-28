@@ -343,7 +343,7 @@ module.exports = {
                 //     break
                 // }
                 console.log('--------attach-----------:' + command.ATTACH_ACTION.ATTACH_LIKE_CANCEL)
-                var post = await db.detail.detailPostGet({ _id: ObjectId(cmd._id) }, '_id likeNum')
+                var post = await db.detail.detailPostGet({ _id: ObjectId(cmd._id) }, '_id likeNum likeUser')
                 console.log(post.likeNum)
                 post.likeNum = post.likeNum || 0
                 if (post.likeNum > 0) {
@@ -356,6 +356,87 @@ module.exports = {
                 })
                 console.log(post.likeNum)
                 res = await db.detail.postFindByIdAndUpdate(post)
+                break
+            default:
+        }
+
+        // var res = await db.detail.postFindByIdAndUpdate(post)
+        // console.log(JSON.stringify(res))
+        // console.log('--------update--------')
+
+        if (res) {//或者比较返回值的name属性？
+            return { code: 0, message: '更改成功', res: res };
+        } else {
+            return { code: -1, message: '更改异常' };
+        }
+
+    },
+    async commentFindByIdAndAttach(cmd, ctx) {
+
+        await time.delay(100)
+
+        if (!calc.isLogin(ctx)) {
+            return { code: -1, message: '需要登录' };
+        }
+
+        const user = calc.getUserData(ctx)
+        // if (user.role == 'bm') {
+        //     console.log('-----you are bm-------')
+        // } else if (user._id == post.authorId) {
+        //     console.log('-----you update your post-------')
+        // } else {
+        //     console.log('-----you update failed for authority-------')
+        //     return { code: -2, message: '权限不够' };
+        // }
+
+        console.log('--------attach------------------------comment:')
+        console.log(JSON.stringify(cmd))
+        console.log(cmd._id)
+
+        /**
+         * 有的cmd直接写post，有的需要先读出post，修改后再写入
+         */
+
+        var res
+        switch (cmd.attachCmd) {
+
+            case command.ATTACH_ACTION.ATTACH_LIKE_SET:
+                
+                console.log('--------attach comment-----------:' + command.ATTACH_ACTION.ATTACH_LIKE_SET)
+                var comment = await db.detail.commentFindById({ _id: ObjectId(cmd._id) }, '_id likeNum likeUser')
+                console.log(comment)
+                console.log(comment.likeNum)
+                comment.likeNum = comment.likeNum || 0
+                comment.likeNum = comment.likeNum + 1
+                console.log(comment.likeNum)
+                comment.likeUser = comment.likeUser || []
+                if (comment.likeUser.some((v) => {
+                    return v._id == user._id
+                })) {
+
+                } else {
+                    comment.likeUser.push({ _id: user._id, name: user.name })
+                }
+                res = await db.detail.findByIdAndUpdate(comment)
+                break
+            case command.ATTACH_ACTION.ATTACH_LIKE_CANCEL:
+                // if (!user.isLogin) {
+                //     break
+                // }
+                console.log('--------attach comment-----------:' + command.ATTACH_ACTION.ATTACH_LIKE_CANCEL)
+                var comment = await db.detail.commentFindById({ _id: ObjectId(cmd._id) }, '_id likeNum likeUser')
+                console.log(comment.likeNum)
+                comment.likeNum = comment.likeNum || 0
+                if (comment.likeNum > 0) {
+                    console.log(comment.likeNum)
+                    comment.likeNum = comment.likeNum - 1
+                }
+                comment.likeUser = comment.likeUser || []
+                comment.likeUser = comment.likeUser.filter((v) => {
+                    return v._id != user._id
+                })
+                console.log(comment.likeNum)
+                res = await db.detail.findByIdAndUpdate(comment)
                 break
             default:
         }

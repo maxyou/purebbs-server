@@ -179,6 +179,9 @@ module.exports = {
         // console.log('--------db/mongodb/user.js-------addUser---getModel')
         return await config.getModel('Comment').findByIdAndUpdate(comment._id, comment);
     },
+    async commentFindById(comment) {
+        return await config.getModel('Comment').findById(comment._id);
+    },
 
     async postFindByIdAndUpdate(post) {
 
