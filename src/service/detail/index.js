@@ -110,16 +110,16 @@ module.exports = {
          */
         let user = calc.getUserData(ctx)
         let data = res.docs.map((v)=>{
-            let hasCurrentUser = false
+            let likeHasCurrentUser = false
             if(v.likeUser){
-                hasCurrentUser = v.likeUser.some((vv)=>{
+                likeHasCurrentUser = v.likeUser.some((vv)=>{
                     return vv._id == user._id
                 })
             }
-            v.hasCurrentUser = hasCurrentUser
+            v.likeHasCurrentUser = likeHasCurrentUser
             // console.log(v.content)
             // console.log(user.name)
-            // console.log(hasCurrentUser)
+            // console.log(likeHasCurrentUser)
             return v
         })
         // try{
