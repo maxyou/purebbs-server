@@ -30,8 +30,14 @@ module.exports = {
         
         title: { type: String, default: 'no title' },
         content: { type: String, default: 'no content' },
+
         commentNum: { type: Number, default: 0 },
-        
+        likeNum: { type: Number, default: 0 },
+        likeUser: [{
+            _id: String,
+            name: String,
+        }],
+
         lastReplyId: { type: String},
         lastReplyName: { type: String},        
         lastReplyTime: { type: Date },
@@ -56,7 +62,7 @@ module.exports = {
                 expireTime: { type: Date },
             },
             lineupData: [{
-                id: String, //ObjectId,
+                _id: String, //ObjectId,
                 name: String,
                 anonymous: Boolean,
                 message: String
@@ -69,7 +75,7 @@ module.exports = {
                 // expireTimeUTC: { type: Date },                
             },
             voteData:[[{
-                id: String, //ObjectId,
+                _id: String, //ObjectId,
                 name: String,
                 anonymous: Boolean,
             }]]
@@ -86,5 +92,12 @@ module.exports = {
         updatedByName: { type: String},
         updated: { type: Date },
         created: { type: Date },
+
+        likeNum: { type: Number, default: 0 },
+        likeUser: [{
+            _id: String,
+            name: String,
+        }],
+
     }
 }

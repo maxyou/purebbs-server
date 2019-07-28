@@ -7,6 +7,8 @@ module.exports = {
     async detailPostGet(condition, select) {
 
         console.log('---------db detail get--------------')
+        console.log(condition)
+        console.log(select)
         
         var project = {}
         if(select){
@@ -182,7 +184,7 @@ module.exports = {
 
         console.log('-----db postFindByIdAndUpdate-------post:')
         console.log(JSON.stringify(post))
-        console.log(post.postId)
+        // console.log(post.postId)
         console.log(post._id)
 
         return await config.getModel('Post').findByIdAndUpdate(post._id, post)

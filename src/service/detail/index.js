@@ -1,6 +1,7 @@
 const db = require('../../db')
 const { time, calc } = require('../../tool')
 const { command } = require('../common')
+const ObjectId = require('mongodb').ObjectID
 
 // console.log('--------detail/index.js-------')
 
@@ -18,7 +19,7 @@ module.exports = {
         // console.log('service detail post get----')
         // console.log(res)
 
-        //过滤匿名数据
+        //extend过滤匿名数据
         var user = calc.getUserData(ctx)
         if (res && res.extend) {
             if (res.extend.lineupData) {
@@ -71,6 +72,19 @@ module.exports = {
                 res.extend.hasCtxUser = hasCtxUser
                 res.extend.voteData = afterFilter
             }
+        }
+
+        console.log('----------detail post get like user-------------')
+        console.log(res.likeUser)
+        if (res.likeUser) {
+            console.log('----------res.likeUser-------------')
+            res.likeHasCtxUser = res.likeUser.some((v) => {
+                return v._id == user._id
+            })
+            console.log(res.likeHasCtxUser)
+        } else {
+            res.likeHasCtxUser = false
+            console.log(res.likeHasCtxUser)
         }
 
         console.log('----------after filter-------------')
@@ -253,9 +267,13 @@ module.exports = {
         }
 
     },
-    async postFindByIdAndAttach(post, ctx) {
+    async postFindByIdAndAttach(cmd, ctx) {
 
         await time.delay(100)
+
+        if (!calc.isLogin(ctx)) {
+            return { code: -1, message: '需要登录' };
+        }
 
         const user = calc.getUserData(ctx)
         // if (user.role == 'bm') {
@@ -268,14 +286,15 @@ module.exports = {
         // }
 
         console.log('--------attach------------------------post:')
-        console.log(JSON.stringify(post))
-        console.log(post.postId)
-        console.log(post._id)
+        console.log(JSON.stringify(cmd))
+        console.log(cmd._id)
 
-        console.log('--------attach-----------:' + command.ATTACH_ACTION.ATTACH_STICK_TOP_SET)
-        console.log('--------attach-----------:' + command.ATTACH_ACTION.ATTACH_STICK_TOP_CANCEL)
+        /**
+         * 有的cmd直接写post，有的需要先读出post，修改后再写入
+         */
 
-        switch (post.attachCmd) {
+        var res
+        switch (cmd.attachCmd) {
             case command.ATTACH_ACTION.ATTACH_STICK_TOP_SET:
                 if (user.role == 'bm') {
 
@@ -283,7 +302,9 @@ module.exports = {
                     break
                 }
                 console.log('--------attach-----------:' + command.ATTACH_ACTION.ATTACH_STICK_TOP_SET)
-                post.stickTop = true
+                var post = { _id: cmd._id, stickTop: true }
+                console.log(post)
+                res = await db.detail.postFindByIdAndUpdate(post)
                 break
             case command.ATTACH_ACTION.ATTACH_STICK_TOP_CANCEL:
                 if (user.role == 'bm') {
@@ -292,14 +313,54 @@ module.exports = {
                     break
                 }
                 console.log('--------attach-----------:' + command.ATTACH_ACTION.ATTACH_STICK_TOP_CANCEL)
-                post.stickTop = false
+                var post = { _id: cmd._id, stickTop: false }
+                console.log(post)
+                res = await db.detail.postFindByIdAndUpdate(post)
+                break
+            case command.ATTACH_ACTION.ATTACH_LIKE_SET:
+                // if (!user.isLogin) {
+                //     break
+                // }
+                console.log('--------attach-----------:' + command.ATTACH_ACTION.ATTACH_LIKE_SET)
+                var post = await db.detail.detailPostGet({ _id: ObjectId(cmd._id) }, '_id likeNum likeUser')
+                console.log(post)
+                console.log(post.likeNum)
+                post.likeNum = post.likeNum || 0
+                post.likeNum = post.likeNum + 1
+                console.log(post.likeNum)
+                post.likeUser = post.likeUser || []
+                if (post.likeUser.some((v) => {
+                    return v._id == user._id
+                })) {
+
+                } else {
+                    post.likeUser.push({ _id: user._id, name: user.name })
+                }
+                res = await db.detail.postFindByIdAndUpdate(post)
+                break
+            case command.ATTACH_ACTION.ATTACH_LIKE_CANCEL:
+                // if (!user.isLogin) {
+                //     break
+                // }
+                console.log('--------attach-----------:' + command.ATTACH_ACTION.ATTACH_LIKE_CANCEL)
+                var post = await db.detail.detailPostGet({ _id: ObjectId(cmd._id) }, '_id likeNum')
+                console.log(post.likeNum)
+                post.likeNum = post.likeNum || 0
+                if (post.likeNum > 0) {
+                    console.log(post.likeNum)
+                    post.likeNum = post.likeNum - 1
+                }
+                post.likeUser = post.likeUser || []
+                post.likeUser = post.likeUser.filter((v) => {
+                    return v._id != user._id
+                })
+                console.log(post.likeNum)
+                res = await db.detail.postFindByIdAndUpdate(post)
                 break
             default:
         }
 
-        console.log(JSON.stringify(post))
-
-        var res = await db.detail.postFindByIdAndUpdate(post)
+        // var res = await db.detail.postFindByIdAndUpdate(post)
         // console.log(JSON.stringify(res))
         // console.log('--------update--------')
 
