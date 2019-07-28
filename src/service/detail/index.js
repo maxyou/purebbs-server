@@ -346,12 +346,8 @@ module.exports = {
                 //     break
                 // }
                 console.log('--------attach-----------:' + command.ATTACH_ACTION.ATTACH_LIKE_SET)
-                var post = await db.detail.detailPostGet({ _id: ObjectId(cmd._id) }, '_id likeNum likeUser')
+                var post = await db.detail.detailPostGet({ _id: ObjectId(cmd._id) }, '_id likeUser')
                 console.log(post)
-                console.log(post.likeNum)
-                post.likeNum = post.likeNum || 0
-                post.likeNum = post.likeNum + 1
-                console.log(post.likeNum)
                 post.likeUser = post.likeUser || []
                 if (post.likeUser.some((v) => {
                     return v._id == user._id
@@ -367,18 +363,11 @@ module.exports = {
                 //     break
                 // }
                 console.log('--------attach-----------:' + command.ATTACH_ACTION.ATTACH_LIKE_CANCEL)
-                var post = await db.detail.detailPostGet({ _id: ObjectId(cmd._id) }, '_id likeNum likeUser')
-                console.log(post.likeNum)
-                post.likeNum = post.likeNum || 0
-                if (post.likeNum > 0) {
-                    console.log(post.likeNum)
-                    post.likeNum = post.likeNum - 1
-                }
+                var post = await db.detail.detailPostGet({ _id: ObjectId(cmd._id) }, '_id likeUser')
                 post.likeUser = post.likeUser || []
                 post.likeUser = post.likeUser.filter((v) => {
                     return v._id != user._id
                 })
-                console.log(post.likeNum)
                 res = await db.detail.postFindByIdAndUpdate(post)
                 break
             default:
@@ -427,12 +416,8 @@ module.exports = {
             case command.ATTACH_ACTION.ATTACH_LIKE_SET:
                 
                 console.log('--------attach comment-----------:' + command.ATTACH_ACTION.ATTACH_LIKE_SET)
-                var comment = await db.detail.commentFindById({ _id: ObjectId(cmd._id) }, '_id likeNum likeUser')
+                var comment = await db.detail.commentFindById({ _id: ObjectId(cmd._id) }, '_id likeUser')
                 console.log(comment)
-                console.log(comment.likeNum)
-                comment.likeNum = comment.likeNum || 0
-                comment.likeNum = comment.likeNum + 1
-                console.log(comment.likeNum)
                 comment.likeUser = comment.likeUser || []
                 if (comment.likeUser.some((v) => {
                     return v._id == user._id
@@ -448,18 +433,11 @@ module.exports = {
                 //     break
                 // }
                 console.log('--------attach comment-----------:' + command.ATTACH_ACTION.ATTACH_LIKE_CANCEL)
-                var comment = await db.detail.commentFindById({ _id: ObjectId(cmd._id) }, '_id likeNum likeUser')
-                console.log(comment.likeNum)
-                comment.likeNum = comment.likeNum || 0
-                if (comment.likeNum > 0) {
-                    console.log(comment.likeNum)
-                    comment.likeNum = comment.likeNum - 1
-                }
+                var comment = await db.detail.commentFindById({ _id: ObjectId(cmd._id) }, '_id likeUser')
                 comment.likeUser = comment.likeUser || []
                 comment.likeUser = comment.likeUser.filter((v) => {
                     return v._id != user._id
                 })
-                console.log(comment.likeNum)
                 res = await db.detail.findByIdAndUpdate(comment)
                 break
             default:

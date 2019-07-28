@@ -32,7 +32,6 @@ module.exports = {
         content: { type: String, default: 'no content' },
 
         commentNum: { type: Number, default: 0 },
-        likeNum: { type: Number, default: 0 },
         likeUser: [{
             _id: String,
             name: String,
@@ -93,7 +92,6 @@ module.exports = {
         updated: { type: Date },
         created: { type: Date },
 
-        likeNum: { type: Number, default: 0 },
         likeUser: [{
             _id: String,
             name: String,
