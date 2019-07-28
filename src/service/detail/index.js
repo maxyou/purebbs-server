@@ -78,13 +78,13 @@ module.exports = {
         console.log(res.likeUser)
         if (res.likeUser) {
             console.log('----------res.likeUser-------------')
-            res.likeHasCtxUser = res.likeUser.some((v) => {
+            res.likeHasCurrentUser = res.likeUser.some((v) => {
                 return v._id == user._id
             })
-            console.log(res.likeHasCtxUser)
+            console.log(res.likeHasCurrentUser)
         } else {
-            res.likeHasCtxUser = false
-            console.log(res.likeHasCtxUser)
+            res.likeHasCurrentUser = false
+            console.log(res.likeHasCurrentUser)
         }
 
         console.log('----------after filter-------------')
@@ -94,16 +94,40 @@ module.exports = {
         return { code: 0, message: '获取数据成功', data: res };
     },
 
-    async getByPaginate(query) {
+    async getByPaginate(query, ctx) {
 
         await time.delay(100)
 
         // console.log('service comment getByPaginate')
         var paginateQuery = JSON.parse(query)//parse才能把字符串‘-1’解析为数字‘-1’
         var res = await db.detail.getByPaginate(paginateQuery.query, paginateQuery.options)
-        // console.log('service comment getByPaginate----2')
+        // console.log('service comment getByPaginate--------------2')
         // console.log(res)
-        return { code: 0, message: '获取数据成功', data: res.docs, totalDocs: res.totalDocs };
+
+        /**
+         * 计算点赞中有没有当前用户
+         * 客户端不方便计算，所以放在服务器端
+         */
+        let user = calc.getUserData(ctx)
+        let data = res.docs.map((v)=>{
+            let hasCurrentUser = false
+            if(v.likeUser){
+                hasCurrentUser = v.likeUser.some((vv)=>{
+                    return vv._id == user._id
+                })
+            }
+            v.hasCurrentUser = hasCurrentUser
+            // console.log(v.content)
+            // console.log(user.name)
+            // console.log(hasCurrentUser)
+            return v
+        })
+        // try{
+        // }catch(e){
+        //     console.log(e)
+        // }
+        // console.log(data)
+        return { code: 0, message: '获取数据成功', data: data, totalDocs: res.totalDocs };
 
     },
 

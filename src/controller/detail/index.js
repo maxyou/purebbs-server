@@ -59,7 +59,7 @@ module.exports = {
         // console.log(ctx.request.query.sort._id)
         const pageInfo = ctx.request.query.pageInfo
         // console.log(pageInfo)
-        var result = await service.getByPaginate(pageInfo);//必须parse才能把字符串‘-1’解析为数字‘-1’
+        var result = await service.getByPaginate(pageInfo, ctx);//必须parse才能把字符串‘-1’解析为数字‘-1’
         // var result = await service.getByPaginate(pageInfo);//不行
         // console.log('-----comment getByPaginate result------------------')
         // console.log(result)
