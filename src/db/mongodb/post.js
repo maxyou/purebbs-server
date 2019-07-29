@@ -61,7 +61,8 @@ module.exports = {
                             },
 
                         ],
-                        "totalDocs":[
+                        "totalDocs":[ //在server层已经获取了totalDocs，这里可以省略了
+                            { "$match": query},
                             { "$count": "count" }
                         ]
                     }
@@ -92,8 +93,10 @@ module.exports = {
         //     console.log(e)
         // }
 
-        // console.log('---------db getByPaginate totalDocs --------------3')
-        // console.log(totalDocs)
+        // console.log('---------db getByPaginate return --------------3')
+        // console.log(a)
+        // console.log(a[0].docs)
+        // console.log(a[0].totalDocs[0]?a[0].totalDocs[0].count:0)
 
         return {
             docs:a[0].docs, 
@@ -166,6 +169,7 @@ module.exports = {
     async findAndCount(query) {
         
         console.log('-----db findAndCount-------')
+        console.log(query)
         var res = await await config.getModel('Post').countDocuments(query)
         console.log('-----db findAndCount-------res:')
         // console.log(res)

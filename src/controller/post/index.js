@@ -1,5 +1,6 @@
 // const Service = require('./service')
 const {post:service} = require('../../service')
+const {detail:detailService} = require('../../service')
 
 module.exports = {
     '/post/add': async (ctx, next) => {
@@ -42,11 +43,16 @@ module.exports = {
         // console.log(ctx.request.query.sort._id)
         const pageInfo = ctx.request.query.pageInfo
         // console.log(pageInfo)
-        var result = await service.getByPaginate(pageInfo);
+        var result = await service.getByPaginate(pageInfo, ctx);
         // var result = await service.getByPaginate(pageInfo);//不行
         // console.log('-----getByPaginate result------------------')
         // console.log(result)
         ctx.body=result;
     },    
-
+    '/post/findByIdAndAttach': async (ctx, next) =>{
+        // console.log('-----controller findByIdAndAttach-------')
+        var post = ctx.request.body
+        var result = await detailService.postFindByIdAndAttach(post, ctx);
+        ctx.body=result;
+    },
 }

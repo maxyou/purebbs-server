@@ -37,20 +37,26 @@ module.exports = {
         }
     },
     
-    async getByPaginate(query) {
+    async getByPaginate(query, ctx) {
 
         await time.delay(100)
 
-        var totalDocs = await db.post.findAndCount()
+        let user = calc.getUserData(ctx)
 
         var paginateQuery = JSON.parse(query)//parse才能把字符串‘-1’解析为数字‘-1’
+
+        var totalDocs = await db.post.findAndCount(paginateQuery.query)
+        // console.log('-----service post getByPaginate findAndCount totalDocs-------')
+        // console.log(totalDocs)
+
+
         const {offset, limit} = paginateQuery.options
         // console.log('=========service post count================0')
         // console.log(offset)
         // console.log(limit)
         // console.log('=========service post count================1')
-        var stickTopCount = await db.post.findAndCount({stickTop: {$eq:true}})
-        // console.log('=========service post count================2')
+        var stickTopCount = await db.post.findAndCount({...paginateQuery.query, stickTop: {$eq:true}})
+        // console.log('service post stickTopCount:')
         // console.log(stickTopCount)
 
         /**
@@ -65,17 +71,21 @@ module.exports = {
          *      再搜非stickTop部分，从0到offset+limit-stickTopCount
          * 
          */
+
+        var docs
         if(offset > (stickTopCount-1)){ //没有stickTop
 
             // console.log('=========service post offset > stickTopCount, no stick================')
             
             paginateQuery.options = {...paginateQuery.options, offset:offset-stickTopCount}
-            paginateQuery.query = {...paginateQuery.query, stickTop: false}
+            paginateQuery.query = {...paginateQuery.query, stickTop: false}            
             
             var res = await db.post.getByPaginate(paginateQuery.query, paginateQuery.options)
             // console.log('service post getByPaginate----2')
             // console.log(res.docs)
-            return { code: 0, message: '获取数据成功', data: res.docs, totalDocs: totalDocs };
+            
+            docs = res.docs
+            // return { code: 0, message: '获取数据成功', data: res.docs, totalDocs: totalDocs };
                 
         }else if((offset+limit-1) <= (stickTopCount-1)){ //全是stickTop
 
@@ -86,7 +96,9 @@ module.exports = {
             var res = await db.post.getByPaginate(paginateQuery.query, paginateQuery.options)
             // console.log('service post getByPaginate----2')
             // console.log(res.docs)
-            return { code: 0, message: '获取数据成功', data: res.docs, totalDocs: totalDocs };
+
+            docs = res.docs
+            // return { code: 0, message: '获取数据成功', data: res.docs, totalDocs: totalDocs };
                 
         }else{ //一部分是stickTop
 
@@ -107,26 +119,38 @@ module.exports = {
             // console.log('service post getByPaginate----2')
             // console.log(res.docs)
             
-            return { code: 0, message: '获取数据成功', data: resStickTop.docs.concat(resNoneStickTop.docs), totalDocs: totalDocs };
+            docs = resStickTop.docs.concat(resNoneStickTop.docs)
+
+            // return { code: 0, message: '获取数据成功', data: resStickTop.docs.concat(resNoneStickTop.docs), totalDocs: totalDocs };
     
         }
 
+        let docsWithCurrentLike = docs.map((v) => {
+            let likeHasCurrentUser = false
+            if (v.likeUser) {
+                likeHasCurrentUser = v.likeUser.some((vv) => {
+                    return vv._id == user._id
+                })
+            }
+            v.likeHasCurrentUser = likeHasCurrentUser
+            return v
+        })
 
-
+        return { code: 0, message: '获取数据成功', data: docsWithCurrentLike, totalDocs: totalDocs };
     },
 
-    async getByPaginateWithStickTop(query) {
+    // async getByPaginateWithStickTop(query) {
 
-        await time.delay(100)
+    //     await time.delay(100)
 
-        // console.log('service post getByPaginate')
+    //     // console.log('service post getByPaginate')
 
-        var result = await db.post.findAndCount({stickTop: true})
-        console.log(result)
+    //     var result = await db.post.findAndCount({stickTop: true})
+    //     console.log(result)
 
-        return { code: 0, message: '获取数据成功', data: res.docs, totalDocs: res.totalDocs };
+    //     return { code: 0, message: '获取数据成功', data: res.docs, totalDocs: res.totalDocs };
 
-    },
+    // },
 
 
     async findByIdAndDelete(post, ctx) {

@@ -30,6 +30,7 @@ module.exports = {
         
         title: { type: String, default: 'no title' },
         content: { type: String, default: 'no content' },
+        category: { type: String },
 
         commentNum: { type: Number, default: 0 },
         likeUser: [{

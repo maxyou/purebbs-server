@@ -37,6 +37,7 @@ module.exports = (app) => {
   router.get('/post/getpage', controller.post['/post/getByPaginate']);
   router.post('/post/findbyidanddelete', controller.post['/post/findByIdAndDelete']);
   // router.post('/post/findbyidandupdate', controller.post['/post/findByIdAndUpdate']);
+  router.post('/post/findbyidandattach', controller.post['/post/findByIdAndAttach']);
 
   //-----------detail--------------------
   router.get('/detail/post', controller.detail['/detail/post']);  

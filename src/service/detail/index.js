@@ -12,12 +12,12 @@ module.exports = {
 
         const params = JSON.parse(v)
 
-        console.log('service params:')
-        console.log(params.condition)
-        console.log(params.select)
+        // console.log('service params:')
+        // console.log(params.condition)
+        // console.log(params.select)
         var res = await db.detail.detailPostGet(params.condition, params.select)
-        console.log('service detail post get----')
-        console.log(res)
+        // console.log('service detail post get----')
+        // console.log(res)
 
         if (res) {
 
@@ -51,11 +51,11 @@ module.exports = {
             if (res.extend.voteData) {
                 var hasCtxUser = false
                 var afterFilter = res.extend.voteData.map((vv) => {
-                    console.log('vv:')
-                    console.log(vv)
+                    // console.log('vv:')
+                    // console.log(vv)
                     return vv.map((v) => {
-                        console.log('v:')
-                        console.log(v)
+                        // console.log('v:')
+                        // console.log(v)
                         if (v._id == user._id) {
                             hasCtxUser = true
                         }
@@ -80,20 +80,20 @@ module.exports = {
             }
         }
 
-        console.log('----------detail post get like user-------------')
-        console.log(res.likeUser)
+        // console.log('----------detail post get like user-------------')
+        // console.log(res.likeUser)
         if (res.likeUser) {
-            console.log('----------res.likeUser-------------')
+            // console.log('----------res.likeUser-------------')
             res.likeHasCurrentUser = res.likeUser.some((v) => {
                 return v._id == user._id
             })
-            console.log(res.likeHasCurrentUser)
+            // console.log(res.likeHasCurrentUser)
         } else {
             res.likeHasCurrentUser = false
-            console.log(res.likeHasCurrentUser)
+            // console.log(res.likeHasCurrentUser)
         }
 
-        console.log('----------after filter-------------')
+        // console.log('----------after filter-------------')
         // console.log(res)
 
 
