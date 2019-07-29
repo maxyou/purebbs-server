@@ -16,8 +16,14 @@ module.exports = {
         console.log(params.condition)
         console.log(params.select)
         var res = await db.detail.detailPostGet(params.condition, params.select)
-        // console.log('service detail post get----')
-        // console.log(res)
+        console.log('service detail post get----')
+        console.log(res)
+
+        if (res) {
+
+        } else {
+            return { code: -1, message: '获取数据失败' };
+        }
 
         //extend过滤匿名数据
         var user = calc.getUserData(ctx)
@@ -109,10 +115,10 @@ module.exports = {
          * 客户端不方便计算，所以放在服务器端
          */
         let user = calc.getUserData(ctx)
-        let data = res.docs.map((v)=>{
+        let data = res.docs.map((v) => {
             let likeHasCurrentUser = false
-            if(v.likeUser){
-                likeHasCurrentUser = v.likeUser.some((vv)=>{
+            if (v.likeUser) {
+                likeHasCurrentUser = v.likeUser.some((vv) => {
                     return vv._id == user._id
                 })
             }
@@ -414,7 +420,7 @@ module.exports = {
         switch (cmd.attachCmd) {
 
             case command.ATTACH_ACTION.ATTACH_LIKE_SET:
-                
+
                 console.log('--------attach comment-----------:' + command.ATTACH_ACTION.ATTACH_LIKE_SET)
                 var comment = await db.detail.commentFindById({ _id: ObjectId(cmd._id) }, '_id likeUser')
                 console.log(comment)
