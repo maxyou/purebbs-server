@@ -80,6 +80,23 @@ module.exports = {
             }
         }
 
+        if(res.authorId == user._id || res.anonymous === false ){
+            // console.log('-----------------res.authorId == user._id || !res.anonymous-------------------')
+            // console.log(res.anonymous)
+            // console.log(!res.anonymous)
+        }else{
+            // console.log('-----------------else-------------------')
+            // console.log(res.anonymous)
+            // console.log(!res.anonymous)
+
+            res.authorId = 'anonymous'
+            res.author = 'anonymous'
+            if(res.fromUser){
+                res.fromUser[0]._id = 'anonymous'
+                res.fromUser[0].avatarFileName = 'anonymous.png'
+            }
+        }
+
         // console.log('----------detail post get like user-------------')
         // console.log(res.likeUser)
         if (res.likeUser) {

@@ -125,7 +125,36 @@ module.exports = {
     
         }
 
+
         let docsWithCurrentLike = docs.map((v) => {
+
+
+            /**
+             * 什么情况下不屏蔽author信息？
+             * 1，作者自己读取
+             * 2，其他人读取，并且anonymous明确是false。如果是undefined则当成true处理
+             * 
+             */
+            console.log('------------------------------------------------------')
+
+            if(v.authorId == user._id || v.anonymous === false ){
+                console.log('-----------------v.authorId == user._id || !v.anonymous-------------------')
+                console.log(v.anonymous)
+                console.log(!v.anonymous)
+            }else{
+                console.log('-----------------else-------------------')
+                console.log(v.anonymous)
+                console.log(!v.anonymous)
+
+                v.authorId = 'anonymous'
+                v.author = 'anonymous'
+                if(v.fromUser){
+                    v.fromUser[0]._id = 'anonymous'
+                    v.fromUser[0].avatarFileName = 'anonymous.png'
+                }
+            }
+
+
             let likeHasCurrentUser = false
             if (v.likeUser) {
                 likeHasCurrentUser = v.likeUser.some((vv) => {
