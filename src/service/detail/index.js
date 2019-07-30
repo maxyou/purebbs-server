@@ -141,7 +141,7 @@ module.exports = {
                 v.author = 'anonymous'
                 if(v.fromUser){
                     v.fromUser[0]._id = 'anonymous'
-                    v.fromUser[0].avatarFileName = 'anonymous'
+                    v.fromUser[0].avatarFileName = 'anonymous.png'
                 }
             }
 
