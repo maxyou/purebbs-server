@@ -27,6 +27,7 @@ module.exports = {
         author: { type: String, default: 'unknown' },
         authorId: { type: String, default: '-1' },
         postId: { type: String},
+        anonymous: {type: Boolean, default: false},
         
         title: { type: String, default: 'no title' },
         content: { type: String, default: 'no content' },
@@ -92,6 +93,8 @@ module.exports = {
         updatedByName: { type: String},
         updated: { type: Date },
         created: { type: Date },
+        
+        anonymous: {type: Boolean, default: false},
 
         likeUser: [{
             _id: String,

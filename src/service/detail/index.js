@@ -8,7 +8,7 @@ const ObjectId = require('mongodb').ObjectID
 module.exports = {
 
     async detailPostGet(v, ctx) {
-        await time.delay(100)
+        await time.delay(1)
 
         const params = JSON.parse(v)
 
@@ -102,7 +102,7 @@ module.exports = {
 
     async getByPaginate(query, ctx) {
 
-        await time.delay(100)
+        await time.delay(1)
 
         // console.log('service comment getByPaginate')
         var paginateQuery = JSON.parse(query)//parse才能把字符串‘-1’解析为数字‘-1’
@@ -116,6 +116,35 @@ module.exports = {
          */
         let user = calc.getUserData(ctx)
         let data = res.docs.map((v) => {
+
+            console.log('comment get return:')
+            console.log(v)
+
+            /**
+             * 什么情况下不屏蔽author信息？
+             * 1，作者自己读取
+             * 2，其他人读取，并且anonymous明确是false。如果是undefined则当成true处理
+             * 
+             */
+            console.log('------------------------------------------------------')
+
+            if(v.authorId == user._id || v.anonymous === false ){
+                console.log('-----------------v.authorId == user._id || !v.anonymous-------------------')
+                console.log(v.anonymous)
+                console.log(!v.anonymous)
+            }else{
+                console.log('-----------------else-------------------')
+                console.log(v.anonymous)
+                console.log(!v.anonymous)
+
+                v.authorId = 'anonymous'
+                v.author = 'anonymous'
+                if(v.fromUser){
+                    v.fromUser[0]._id = 'anonymous'
+                    v.fromUser[0].avatarFileName = 'anonymous'
+                }
+            }
+
             let likeHasCurrentUser = false
             if (v.likeUser) {
                 likeHasCurrentUser = v.likeUser.some((vv) => {
@@ -132,14 +161,14 @@ module.exports = {
         // }catch(e){
         //     console.log(e)
         // }
-        // console.log(data)
+        console.log(data)
         return { code: 0, message: '获取数据成功', data: data, totalDocs: res.totalDocs };
 
     },
 
     async detailCommentAdd(comment, ctx) {
 
-        await time.delay(100)
+        await time.delay(1)
 
         var commentWithAuthor = {
             ...comment,
@@ -174,8 +203,8 @@ module.exports = {
             post.commentNum += 1
 
             console.log('update post lastReply')
-            post.lastReplyId = commentWithAuthor.authorId
-            post.lastReplyName = commentWithAuthor.author
+            post.lastReplyId = commentWithAuthor.anonymous?'anonymous':commentWithAuthor.authorId
+            post.lastReplyName = commentWithAuthor.anonymous?'anonymous':commentWithAuthor.author
             post.lastReplyTime = Date.now()
             post.allUpdated = Date.now()
             console.log('update post lastReply 2')
@@ -189,7 +218,7 @@ module.exports = {
     },
     async findByIdAndDelete(comment, ctx) {
 
-        await time.delay(100)
+        await time.delay(1)
 
         const user = calc.getUserData(ctx)
         if (user.role == 'bm') {
@@ -238,7 +267,7 @@ module.exports = {
     },
     async findByIdAndUpdate(comment, ctx) {
 
-        await time.delay(100)
+        await time.delay(1)
 
         const user = calc.getUserData(ctx)
         if (user.role == 'bm') {
@@ -265,7 +294,7 @@ module.exports = {
     },
     async postFindByIdAndUpdate(post, ctx) {
 
-        await time.delay(100)
+        await time.delay(1)
 
         const user = calc.getUserData(ctx)
         if (user.role == 'bm') {
@@ -299,7 +328,7 @@ module.exports = {
     },
     async postFindByIdAndAttach(cmd, ctx) {
 
-        await time.delay(100)
+        await time.delay(1)
 
         if (!calc.isLogin(ctx)) {
             return { code: -1, message: '需要登录' };
@@ -392,7 +421,7 @@ module.exports = {
     },
     async commentFindByIdAndAttach(cmd, ctx) {
 
-        await time.delay(100)
+        await time.delay(1)
 
         if (!calc.isLogin(ctx)) {
             return { code: -1, message: '需要登录' };

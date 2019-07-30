@@ -20,7 +20,7 @@ module.exports = {
 
     async add(post) {
 
-        await time.delay(100)
+        await time.delay(1)
 
         // console.log('--------post/index.js-------addUser')
         var postId = await db.admin.getPostId()
@@ -41,7 +41,7 @@ module.exports = {
     
     async getByPaginate(query, ctx) {
 
-        await time.delay(100)
+        await time.delay(1)
 
         if(isAdmin(ctx)){
 
@@ -62,7 +62,7 @@ module.exports = {
 
     async findByIdAndDelete(user) {
 
-        await time.delay(100)
+        await time.delay(1)
 
         if(isAdmin(ctx)){
 
@@ -81,7 +81,7 @@ module.exports = {
     },
     async findByIdAndUpdate(user, ctx) {
 
-        await time.delay(100)
+        await time.delay(1)
 
         if(isAdmin(ctx)){
 
@@ -111,7 +111,7 @@ module.exports = {
 
     async findByIdAndUpdateAvatar(filename, _id) {
 
-        await time.delay(100)
+        await time.delay(1)
 
         console.log('-----service findByIdAndUpdateAvatar-------')
         // console.log(JSON.stringify(post))

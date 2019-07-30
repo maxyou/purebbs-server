@@ -7,7 +7,7 @@ module.exports = {
 
     async lineupJoin(post, ctx) {
 
-        await time.delay(100)
+        await time.delay(1)
 
         console.log('--------extend/index.js-------lineupJoin')
         console.log(post) //{"anonymous":"","message":""}
@@ -65,7 +65,7 @@ module.exports = {
 
     async lineupQuit(post, ctx) {
 
-        await time.delay(100)
+        await time.delay(1)
 
         console.log('--------extend/index.js-------lineupQuit')
         console.log(post) //{"anonymous":"","message":""}
@@ -108,7 +108,7 @@ module.exports = {
 
     async voteJoin(post, ctx) {
 
-        await time.delay(100)
+        await time.delay(1)
 
         console.log('--------extend/index.js-------voteJoin')
         console.log(JSON.stringify(post)) //{"anonymous":"","message":""}
@@ -222,7 +222,7 @@ module.exports = {
 
     async voteQuit(post, ctx) {
 
-        await time.delay(100)
+        await time.delay(1)
 
         console.log('--------extend/index.js-------voteQuit')
         // console.log(post) //{"anonymous":"","message":""}

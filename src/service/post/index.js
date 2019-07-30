@@ -8,7 +8,7 @@ module.exports = {
 
     async add(post, ctx) {
 
-        await time.delay(100)
+        await time.delay(1)
 
         console.log('--------post/index.js-------addUser')
         console.log(post)
@@ -39,7 +39,7 @@ module.exports = {
     
     async getByPaginate(query, ctx) {
 
-        await time.delay(100)
+        await time.delay(1)
 
         let user = calc.getUserData(ctx)
 
@@ -141,7 +141,7 @@ module.exports = {
 
     // async getByPaginateWithStickTop(query) {
 
-    //     await time.delay(100)
+    //     await time.delay(1)
 
     //     // console.log('service post getByPaginate')
 
@@ -155,7 +155,7 @@ module.exports = {
 
     async findByIdAndDelete(post, ctx) {
 
-        await time.delay(100)
+        await time.delay(1)
         
         const user = calc.getUserData(ctx)
         if(user.role=='bm'){
@@ -184,7 +184,7 @@ module.exports = {
     },
     // async findByIdAndUpdate(post) {
 
-    //     await time.delay(100)
+    //     await time.delay(1)
 
     //     // console.log('-----service findByIdAndUpdate-------')
     //     // console.log(JSON.stringify(post))

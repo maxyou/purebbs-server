@@ -12,7 +12,7 @@ module.exports = {
 
     async findByIdAndUpdate(user, ctx) {
 
-        await time.delay(100)
+        await time.delay(1)
         
         console.log('--------service user update--------')
 
@@ -150,7 +150,7 @@ module.exports = {
 
     async getUserInfoById(_id) {
 
-        await time.delay(100)
+        await time.delay(1)
         
         console.log('--------service getSessionInfo by id--------')
 
@@ -183,9 +183,23 @@ module.exports = {
 
         console.log('--------service getOtherInfo by user--------')
 
-        await time.delay(100)
+        await time.delay(1)
 
         const user = JSON.parse(other)
+
+        if(user._id=='anonymous'){
+            return { code: 0, message: '获取用户信息成功', 
+                data:{
+                    _id: 'anonymous',
+                    name: 'anonymous',
+                    // email: res.email,
+                    role: 'anonymous',
+                    // updated: res.updated,
+                    created: Date.now(),
+                    avatarFileName:'anonymous.png',
+                } 
+            }
+        }
 
         var allFound = await db.user.findUserById(user._id)//mongodb返回的user可能不支持“...”的结构分解
         console.log(JSON.stringify(allFound))
