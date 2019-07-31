@@ -1,9 +1,11 @@
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
+const appConfig = require('../../../config')
 
 // Connection URL
 require('dotenv').config()
-const url = process.env.DB_HOST
+// const url = process.env.DB_HOST
+const url = appConfig.db.host
 
 // Create a new MongoClient
 const client = new MongoClient(url);

@@ -1,5 +1,6 @@
 const db = require('../../db')
 const config = require('./config')
+const appConfig = require('../../../config')
 const crypto = require('crypto')
 const uuidv1 = require('uuid/v1')
 const fs = require('fs')
