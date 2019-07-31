@@ -2,7 +2,9 @@ var mongoose = require('mongoose')
 var mongoosePaginate = require('mongoose-paginate-v2');
 var clazz = require('./clazz')
 
-const url = 'mongodb://rbacAdmin:123456@127.0.0.1:27017/rbac'
+// Connection URL
+require('dotenv').config()
+const url = process.env.DB_HOST
 
 // console.log('--------db/mongodb/config.js-------')
 
@@ -27,7 +29,7 @@ for(let m in clazz){
 // console.log('mongodb connect......2')
 
 
-function initConfigModel({name, content}){
+function initConfigModelIfEmpty({name, content}){
     const ConfigModel = mongoose.model('Config')
 
     ConfigModel.findOne({name:name}, function(err, arg){
@@ -52,7 +54,7 @@ function initConfigModel({name, content}){
     })    
 }
 
-initConfigModel({name:'postId', content:'10000'})
+initConfigModelIfEmpty({name:'postId', content:'10000'})
 
 // await new ConfigModel({name:}).save()
 

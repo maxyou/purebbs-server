@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 module.exports = {
-    hmackey:'koa2base hmackey'
+    hmackey:process.env.USER_HMAC_KEY
 }

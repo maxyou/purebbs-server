@@ -2,10 +2,8 @@ const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 
 // Connection URL
-const url = 'mongodb://rbacAdmin:123456@127.0.0.1:27017/rbac'
-
-// Database Name
-const dbName = 'rbac';
+require('dotenv').config()
+const url = process.env.DB_HOST
 
 // Create a new MongoClient
 const client = new MongoClient(url);

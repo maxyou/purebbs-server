@@ -5,6 +5,7 @@ const uuidv1 = require('uuid/v1')
 const fs = require('fs')
 const { calc, time } = require('../../tool')
 const nodemailer = require("nodemailer")
+require('dotenv').config()
 
 // console.log('--------user/index.js-------')
 
@@ -13,16 +14,16 @@ module.exports = {
     async findByIdAndUpdate(user, ctx) {
 
         await time.delay(1)
-        
+
         console.log('--------service user update--------')
 
         // console.log(calc.getUserData(ctx)._id)
         // console.log(user._id)
 
-        if(calc.getUserData(ctx)._id == user._id){
+        if (calc.getUserData(ctx)._id == user._id) {
 
-        }else{
-            return { code: -1, message: '登录用户只能修改自己的资料', data: {}}
+        } else {
+            return { code: -1, message: '登录用户只能修改自己的资料', data: {} }
         }
 
         // if(isAdmin(ctx)){
@@ -41,19 +42,19 @@ module.exports = {
     async uploadAvatar(avatarFileName, ctx) {
 
         console.log(avatarFileName)
-        
+
         //查询user表的数据
         console.log('--------service user/uploadAvatar-------1')
         await db.user.uploadAvatar(avatarFileName, calc.getUserData(ctx)._id)
         console.log('--------service user/uploadAvatar-------2')
-        
-        //删除旧头像
-        if(calc.getUserData(ctx).avatarFileName){
-            console.log('upload/user/avatar/'+calc.getUserData(ctx).avatarFileName)
 
-            var b = fs.existsSync('upload/user/avatar/'+calc.getUserData(ctx).avatarFileName)
-            if(b){
-                await fs.unlinkSync('upload/user/avatar/'+calc.getUserData(ctx).avatarFileName)
+        //删除旧头像
+        if (calc.getUserData(ctx).avatarFileName) {
+            console.log('upload/user/avatar/' + calc.getUserData(ctx).avatarFileName)
+
+            var b = fs.existsSync('upload/user/avatar/' + calc.getUserData(ctx).avatarFileName)
+            if (b) {
+                await fs.unlinkSync('upload/user/avatar/' + calc.getUserData(ctx).avatarFileName)
             }
 
             // try{
@@ -62,7 +63,7 @@ module.exports = {
             // }
         }
 
-        console.log('--------update session-------'+avatarFileName)
+        console.log('--------update session-------' + avatarFileName)
         ctx.session.userinfo.result.data.avatarFileName = avatarFileName
 
         // console.log(users)
@@ -98,7 +99,7 @@ module.exports = {
 
         if (found.length > 0) {
             console.log('add user fail for duplicated name')
-            return { code: -1, message: '用户名重复', data:{} };
+            return { code: -1, message: '用户名重复', data: {} };
         } else {
             console.log('add user ---- salt')
 
@@ -114,13 +115,13 @@ module.exports = {
 
             console.log('add user ------------- call db')
             console.log(user)
-            
+
             //增加用户
-            if(user.name == 'admin'){
+            if (user.name == 'admin') {
                 user.role = 'admin'
                 // console.log('add admin ----------'+user.role)
-            }else if(user.name.length < 6){
-                return { code: -1, message: '用户名需6个字符或以上', data:{} };
+            } else if (user.name.length < 6) {
+                return { code: -1, message: '用户名需6个字符或以上', data: {} };
             }
             // console.log(user.name)
             // console.log(user.role)
@@ -130,19 +131,20 @@ module.exports = {
             console.log(res)
 
             if (res) {//或者比较返回值的name属性？
-                return { code: 0, message: '添加用户成功', 
-                    data:{
-                        _id:res._id,
-                        uuid:res.uuid,
-                        name:res.name,
-                        email:res.email,
-                        role:res.role,
-                        updated:res.updated,
-                        created:res.created,
-                    } 
+                return {
+                    code: 0, message: '添加用户成功',
+                    data: {
+                        _id: res._id,
+                        uuid: res.uuid,
+                        name: res.name,
+                        email: res.email,
+                        role: res.role,
+                        updated: res.updated,
+                        created: res.created,
+                    }
                 }
             } else {
-                return { code: -1, message: '添加用户异常', data:{} };
+                return { code: -1, message: '添加用户异常', data: {} };
             }
         }
 
@@ -151,7 +153,7 @@ module.exports = {
     async getUserInfoById(_id) {
 
         await time.delay(1)
-        
+
         console.log('--------service getSessionInfo by id--------')
 
 
@@ -159,10 +161,11 @@ module.exports = {
         console.log(JSON.stringify(allFound))
 
         var res = allFound[0]
-        if(res){
+        if (res) {
             //这里必须过滤掉敏感信息，如同login时的处理
-            return { code: 0, message: '获取用户信息成功', 
-                data:{
+            return {
+                code: 0, message: '获取用户信息成功',
+                data: {
                     _id: res._id,
                     uuid: res.uuid,
                     name: res.name,
@@ -170,13 +173,13 @@ module.exports = {
                     role: res.role,
                     updated: res.updated,
                     created: res.created,
-                    avatarFileName:res.avatarFileName,
-                } 
+                    avatarFileName: res.avatarFileName,
+                }
             }
-        }else{
-            return {code:-1, message:'用户未找到', data:{}}
+        } else {
+            return { code: -1, message: '用户未找到', data: {} }
         }
-        
+
     },
 
     async getOtherInfo(other) {
@@ -187,17 +190,18 @@ module.exports = {
 
         const user = JSON.parse(other)
 
-        if(user._id=='anonymous'){
-            return { code: 0, message: '获取用户信息成功', 
-                data:{
+        if (user._id == 'anonymous') {
+            return {
+                code: 0, message: '获取用户信息成功',
+                data: {
                     _id: 'anonymous',
                     name: 'anonymous',
                     // email: res.email,
                     role: 'anonymous',
                     // updated: res.updated,
                     created: Date.now(),
-                    avatarFileName:'anonymous.png',
-                } 
+                    avatarFileName: 'anonymous.png',
+                }
             }
         }
 
@@ -205,23 +209,24 @@ module.exports = {
         console.log(JSON.stringify(allFound))
 
         var res = allFound[0]
-        if(res){
+        if (res) {
             //看别人可以看到什么信息？在这里过滤
-            return { code: 0, message: '获取用户信息成功', 
-                data:{
+            return {
+                code: 0, message: '获取用户信息成功',
+                data: {
                     _id: res._id,
                     name: res.name,
                     // email: res.email,
                     role: res.role,
                     // updated: res.updated,
                     created: res.created,
-                    avatarFileName:res.avatarFileName,
-                } 
+                    avatarFileName: res.avatarFileName,
+                }
             }
-        }else{
-            return {code:-1, message:'用户未找到', data:{}}
+        } else {
+            return { code: -1, message: '用户未找到', data: {} }
         }
-        
+
     },
 
     async authenticateUser(user) {
@@ -240,8 +245,9 @@ module.exports = {
             if (hashpwd == userFound.hashpwd) {
                 // console.log('userFound:')
                 // console.log(userFound)
-                return { code: 0, message: '认证成功', 
-                    data:{
+                return {
+                    code: 0, message: '认证成功',
+                    data: {
                         _id: userFound._id,
                         uuid: userFound.uuid,
                         name: userFound.name,
@@ -249,8 +255,8 @@ module.exports = {
                         role: userFound.role,
                         updated: userFound.updated,
                         created: userFound.created,
-                        avatarFileName:userFound.avatarFileName,
-                    } 
+                        avatarFileName: userFound.avatarFileName,
+                    }
                 }
             } else {
                 return { code: -1, message: '密码错误' };
@@ -264,10 +270,10 @@ module.exports = {
 
     async userChangePassword(userChangePassword, ctx) {
 
-        if(calc.getUserData(ctx)._id == userChangePassword._id){
+        if (calc.getUserData(ctx)._id == userChangePassword._id) {
 
-        }else{
-            return { code: -1, message: '登录用户只能修改自己的密码', data: {}}
+        } else {
+            return { code: -1, message: '登录用户只能修改自己的密码', data: {} }
         }
 
 
@@ -285,10 +291,10 @@ module.exports = {
         // console.log(seperate)
         // console.log('----------userFound--------------3')
 
-        if(userFound){
+        if (userFound) {
 
             //核对旧密码
-            const hmac = crypto.createHmac('sha256', config.hmackey);            
+            const hmac = crypto.createHmac('sha256', config.hmackey);
             hmac.update(userFound.salt + userChangePassword.oldPwd);
             var hashpwd = hmac.digest('hex');
             if (hashpwd == userFound.hashpwd) {
@@ -300,21 +306,21 @@ module.exports = {
 
                 newHmac.update(userFound.salt + userChangePassword.newPwd);
                 newHashpwd = newHmac.digest('hex');
-                
+
                 console.log('--------user userChangePassword--------1')
 
-                var res = await db.user.findByIdAndUpdate({_id:userFound._id, hashpwd:newHashpwd})
+                var res = await db.user.findByIdAndUpdate({ _id: userFound._id, hashpwd: newHashpwd })
                 // console.log(JSON.stringify(res))
                 console.log('--------user userChangePassword--------2')
                 return { code: 0, message: 'user findByIdAndUpdate更新数据成功' };
-                
+
             } else {
                 console.log('--------user userChangePassword--------old pwd error')
                 return { code: -1, message: '密码错误' };
             }
-            
-        }else{
-            return {code:-1, message:'用户未找到', data:{}}
+
+        } else {
+            return { code: -1, message: '用户未找到', data: {} }
         }
 
     },
@@ -329,52 +335,63 @@ module.exports = {
 
         var userFound = allFound[0]
 
-        if(userFound && userFound.email){
+        if (userFound && userFound.email) {
             //生成重置code及时间
             resetPasswordCode = crypto.randomBytes(32).toString('hex');//32字节，也即256bit
             resetPasswordTime = Date.now()
 
             var res = await db.user.findByIdAndUpdate({
-                _id:userFound._id, 
-                resetPasswordCode:resetPasswordCode,
-                resetPasswordTime:resetPasswordTime,
+                _id: userFound._id,
+                resetPasswordCode: resetPasswordCode,
+                resetPasswordTime: resetPasswordTime,
             })
 
-            if(res){ }else{ return {code:-1, message:'禁止修改密码'} }
+            if (res) { } else { return { code: -1, message: '禁止修改密码' } }
 
-            try{
+            // console.log(process.env.SMTP_HOST)
+            // console.log(process.env.SMTP_USER)
+            // console.log(process.env.SMTP_PASS)
+            // console.log(process.env.SMTP_EMAIL)
+            try {
                 //发送code给用户
                 let transporter = nodemailer.createTransport({
-                    host: "smtp.126.com",
+                    
+                    host: process.env.SMTP_HOST,
+                    // host: "smtp.126.com",
                     port: 25,
+                    // port: process.env.SMTP_PORT,
                     secure: false, // true for 465, false for other ports
+                    // secure: process.env.SMTP_SECURE, // true for 465, false for other ports
+
                     auth: {
-                    user: 'hyyouwork', // generated ethereal user
-                    pass: 'FlYrtxItfYeS9JRr' // generated ethereal password
+                        user: process.env.SMTP_USER,
+                        pass: process.env.SMTP_PASS
                     }
                 });
-                
+
                 // send mail with defined transport object
                 let info = await transporter.sendMail({
-                    from: '"Hyyou Work" <hyyouwork@126.com>', // sender address
+                    from: `"${process.env.SMTP_NICKNAME}" <${process.env.SMTP_EMAIL}>`, // sender address
+                    // from: '"Hyyou Work" <hyyouwork@126.com>', // sender address
                     to: userFound.email, // list of receivers
-                    subject: "Hello from hyyouwork at 126", // Subject line
+                    subject: "Hello, welcome to reset your password ~~~", // Subject line
                     // text: "Hello text world?", // plain text body
-                    html: "Welcome to reset password<br />" // html body
-                        + `Please click to reset page:
-                            <a href="http://localhost:3000/#/resetpwd/newpwd/${resetPasswordCode}">goto reset password page</a> 
+                    html: "Welcome to reset password ~~~<br />" // html body
+                        + `Please click to reset page, or copy url to your browser:
+                            <a href="${process.env.APP_DOMAIN}/#/resetpwd/newpwd/${resetPasswordCode}">goto reset password page</a> 
                         `
                 });
+                console.log(info)
 
-            }catch(e){
+            } catch (e) {
                 console.log(e)
             }
 
             console.log('已发送邮件，请查收')
-            return { code: 0, message: '已发送邮件，请查收', data:{}}
-        }else{
+            return { code: 0, message: '已发送邮件，请查收', data: {} }
+        } else {
             console.log('用户未找到或用户未设置电邮')
-            return {code:-1, message:'用户未找到或用户未设置电邮'}
+            return { code: -1, message: '用户未找到或用户未设置电邮' }
         }
 
     },
@@ -389,35 +406,35 @@ module.exports = {
 
         var userFound = allFound[0]
 
-        if(userFound){
+        if (userFound) {
             //判断时间是否过期
             //resetPasswordTime = Date.now
             console.log('compare date time:')
             console.log(Date.now())
             console.log(userFound.resetPasswordTime.getTime())
 
-            if( (Date.now() - userFound.resetPasswordTime.getTime()) > (24*60*60*1000) ){ //1天后过期
-                return {code:-1, message:'链接已经过期'}
+            if ((Date.now() - userFound.resetPasswordTime.getTime()) > (24 * 60 * 60 * 1000)) { //1天后过期
+                return { code: -1, message: '链接已经过期' }
             }
 
             const newHmac = crypto.createHmac('sha256', config.hmackey);
             newHmac.update(userFound.salt + userNewPassword.password);
             newHashpwd = newHmac.digest('hex');
-            
+
             console.log('--------user userResetPasswordNew--------1')
 
             var res = await db.user.findByIdAndUpdate({
-                _id:userFound._id, 
-                hashpwd:newHashpwd,
-                resetPasswordCode:'',
-                resetPasswordTime:null
+                _id: userFound._id,
+                hashpwd: newHashpwd,
+                resetPasswordCode: '',
+                resetPasswordTime: null
             })
             // console.log(JSON.stringify(res))
             console.log('--------user userResetPasswordNew--------2')
             return { code: 0, message: '用户修改密码成功' };
-            
-        }else{
-            return {code:-1, message:'用户未找到'}
+
+        } else {
+            return { code: -1, message: '用户未找到' }
         }
 
     }

@@ -49,12 +49,12 @@ module.exports = {
             return { code: 0, message: '需要admin权限', data: {}}
         }
 
-        console.log('service admin getByPaginate')
+        // console.log('service admin getByPaginate')
         var paginateQuery = JSON.parse(query)//parse才能把字符串‘-1’解析为数字‘-1’
-        console.log('service admin getByPaginate----1')
+        // console.log('service admin getByPaginate----1')
         var res = await db.admin.getByPaginate(paginateQuery.query, paginateQuery.options)
-        console.log('service admin getByPaginate----2')
-        console.log(res.docs)
+        // console.log('service admin getByPaginate----2')
+        // console.log(res.docs)
         return { code: 0, message: '获取数据成功', data: res.docs, totalDocs: res.totalDocs };
 
     },
