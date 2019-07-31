@@ -1,6 +1,21 @@
 
 module.exports = {
 
+    addSecuritySelect(select){
+
+        //暂定添加anonymous字段
+
+        if(!select || select.length == 0){
+            return 'anonymous'
+        }
+        
+        var position = select.indexOf('anonymous')
+        if(position > -1){
+            return select
+        }else{
+            return select.concat(' anonymous')
+        }
+    },
     genFileNameAndRecord (file, cb) {
         let fileFormat = (file.originalname).split(".")
         let fileName = Date.now() + "." + fileFormat[fileFormat.length - 1]

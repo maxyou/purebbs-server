@@ -50,7 +50,7 @@ module.exports = {
 
             res.extend.lineupData = lineupArray
             console.log('--------extend/index.js-------before update')
-            console.log(res)
+            // console.log(res)
 
             var updateRes = await db.detail.postFindByIdAndUpdate(res)
             console.log('--------extend/index.js-------after update')
@@ -93,7 +93,7 @@ module.exports = {
 
             res.extend.lineupData = filterResult
             console.log('--------extend/index.js-------before update')
-            console.log(res)
+            // console.log(res)
 
             var updateRes = await db.detail.postFindByIdAndUpdate(res)
             console.log('--------extend/index.js-------after update')

@@ -44,6 +44,23 @@ module.exports = {
         let user = calc.getUserData(ctx)
 
         var paginateQuery = JSON.parse(query)//parse才能把字符串‘-1’解析为数字‘-1’
+        console.log('-----service post getByPaginate paginateQuery-------')
+        console.log(paginateQuery)
+
+
+        /**
+         * 要求必须读出anonymous这样的安全属性。客户端访问时有可能漏掉，在这里强制加上
+         */
+        if(paginateQuery && paginateQuery.options){
+            
+            paginateQuery.options.select = calc.addSecuritySelect(paginateQuery.options.select)
+            
+        }else{
+            return { code: -1, message: '获取数据失败，没有指定所需字段'}
+        }
+
+        console.log('-----service post getByPaginate paginateQuery-------after add anonymous:')
+        console.log(paginateQuery)
 
         var totalDocs = await db.post.findAndCount(paginateQuery.query)
         // console.log('-----service post getByPaginate findAndCount totalDocs-------')
@@ -135,16 +152,16 @@ module.exports = {
              * 2，其他人读取，并且anonymous明确是false。如果是undefined则当成true处理
              * 
              */
-            console.log('------------------------------------------------------')
+            // console.log('------------------------------------------------------')
 
             if(v.authorId == user._id || v.anonymous === false ){
-                console.log('-----------------v.authorId == user._id || !v.anonymous-------------------')
-                console.log(v.anonymous)
-                console.log(!v.anonymous)
+                // console.log('-----------------v.authorId == user._id || !v.anonymous-------------------')
+                // console.log(v.anonymous)
+                // console.log(!v.anonymous)
             }else{
-                console.log('-----------------else-------------------')
-                console.log(v.anonymous)
-                console.log(!v.anonymous)
+                // console.log('-----------------else-------------------')
+                // console.log(v.anonymous)
+                // console.log(!v.anonymous)
 
                 v.authorId = 'anonymous'
                 v.author = 'anonymous'
