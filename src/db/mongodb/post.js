@@ -168,10 +168,10 @@ module.exports = {
     },
     async findAndCount(query) {
         
-        console.log('-----db findAndCount-------')
-        console.log(query)
+        // console.log('-----db findAndCount-------')
+        // console.log(query)
         var res = await await config.getModel('Post').countDocuments(query)
-        console.log('-----db findAndCount-------res:')
+        // console.log('-----db findAndCount-------res:')
         // console.log(res)
         return res
     },

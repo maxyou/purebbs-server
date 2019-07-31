@@ -44,8 +44,8 @@ module.exports = {
         let user = calc.getUserData(ctx)
 
         var paginateQuery = JSON.parse(query)//parse才能把字符串‘-1’解析为数字‘-1’
-        console.log('-----service post getByPaginate paginateQuery-------')
-        console.log(paginateQuery)
+        // console.log('-----service post getByPaginate paginateQuery-------')
+        // console.log(paginateQuery)
 
 
         /**
@@ -59,8 +59,8 @@ module.exports = {
             return { code: -1, message: '获取数据失败，没有指定所需字段'}
         }
 
-        console.log('-----service post getByPaginate paginateQuery-------after add anonymous:')
-        console.log(paginateQuery)
+        // console.log('-----service post getByPaginate paginateQuery-------after add anonymous:')
+        // console.log(paginateQuery)
 
         var totalDocs = await db.post.findAndCount(paginateQuery.query)
         // console.log('-----service post getByPaginate findAndCount totalDocs-------')

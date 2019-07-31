@@ -18,7 +18,7 @@ const smtp = {
 }
 
 const user = {
-    hmacKey: 'koa2base hmackey'
+    hmackey: 'koa2base hmackey'
 }
 
 const db = {

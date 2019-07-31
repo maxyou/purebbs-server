@@ -1,12 +1,10 @@
 const db = require('../../db')
-const config = require('./config')
 const appConfig = require('../../../config')
 const crypto = require('crypto')
 const uuidv1 = require('uuid/v1')
 const fs = require('fs')
 const { calc, time } = require('../../tool')
 const nodemailer = require("nodemailer")
-require('dotenv').config()
 
 // console.log('--------user/index.js-------')
 
@@ -106,7 +104,7 @@ module.exports = {
 
             user.salt = crypto.randomBytes(32).toString('hex');//32字节，也即256bit
 
-            const hmac = crypto.createHmac('sha256', config.hmackey);
+            const hmac = crypto.createHmac('sha256', appConfig.user.hmackey);
 
             hmac.update(user.salt + user.password);
             user.hashpwd = hmac.digest('hex');
@@ -238,8 +236,12 @@ module.exports = {
         if (found.length > 0) {
 
             var userFound = found[0];
-
-            const hmac = crypto.createHmac('sha256', config.hmackey);
+            console.log('----------------authenticateUser--------------------')
+            console.log(appConfig)
+            console.log(appConfig.user)
+            console.log(appConfig.user.hmackey)
+            const hmac = crypto.createHmac('sha256', appConfig.user.hmackey);
+            console.log('----------------authenticateUser--------------------1')
 
             hmac.update(userFound.salt + user.password);
             var hashpwd = hmac.digest('hex');
@@ -295,7 +297,7 @@ module.exports = {
         if (userFound) {
 
             //核对旧密码
-            const hmac = crypto.createHmac('sha256', config.hmackey);
+            const hmac = crypto.createHmac('sha256', appConfig.user.hmackey);
             hmac.update(userFound.salt + userChangePassword.oldPwd);
             var hashpwd = hmac.digest('hex');
             if (hashpwd == userFound.hashpwd) {
@@ -303,7 +305,7 @@ module.exports = {
 
                 // user.salt = crypto.randomBytes(32).toString('hex');//salt大概不能更新，担心salt也用于pwd之外其他项目
 
-                const newHmac = crypto.createHmac('sha256', config.hmackey);
+                const newHmac = crypto.createHmac('sha256', appConfig.user.hmackey);
 
                 newHmac.update(userFound.salt + userChangePassword.newPwd);
                 newHashpwd = newHmac.digest('hex');
@@ -346,46 +348,44 @@ module.exports = {
                 resetPasswordCode: resetPasswordCode,
                 resetPasswordTime: resetPasswordTime,
             })
-
+            
             if (res) { } else { return { code: -1, message: '禁止修改密码' } }
-
-            // console.log(process.env.SMTP_HOST)
-            // console.log(process.env.SMTP_USER)
-            // console.log(process.env.SMTP_PASS)
-            // console.log(process.env.SMTP_EMAIL)
-            try {
-                //发送code给用户
+            
+            try{
                 let transporter = nodemailer.createTransport({
                     
-                    host: process.env.SMTP_HOST,
+                    host: appConfig.smtp.host,
                     // host: "smtp.126.com",
-                    port: 25,
+                    port: appConfig.smtp.port,
                     // port: process.env.SMTP_PORT,
-                    secure: false, // true for 465, false for other ports
+                    secure: appConfig.smtp.secure, // true for 465, false for other ports
                     // secure: process.env.SMTP_SECURE, // true for 465, false for other ports
 
                     auth: {
-                        user: process.env.SMTP_USER,
-                        pass: process.env.SMTP_PASS
+                        user: appConfig.smtp.auth.user,
+                        pass: appConfig.smtp.auth.pass,
                     }
                 });
 
                 // send mail with defined transport object
                 let info = await transporter.sendMail({
-                    from: `"${process.env.SMTP_NICKNAME}" <${process.env.SMTP_EMAIL}>`, // sender address
+                    from: `"${appConfig.smtp.nickName}" <${appConfig.smtp.email}>`, // sender address
                     // from: '"Hyyou Work" <hyyouwork@126.com>', // sender address
                     to: userFound.email, // list of receivers
-                    subject: "Hello, welcome to reset your password ~~~", // Subject line
+                    subject: "Hello, welcome to reset your password ~~~~", // Subject line
                     // text: "Hello text world?", // plain text body
                     html: "Welcome to reset password ~~~<br />" // html body
                         + `Please click to reset page, or copy url to your browser:
-                            <a href="${process.env.APP_DOMAIN}/#/resetpwd/newpwd/${resetPasswordCode}">goto reset password page</a> 
+                            <a href="${appConfig.smtp.url_domain}/#/resetpwd/newpwd/${resetPasswordCode}">goto reset password page</a> 
                         `
                 });
+
+                // console.log(JSON.stringify(info))
                 console.log(info)
 
-            } catch (e) {
+            }catch(e){
                 console.log(e)
+                return { code: -1, message: '发送邮件失败'}
             }
 
             console.log('已发送邮件，请查收')
@@ -418,7 +418,7 @@ module.exports = {
                 return { code: -1, message: '链接已经过期' }
             }
 
-            const newHmac = crypto.createHmac('sha256', config.hmackey);
+            const newHmac = crypto.createHmac('sha256', appConfig.user.hmackey);
             newHmac.update(userFound.salt + userNewPassword.password);
             newHashpwd = newHmac.digest('hex');
 

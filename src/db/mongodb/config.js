@@ -7,8 +7,6 @@ const appConfig = require('../../../config')
 // console.log(appConfig)
 
 // Connection URL
-require('dotenv').config()
-// const url = process.env.DB_HOST
 const url = appConfig.db.host
 
 // console.log('--------db/mongodb/config.js-------')

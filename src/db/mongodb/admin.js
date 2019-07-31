@@ -5,12 +5,12 @@ module.exports = {
 
     async getByPaginate(query = {}, options = {offset: 0, limit: 20}) {
 
-        console.log('---------db getByPaginate pageInfo admin--------------')
-        console.log(query)
-        console.log(options)
+        // console.log('---------db getByPaginate pageInfo admin--------------')
+        // console.log(query)
+        // console.log(options)
         var res = await config.getModel('User').paginate(query, options)
-        console.log('---------db getByPaginate res admin--------------')
-        console.log(res)
+        // console.log('---------db getByPaginate res admin--------------')
+        // console.log(res)
         return res;
     },
     async getPostId(){
