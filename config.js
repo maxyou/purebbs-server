@@ -26,7 +26,7 @@ const db = {
 }
 
 const category = [
-    {
+    {//第一个特殊，必须是All，表示所有
         idStr:'category_all', 
         name: 'All'
     },
@@ -38,6 +38,10 @@ const category = [
         idStr: 'category_dev_client',    
         name: 'Client'
     },
+    // {
+    //     idStr:'category_big_data',
+    //     name: 'BigData'
+    // },
     {
         idStr:'category_pm',
         name: 'PM'
