@@ -15,6 +15,7 @@ const allowUrl = [
     '/post/getpage',
     '/detail/post',
     '/extend',
+    '/sys',
     '/detail/comment/getpage',
 ]
 

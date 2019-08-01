@@ -5,6 +5,7 @@ const detail = require('./detail')
 const tool = require('./tool')
 const admin = require('./admin')
 const extend = require('./extend')
+const sys = require('./sys')
 
 module.exports = {
     home,
@@ -14,4 +15,5 @@ module.exports = {
     tool,
     admin,
     extend,
+    sys,
 }

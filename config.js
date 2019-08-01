@@ -25,11 +25,34 @@ const db = {
     host: 'mongodb://rbacAdmin:123456@127.0.0.1:27017/rbac'
 }
 
-const board = {
-    
-}
+const category = [
+    {
+        idStr:'category_all', 
+        name: 'All'
+    },
+    {
+        idStr:'category_dev_web', 
+        name: 'Web'
+    },
+    {
+        idStr: 'category_dev_client',    
+        name: 'Client'
+    },
+    {
+        idStr:'category_pm',
+        name: 'PM'
+    },
+    {
+        idStr: 'category_job',
+        name: 'Job'
+    },
+    {
+        idStr:'category_no_category', 
+        name: 'Other'
+    },
+]
 module.exports = {
-    board,
+    category,
     smtp,
     db,
     user,

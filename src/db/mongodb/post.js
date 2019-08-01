@@ -28,6 +28,12 @@ module.exports = {
                     "$facet":{
                         "docs":[
                             { "$match": query},
+                            // { "$match": {category: {"$in": [
+                            //             "category_dev_web",
+                            //             "category_dev_client"
+                            //         ]}
+                            //     }
+                            // },
                             { "$project": project},
                             { "$sort": options.sort }, //注意次序，要先sort，再skip+limit
                             { "$skip": options.offset },

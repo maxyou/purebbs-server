@@ -173,6 +173,7 @@ module.exports = {
                     updated: res.updated,
                     created: res.created,
                     avatarFileName: res.avatarFileName,
+                    // board: appConfig.board,
                 }
             }
         } else {

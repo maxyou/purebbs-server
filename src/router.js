@@ -3,6 +3,10 @@ const controller = require('./controller')
 
 module.exports = (app) => {
 
+  //---------sys--------------------
+  //category, security, anonymous
+  router.get('/sys/category', controller.sys['/sys/category'])
+
   //---------user--------------------
   //login, register, logout
   router.get('/user/avatar/:id', controller.user['/user/avatar'])
