@@ -14,3 +14,4 @@ typings/
 .nyc_output/
 upload
 download
+config.js

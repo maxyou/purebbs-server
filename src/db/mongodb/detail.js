@@ -79,8 +79,8 @@ module.exports = {
         if(options.select){
             var s = options.select.split(' ')
 
-            console.log('----------comment get select--------------')
-            console.log(s) //可以在这里强制读出anonymous这样的安全属性
+            // console.log('----------comment get select--------------')
+            // console.log(s) //可以在这里强制读出anonymous这样的安全属性
 
             s.forEach((ss)=>{
                 project[ss] = 1
