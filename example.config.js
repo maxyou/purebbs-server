@@ -5,24 +5,24 @@ const sys = {
 }
 
 const smtp = {
-    host: "smtp.126.com",
+    host: "smtp.126.com", //your smtp server
     port: 25,
     secure: false, // true for 465, false for other ports
     auth: {
-        user: 'hyyouwork',
-        pass: 'FlYrtxItfYeS9JRr'
+        user: 'your smtp username',
+        pass: 'your smthp auth key'
     },
-    email:'hyyouwork@126.com',
-    nickName:'hyyouwork@126.com',
-    url_domain:'http://localhost:3000'
+    email:'your email relate to smtp server',
+    nickName:'email nickname',
+    url_domain:'http://localhost:3000' //url domain for password reset
 }
 
 const user = {
-    hmackey: 'koa2base hmackey'
+    hmackey: 'your hmac key'
 }
 
 const db = {
-    host: 'mongodb://rbacAdmin:123456@127.0.0.1:27017/rbac'
+    host: 'mongodb://adminname:mypassword@127.0.0.1:27017/dbname'
 }
 
 const category = [
@@ -38,10 +38,6 @@ const category = [
         idStr: 'category_dev_client',    
         name: 'Client'
     },
-    // {
-    //     idStr:'category_big_data',
-    //     name: 'BigData'
-    // },
     {
         idStr:'category_pm',
         name: 'PM'
