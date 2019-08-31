@@ -3,6 +3,8 @@ const controller = require('./controller')
 
 module.exports = (app) => {
 
+  //---------oauth2--------------------
+  router.get('/oauth/redirect', controller.sys['/oauth/redirect'])
   //---------sys--------------------
   //category, security, anonymous
   router.get('/sys/category', controller.sys['/sys/category'])
