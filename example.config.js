@@ -1,7 +1,8 @@
 var path = require('path');
 
 const sys = {
-    appRoot: path.resolve(__dirname)
+    appRoot: path.resolve(__dirname),
+    appHomepage: 'http://localhost:3000'
 }
 
 const smtp = {

@@ -104,7 +104,7 @@ module.exports = {
         <head>
         <meta http-equiv="Content-Language" content="zh-CN">
         <meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=gb2312">
-        <meta http-equiv="refresh" content="5;url=http://localhost:3000">
+        <meta http-equiv="refresh" content="0;url=${appConfig.sys.appHomepage}">
         <title>html网页自动跳转代码--西农大网站</title>
         </head>
         <body>
