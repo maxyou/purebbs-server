@@ -161,6 +161,10 @@ module.exports = {
 
         var res = allFound[0]
         if (res) {
+
+            // console.log('--------user service getUserInfoById---------')
+            // console.log(res)
+
             //这里必须过滤掉敏感信息，如同login时的处理
             return {
                 code: 0, message: '获取用户信息成功',
@@ -173,7 +177,8 @@ module.exports = {
                     updated: res.updated,
                     created: res.created,
                     avatarFileName: res.avatarFileName,
-                    // board: appConfig.board,
+                    source: res.source,
+                    oauth: res.oauth,
                 }
             }
         } else {
