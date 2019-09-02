@@ -359,7 +359,8 @@ module.exports = {
         post.updatedById = user._id
         post.updatedByName = user.name
         post.updated = Date.now()
-        post.allUpdated = Date.now()
+        // 暂定不更新到allUpdated
+        // post.allUpdated = Date.now()
 
         var res = await db.detail.postFindByIdAndUpdate(post)
         console.log('--------update------------------------stickTop:' + post.stickTop)

@@ -58,8 +58,8 @@ module.exports = {
         updated: { type: Date },
         created: { type: Date },
         /**
-         * 包含created+updated+lastReplyTime
-         * 但是comment的update不包含，这个更新通常不影响帖子排序
+         * 包含created+lastReplyTime，可考虑包含update
+         * 但不包含comment的update，这个更新不应该影响帖子排序
          */
         allUpdated: { type: Date },
 
