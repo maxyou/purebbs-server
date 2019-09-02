@@ -2,7 +2,7 @@
 const {sys:service} = require('../../service')
 
 module.exports = {
-    '/oauth/redirect': async (ctx, next) => {
+    '/oauth/github/callback': async (ctx, next) => {
         console.log('--------/oauth/redirect-----------')
         console.log(ctx.request.query.code)
         

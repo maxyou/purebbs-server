@@ -4,7 +4,7 @@ const controller = require('./controller')
 module.exports = (app) => {
 
   //---------oauth2--------------------
-  router.get('/oauth/redirect', controller.sys['/oauth/redirect'])
+  router.get('/oauth/github/callback', controller.sys['/oauth/github/callback'])
   //---------sys--------------------
   //category, security, anonymous
   router.get('/sys/category', controller.sys['/sys/category'])
