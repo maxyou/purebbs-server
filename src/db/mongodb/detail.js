@@ -120,7 +120,9 @@ module.exports = {
                                         //   "_id": {
                                         //     "$toString": "$_id"
                                         //   },
-                                          avatarFileName: 1
+                                          avatarFileName: 1,
+                                          source: 1,
+                                          oauth: 1
                                         }
                                       },
                                   ],

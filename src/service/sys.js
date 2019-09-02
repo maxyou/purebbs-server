@@ -101,17 +101,15 @@ module.exports = {
 
         return `
         <html>
-        <head>
-        <meta http-equiv="Content-Language" content="zh-CN">
-        <meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=gb2312">
-        <meta http-equiv="refresh" content="0;url=${appConfig.sys.appHomepage}">
-        <title>html网页自动跳转代码--西农大网站</title>
-        </head>
-        <body>
-    
-        will jump to homepage soon ......
-    
-        </body>
+          <head>
+            <meta http-equiv="Content-Language" content="zh-CN">
+            <meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=gb2312">
+            <meta http-equiv="refresh" content="0;url=${appConfig.sys.appHomepage}">
+            <title>jump</title>
+          </head>
+          <body>    
+            will jump to homepage soon ......    
+          </body>
         </html>  
         `
 
