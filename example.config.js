@@ -5,6 +5,11 @@ const sys = {
     appHomepage: 'http://localhost:3000'
 }
 
+const oauth_github = {
+    client_id: 'xxxxxxxxx',
+    client_secret: 'xxxxxxxxx'
+}
+
 const smtp = {
     host: "smtp.126.com", //your smtp server
     port: 25,
@@ -54,6 +59,7 @@ const category = [
 ]
 module.exports = {
     category,
+    oauth_github,
     smtp,
     db,
     user,
