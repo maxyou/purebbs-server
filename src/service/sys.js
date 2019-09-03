@@ -99,6 +99,24 @@ module.exports = {
 
         console.log('------- service oauthGithub ----------11')
 
+        console.log(appConfig.sys)
+        console.log(appConfig.sys.appHomepage)
+        console.log( `
+        <html>
+          <head>
+            <meta http-equiv="Content-Language" content="zh-CN">
+            <meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=gb2312">
+            <meta http-equiv="refresh" content="0;url=${appConfig.sys.appHomepage}">
+            <title>jump</title>
+          </head>
+          <body>    
+            will jump to homepage soon ......    
+          </body>
+        </html>  
+        `)
+
+        console.log('------- service oauthGithub ----------12')
+
         return `
         <html>
           <head>
