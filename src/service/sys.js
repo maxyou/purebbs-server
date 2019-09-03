@@ -2,7 +2,6 @@ const axios = require('axios')
 const { time, calc } = require('../tool')
 const appConfig = require('../../config')
 console.log('before querystring require')
-const querystring = require('querystring');
 console.log('after querystring require')
 const db = require('../db')
 const uuidv1 = require('uuid/v1')
@@ -17,6 +16,7 @@ module.exports = {
         console.log('------- service oauthGithub ----------1')
         console.log(appConfig.oauth_github.client_id)
         console.log(appConfig.oauth_github.client_secret)
+        console.log('------- service oauthGithub ----------1.1')
 
         var resAccessToken = await axios({
             method: 'post',
