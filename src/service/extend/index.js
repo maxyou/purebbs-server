@@ -111,7 +111,7 @@ module.exports = {
         await time.delay(1)
 
         console.log('--------extend/index.js-------voteJoin')
-        console.log(JSON.stringify(post)) //{"anonymous":"","message":""}
+        // console.log(JSON.stringify(post)) //{"anonymous":"","message":""}
 
         if (0) {
             return { code: 0, message: '发表成功' }
@@ -125,7 +125,7 @@ module.exports = {
 
             console.log('--------extend/index.js-------detailPostGet')
             var res = await db.detail.detailPostGet({ postId: post.postId }, 'title content postId author extend')
-            console.log(res)
+            // console.log(res)
             
             console.log('--------extend/index.js-------compare expire time')
             // console.log(res.extend.addVote.expireTime)
@@ -149,7 +149,7 @@ module.exports = {
             }
 
             console.log('--------JSON.stringify(voteArray)--------------')
-            console.log(JSON.stringify(voteArray))
+            // console.log(JSON.stringify(voteArray))
 
             /**
              * 在多端登录情况下存在“加入投票，未退出投票，再次加入投票”的情况，所以后端总是允许用户再次投票
@@ -163,7 +163,7 @@ module.exports = {
                 })
             })
             console.log('--------JSON.stringify(cleanVoteArray)--------------')
-            console.log(JSON.stringify(cleanVoteArray))
+            // console.log(JSON.stringify(cleanVoteArray))
 
 
             const ifMulti = res.extend.addVote.ifMulti
@@ -203,7 +203,7 @@ module.exports = {
             // }
 
             console.log('--------have not join--------------3')
-            console.log(JSON.stringify(cleanVoteArray))
+            // console.log(JSON.stringify(cleanVoteArray))
 
             res.extend.voteData = cleanVoteArray
             console.log('--------extend/index.js-------before update')

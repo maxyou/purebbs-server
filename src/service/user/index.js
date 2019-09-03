@@ -33,7 +33,7 @@ module.exports = {
 
         var res = await db.user.findByIdAndUpdate(user)
         console.log('--------user update--------2------must filter important info')
-        console.log(JSON.stringify(res))
+        // console.log(JSON.stringify(res))
         console.log('--------user update--------3')
         return { code: 0, message: 'user findByIdAndUpdate更新数据成功' };
     },
@@ -157,7 +157,7 @@ module.exports = {
 
 
         var allFound = await db.user.findUserById(_id)//mongodb返回的user可能不支持“...”的结构分解
-        console.log(JSON.stringify(allFound))
+        // console.log(JSON.stringify(allFound))
 
         var res = allFound[0]
         if (res) {
@@ -211,7 +211,7 @@ module.exports = {
         }
 
         var allFound = await db.user.findUserById(user._id)//mongodb返回的user可能不支持“...”的结构分解
-        console.log(JSON.stringify(allFound))
+        // console.log(JSON.stringify(allFound))
 
         var res = allFound[0]
         if (res) {
@@ -287,7 +287,7 @@ module.exports = {
 
 
         var allFound = await db.user.findUserById(userChangePassword._id)
-        console.log(JSON.stringify(allFound))
+        // console.log(JSON.stringify(allFound))
 
         var userFound = allFound[0]
 
@@ -340,7 +340,7 @@ module.exports = {
         console.log(userResetPassword)
 
         var allFound = await db.user.findUserByName({ "name": userResetPassword.name })
-        console.log(JSON.stringify(allFound))
+        // console.log(JSON.stringify(allFound))
 
         var userFound = allFound[0]
 
@@ -409,7 +409,7 @@ module.exports = {
         console.log(userNewPassword)
 
         var allFound = await db.user.findUserByResetPasswordCode({ "resetPasswordCode": userNewPassword.resetPasswordCode })
-        console.log(JSON.stringify(allFound))
+        // console.log(JSON.stringify(allFound))
 
         var userFound = allFound[0]
 

@@ -12,9 +12,9 @@ module.exports = {
 
         const params = JSON.parse(v)
 
-        console.log('service params:')
-        console.log(params.condition)
-        console.log(params.select)
+        // console.log('service params:')
+        // console.log(params.condition)
+        // console.log(params.select)
         
         params.select = calc.addSecuritySelect(params.select)
         // var position = params.select.indexOf('anonymous')
@@ -24,8 +24,8 @@ module.exports = {
         //     params.select = params.select.concat(' anonymous')
         // }
         
-        console.log('after add anonymous:')
-        console.log(params.select)
+        // console.log('after add anonymous:')
+        // console.log(params.select)
 
         var res = await db.detail.detailPostGet(params.condition, params.select)
         // console.log('service detail post get----')
@@ -208,7 +208,7 @@ module.exports = {
         // }catch(e){
         //     console.log(e)
         // }
-        console.log(data)
+        // console.log(data)
         return { code: 0, message: '获取数据成功', data: data, totalDocs: res.totalDocs };
 
     },
@@ -244,8 +244,8 @@ module.exports = {
 
             // var post = await db.detail.detailPostGet({postId:comment.postId}, 'postId content author authorId updated created avatarFileName')            
             var post = await db.detail.detailPostGet({ postId: comment.postId }, 'commentNum')
-            console.log('update post comment num')
-            console.log(post)
+            // console.log('update post comment num')
+            // console.log(post)
             post.commentNum = post.commentNum || 0
             post.commentNum += 1
 
@@ -298,8 +298,8 @@ module.exports = {
 
             // var post = await db.detail.detailPostGet({postId:comment.postId}, 'postId content author authorId updated created avatarFileName')            
             var post = await db.detail.detailPostGet({ postId: comment.postId }, 'commentNum')
-            console.log('update post comment num')
-            console.log(post)
+            // console.log('update post comment num')
+            // console.log(post)
             post.commentNum = post.commentNum || 0
             if (post.commentNum > 0) {
                 post.commentNum -= 1
@@ -393,8 +393,8 @@ module.exports = {
         // }
 
         console.log('--------attach------------------------post:')
-        console.log(JSON.stringify(cmd))
-        console.log(cmd._id)
+        // console.log(JSON.stringify(cmd))
+        // console.log(cmd._id)
 
         /**
          * 有的cmd直接写post，有的需要先读出post，修改后再写入
@@ -430,7 +430,7 @@ module.exports = {
                 // }
                 console.log('--------attach-----------:' + command.ATTACH_ACTION.ATTACH_LIKE_SET)
                 var post = await db.detail.detailPostGet({ _id: ObjectId(cmd._id) }, '_id likeUser')
-                console.log(post)
+                // console.log(post)
                 post.likeUser = post.likeUser || []
                 if (post.likeUser.some((v) => {
                     return v._id == user._id
@@ -486,8 +486,8 @@ module.exports = {
         // }
 
         console.log('--------attach------------------------comment:')
-        console.log(JSON.stringify(cmd))
-        console.log(cmd._id)
+        // console.log(JSON.stringify(cmd))
+        // console.log(cmd._id)
 
         /**
          * 有的cmd直接写post，有的需要先读出post，修改后再写入

@@ -14,7 +14,7 @@ module.exports = async (ctx, next) => {
     console.log('koabody')
     try {
         const file = ctx.request.files.file
-        console.log(JSON.stringify(ctx.request.files))
+        // console.log(JSON.stringify(ctx.request.files))
         console.log('koabody 1')
         const reader = fs.createReadStream(file.path)
         console.log('koabody 2')

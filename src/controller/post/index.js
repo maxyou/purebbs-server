@@ -4,8 +4,8 @@ const {detail:detailService} = require('../../service')
 
 module.exports = {
     '/post/add': async (ctx, next) => {
-        console.log('--------/post/add-----------')
-        console.log(JSON.stringify(ctx.request.body))
+        // console.log('--------/post/add-----------')
+        // console.log(JSON.stringify(ctx.request.body))
         var result = await service.add(ctx.request.body, ctx);
         ctx.body=result;
 
@@ -22,8 +22,8 @@ module.exports = {
     // },
     '/post/findByIdAndDelete': async (ctx, next) => {
         var post = ctx.request.body
-        console.log('-----deleteOne get match-------')
-        console.log(JSON.stringify(post))
+        // console.log('-----deleteOne get match-------')
+        // console.log(JSON.stringify(post))
         var result = await service.findByIdAndDelete(post, ctx);
         ctx.body=result;
     },
