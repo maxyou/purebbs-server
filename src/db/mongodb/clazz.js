@@ -30,6 +30,7 @@ module.exports = {
         setting: {
             language:{ type: String },
             postPageSize:{ type: Number },
+            commentPageSize:{ type: Number },
         }
     },
     Admin: {//must capitalized

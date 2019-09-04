@@ -6,11 +6,13 @@ module.exports = async (ctx, next) => {
     let {
         language,
         postPageSize,
+        commentPageSize,
     } = ctx.request.body
 
     let setting = {
         language,
-        postPageSize
+        postPageSize,
+        commentPageSize
     }
 
     let res = await service.logout(setting, ctx)
