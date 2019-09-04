@@ -27,6 +27,10 @@ module.exports = {
             avatarUrl: { type: String },
             homepageUrl: { type: String },
         }, 
+        setting: {
+            language:{ type: String },
+            postPageSize:{ type: Number },
+        }
     },
     Admin: {//must capitalized
         name: { type: String },

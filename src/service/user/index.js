@@ -10,6 +10,23 @@ const nodemailer = require("nodemailer")
 
 module.exports = {
 
+    async logout(setting, ctx) {
+
+        await time.delay(1)
+
+        console.log('--------service user logoutSaveSetting--------')
+
+        let user = {
+            _id: calc.getUserData(ctx)._id,
+            setting: setting
+        }
+        console.log(user)
+        var res = await db.user.findByIdAndUpdate(user)
+        console.log('--------user update--------2------must filter important info')
+        console.log(JSON.stringify(res))
+        console.log('--------user update--------3')
+        return { code: 0, message: 'user findByIdAndUpdate更新数据成功' };
+    },
     async findByIdAndUpdate(user, ctx) {
 
         await time.delay(1)
@@ -179,6 +196,7 @@ module.exports = {
                     avatarFileName: res.avatarFileName,
                     source: res.source,
                     oauth: res.oauth,
+                    setting: res.setting,
                 }
             }
         } else {
@@ -265,6 +283,7 @@ module.exports = {
                         updated: userFound.updated,
                         created: userFound.created,
                         avatarFileName: userFound.avatarFileName,
+                        setting: userFound.setting,
                     }
                 }
             } else {
