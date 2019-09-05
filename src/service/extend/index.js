@@ -22,7 +22,7 @@ module.exports = {
             console.log('--------extend/index.js-------detailPostGet')
             // console.log(res)
 
-            if(res.extend.addLineup.expireTime && Date.now() > res.extend.addLineup.expireTime){
+            if (res.extend.addLineup.expireTime && Date.now() > res.extend.addLineup.expireTime) {
                 console.log('已经截止了')
                 return { code: -1, message: '已经截止了' }
             }
@@ -45,6 +45,8 @@ module.exports = {
                 _id: user._id,
                 name: user.name,
                 avatarFileName: user.avatarFileName,
+                source:user.source,
+                oauth:user.oauth,
                 anonymous: post.anonymous,
                 message: post.message,
             })
@@ -81,7 +83,7 @@ module.exports = {
             console.log('--------extend/index.js-------detailPostGet')
             // console.log(res)
 
-            if(res.extend.addLineup.expireTime && Date.now() > res.extend.addLineup.expireTime){
+            if (res.extend.addLineup.expireTime && Date.now() > res.extend.addLineup.expireTime) {
                 console.log('已经截止了')
                 return { code: -1, message: '已经截止了' }
             }
@@ -127,12 +129,12 @@ module.exports = {
             console.log('--------extend/index.js-------detailPostGet')
             var res = await db.detail.detailPostGet({ postId: post.postId }, 'title content postId author extend')
             // console.log(res)
-            
+
             console.log('--------extend/index.js-------compare expire time')
             // console.log(res.extend.addVote.expireTime)
             // console.log(Date.now())
             // console.log(Date.now() > res.extend.expireTime)
-            if(res.extend.addVote.expireTime && Date.now() > res.extend.addVote.expireTime){
+            if (res.extend.addVote.expireTime && Date.now() > res.extend.addVote.expireTime) {
                 console.log('已经截止了')
                 // console.log(res.extend.addVote.expireTime)
                 // console.log(Date.now())
@@ -172,7 +174,7 @@ module.exports = {
             switch (ifMulti) {
                 case 'single':
                     console.log('=====single 1=========:' + post.singleVote)
-                    if ((typeof post.singleVote == "number") 
+                    if ((typeof post.singleVote == "number")
                         && !isNaN(post.singleVote)
                         && post.singleVote < cleanVoteArray.length) {
                         console.log('=====valid index=========')
@@ -180,6 +182,8 @@ module.exports = {
                             _id: user._id,
                             name: user.name,
                             avatarFileName: user.avatarFileName,
+                            source: user.source,
+                            oauth: user.oauth,
                             anonymous: post.anonymous,
                         })
                     }
@@ -193,6 +197,8 @@ module.exports = {
                                 _id: user._id,
                                 name: user.name,
                                 avatarFileName: user.avatarFileName,
+                                source: user.source,
+                                oauth: user.oauth,
                                 anonymous: post.anonymous,
                             })
                         }
@@ -240,7 +246,7 @@ module.exports = {
             // console.log('--------extend/index.js-------detailPostGet')
             // console.log(res)
 
-            if(res.extend.addVote.expireTime && Date.now() > res.extend.addVote.expireTime){
+            if (res.extend.addVote.expireTime && Date.now() > res.extend.addVote.expireTime) {
                 console.log('已经截止了')
                 return { code: -1, message: '已经截止了' }
             }

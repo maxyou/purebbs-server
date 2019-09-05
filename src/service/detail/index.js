@@ -15,15 +15,15 @@ module.exports = {
         // console.log('service params:')
         // console.log(params.condition)
         // console.log(params.select)
-        
+
         params.select = calc.addSecuritySelect(params.select)
         // var position = params.select.indexOf('anonymous')
         // if(position > -1){
-            
+
         // }else{
         //     params.select = params.select.concat(' anonymous')
         // }
-        
+
         // console.log('after add anonymous:')
         // console.log(params.select)
 
@@ -40,70 +40,79 @@ module.exports = {
         //extend过滤匿名数据
         var user = calc.getUserData(ctx)
         if (res && res.extend) {
-            if (res.extend.lineupData) {
-                var hasCtxUser = false
-                var afterFilter = res.extend.lineupData.map((v) => {
-                    if (v._id == user._id) {
-                        hasCtxUser = true
-                    }
-                    if (v.anonymous) {
-                        return {
-                            ...v,
-                            _id: 'anonymous',
-                            name: 'anonymous',
-                            anonymous: 'anonymous',
-                        }
-                    } else {
-                        return v
-                    }
-                })
-                res.extend.hasCtxUser = hasCtxUser
-                res.extend.lineupData = afterFilter
-            }
-            if (res.extend.voteData) {
-                var hasCtxUser = false
-                var afterFilter = res.extend.voteData.map((vv) => {
-                    // console.log('vv:')
-                    // console.log(vv)
-                    return vv.map((v) => {
-                        // console.log('v:')
-                        // console.log(v)
+            switch (res.extend.addChoice) {
+                case 'lineup':
+                    var hasCtxUser = false
+                    console.log(user)
+                    var afterFilter = res.extend.lineupData.map((v) => {
+
+                        console.log('v:')
+                        console.log(v)
+
                         if (v._id == user._id) {
+                            console.log('hasCtxUser = true')
                             hasCtxUser = true
                         }
                         if (v.anonymous) {
                             return {
-                                ...v,
+                                // ...v,
                                 _id: 'anonymous',
                                 name: 'anonymous',
                                 anonymous: 'anonymous',
+                                message: v.message,
                             }
                         } else {
                             return v
                         }
                     })
-                    // if(vv){
-                    // }else{
-                    //     return vv
-                    // }
-                })
-                res.extend.hasCtxUser = hasCtxUser
-                res.extend.voteData = afterFilter
+                    res.extend.hasCtxUser = hasCtxUser
+                    res.extend.lineupData = afterFilter
+                    break
+                case 'vote':
+                    var hasCtxUser = false
+                    var afterFilter = res.extend.voteData.map((vv) => {
+                        console.log('vv:')
+                        console.log(vv)
+                        return vv.map((v) => {
+                            console.log('v:')
+                            console.log(v)
+                            if (v._id == user._id) {
+                                hasCtxUser = true
+                            }
+                            if (v.anonymous) {
+                                return {
+                                    // ...v,
+                                    _id: 'anonymous',
+                                    name: 'anonymous',
+                                    anonymous: 'anonymous',
+                                }
+                            } else {
+                                return v
+                            }
+                        })
+                    })
+                    res.extend.hasCtxUser = hasCtxUser
+                    res.extend.voteData = afterFilter
+                    break
             }
+            // if (res.extend.lineupData) {
+            // }
+            // if (res.extend.voteData) {
+            // }
         }
 
-        if(res.authorId == user._id || res.anonymous === false ){
+        if (res.authorId == user._id || res.anonymous === false) {
             // console.log('-----------------res.authorId == user._id || !res.anonymous-------------------')
             // console.log(res.anonymous)
             // console.log(!res.anonymous)
-        }else{
+        } else {
             // console.log('-----------------else-------------------')
             // console.log(res.anonymous)
             // console.log(!res.anonymous)
 
             res.authorId = 'anonymous'
             res.author = 'anonymous'
-            if(res.fromUser){
+            if (res.fromUser) {
                 res.fromUser[0]._id = 'anonymous'
                 res.fromUser[0].avatarFileName = 'anonymous.png'
             }
@@ -141,12 +150,12 @@ module.exports = {
         /**
          * 要求必须读出anonymous这样的安全属性。客户端访问时有可能漏掉，在这里强制加上
          */
-        if(paginateQuery && paginateQuery.options){
-            
+        if (paginateQuery && paginateQuery.options) {
+
             paginateQuery.options.select = calc.addSecuritySelect(paginateQuery.options.select)
-            
-        }else{
-            return { code: -1, message: '获取数据失败，没有指定所需字段'}
+
+        } else {
+            return { code: -1, message: '获取数据失败，没有指定所需字段' }
         }
 
         // console.log('-----service comment getByPaginate paginateQuery-------after add anonymous:')
@@ -175,18 +184,18 @@ module.exports = {
              */
             // console.log('------------------------------------------------------')
 
-            if(v.authorId == user._id || v.anonymous === false ){
+            if (v.authorId == user._id || v.anonymous === false) {
                 // console.log('-----------------v.authorId == user._id || !v.anonymous-------------------')
                 // console.log(v.anonymous)
                 // console.log(!v.anonymous)
-            }else{
+            } else {
                 // console.log('-----------------else-------------------')
                 // console.log(v.anonymous)
                 // console.log(!v.anonymous)
 
                 v.authorId = 'anonymous'
                 v.author = 'anonymous'
-                if(v.fromUser){
+                if (v.fromUser) {
                     v.fromUser[0]._id = 'anonymous'
                     v.fromUser[0].avatarFileName = 'anonymous.png'
                 }
@@ -250,8 +259,8 @@ module.exports = {
             post.commentNum += 1
 
             console.log('update post lastReply')
-            post.lastReplyId = commentWithAuthor.anonymous?'anonymous':commentWithAuthor.authorId
-            post.lastReplyName = commentWithAuthor.anonymous?'anonymous':commentWithAuthor.author
+            post.lastReplyId = commentWithAuthor.anonymous ? 'anonymous' : commentWithAuthor.authorId
+            post.lastReplyName = commentWithAuthor.anonymous ? 'anonymous' : commentWithAuthor.author
             post.lastReplyTime = Date.now()
             post.allUpdated = Date.now()
             console.log('update post lastReply 2')

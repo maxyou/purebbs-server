@@ -18,19 +18,19 @@ module.exports = {
         role: { type: String, default: 'user' },
         source: { type: String, default: 'register' },//缺省是'register'，还可能是'oauth'
         oauth: { //oauth第三方，比如GitHub
-            oauthName:{ type: String },
-            type:  { type: String },
-            login:  { type: String },
-            id:  { type: Number },
-            name:  { type: String },
-            email:  { type: String },
+            oauthName: { type: String },
+            type: { type: String },
+            login: { type: String },
+            id: { type: Number },
+            name: { type: String },
+            email: { type: String },
             avatarUrl: { type: String },
             homepageUrl: { type: String },
-        }, 
+        },
         setting: {
-            language:{ type: String },
-            postPageSize:{ type: Number },
-            commentPageSize:{ type: Number },
+            language: { type: String },
+            postPageSize: { type: Number },
+            commentPageSize: { type: Number },
         }
     },
     Admin: {//must capitalized
@@ -85,6 +85,12 @@ module.exports = {
                 anonymous: Boolean,
                 message: String,
                 avatarFileName: String,
+                source: String,
+                oauth: { //oauth第三方，比如GitHub
+                    login: { type: String },
+                    name: { type: String },
+                    avatarUrl: { type: String },
+                },
             }],
             addVote: {
                 anonymous: { type: Boolean, default: false },
@@ -98,6 +104,12 @@ module.exports = {
                 name: String,
                 anonymous: Boolean,
                 avatarFileName: String,
+                source: String,
+                oauth: { //oauth第三方，比如GitHub
+                    login: { type: String },
+                    name: { type: String },
+                    avatarUrl: { type: String },
+                },
             }]]
         },
 
@@ -105,7 +117,7 @@ module.exports = {
     Comment: {//must capitalized
         author: { type: String, default: 'unknown' },
         authorId: { type: String, default: '-1' },
-        avatarFileName: { type: String},
+        avatarFileName: { type: String },
         postId: { type: String, default: '-1' },
         content: { type: String, default: 'no content' },
         updatedById: { type: String },//可能被作者以外的比如bm修改，所以需要记录
