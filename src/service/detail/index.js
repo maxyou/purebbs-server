@@ -58,7 +58,7 @@ module.exports = {
                                 // ...v,
                                 _id: 'anonymous',
                                 name: 'anonymous',
-                                anonymous: 'anonymous',
+                                anonymous: true,
                                 message: v.message,
                             }
                         } else {
@@ -84,7 +84,7 @@ module.exports = {
                                     // ...v,
                                     _id: 'anonymous',
                                     name: 'anonymous',
-                                    anonymous: 'anonymous',
+                                    anonymous: true,
                                 }
                             } else {
                                 return v
@@ -112,10 +112,11 @@ module.exports = {
 
             res.authorId = 'anonymous'
             res.author = 'anonymous'
-            if (res.fromUser) {
-                res.fromUser[0]._id = 'anonymous'
-                res.fromUser[0].avatarFileName = 'anonymous.png'
-            }
+            res.source = 'register'
+            res.avatarFileName = 'anonymous.png'
+            // if (res.fromUser) {
+            //     res.fromUser[0]._id = 'anonymous'
+            // }
         }
 
         // console.log('----------detail post get like user-------------')

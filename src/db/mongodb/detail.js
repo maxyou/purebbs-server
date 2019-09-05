@@ -26,35 +26,32 @@ module.exports = {
                 { "$match": condition},
                 { "$project": project},
                 { "$limit": 1 },
-                { "$lookup":
-                    {
-                      from:"users",
-                      let: {
-                        authorId:"$authorId"
-                      },
-                      pipeline: [
-                          { "$addFields": { "userId": { "$toString": "$_id" }}},
-                          {
-                              $match:{
-                                  $expr:{
-                                      $eq: ["$userId", "$$authorId"]
-                                  }
-                              }
-                          },
-                          {
-                            "$project": {
-                            //   "_id": {
-                            //     "$toString": "$_id"
-                            //   },
-                              avatarFileName: 1,
-                              source: 1,
-                              oauth: 1
-                            }
-                          },
-                      ],
-                      as: "fromUser"
-                    }
-                },    
+                // { "$lookup":
+                //     {
+                //       from:"users",
+                //       let: {
+                //         authorId:"$authorId"
+                //       },
+                //       pipeline: [
+                //           { "$addFields": { "userId": { "$toString": "$_id" }}},
+                //           {
+                //               $match:{
+                //                   $expr:{
+                //                       $eq: ["$userId", "$$authorId"]
+                //                   }
+                //               }
+                //           },
+                //           {
+                //             "$project": {
+                //               avatarFileName: 1,
+                //               source: 1,
+                //               oauth: 1
+                //             }
+                //           },
+                //       ],
+                //       as: "fromUser"
+                //     }
+                // },    
             ]).toArray()
         }catch(e){
             console.log(e)
