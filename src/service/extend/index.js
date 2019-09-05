@@ -44,6 +44,7 @@ module.exports = {
             lineupArray.push({
                 _id: user._id,
                 name: user.name,
+                avatarFileName: user.avatarFileName,
                 anonymous: post.anonymous,
                 message: post.message,
             })
@@ -178,6 +179,7 @@ module.exports = {
                         cleanVoteArray[post.singleVote].push({
                             _id: user._id,
                             name: user.name,
+                            avatarFileName: user.avatarFileName,
                             anonymous: post.anonymous,
                         })
                     }
@@ -190,6 +192,7 @@ module.exports = {
                             cleanVoteArray[i].push({
                                 _id: user._id,
                                 name: user.name,
+                                avatarFileName: user.avatarFileName,
                                 anonymous: post.anonymous,
                             })
                         }

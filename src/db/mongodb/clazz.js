@@ -44,6 +44,7 @@ module.exports = {
         authorId: { type: String, default: '-1' },
         postId: { type: String },
         anonymous: { type: Boolean, default: false },
+        avatarFileName: { type: String },
 
         title: { type: String, default: 'no title' },
         content: { type: String, default: 'no content' },
@@ -82,7 +83,8 @@ module.exports = {
                 _id: String, //ObjectId,
                 name: String,
                 anonymous: Boolean,
-                message: String
+                message: String,
+                avatarFileName: String,
             }],
             addVote: {
                 anonymous: { type: Boolean, default: false },
@@ -95,6 +97,7 @@ module.exports = {
                 _id: String, //ObjectId,
                 name: String,
                 anonymous: Boolean,
+                avatarFileName: String,
             }]]
         },
 
@@ -102,7 +105,7 @@ module.exports = {
     Comment: {//must capitalized
         author: { type: String, default: 'unknown' },
         authorId: { type: String, default: '-1' },
-        // avatarFileName: { type: String},
+        avatarFileName: { type: String},
         postId: { type: String, default: '-1' },
         content: { type: String, default: 'no content' },
         updatedById: { type: String },//可能被作者以外的比如bm修改，所以需要记录
