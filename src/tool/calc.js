@@ -1,6 +1,51 @@
-
+const path = require('path')
+const uploadUserAvatarDir = 'upload/user/avatar'
+const RANDOM_SUFFIX = '.random_'
 module.exports = {
 
+    removeRandomSuffix(name){
+        console.log('removeRandomSuffix name:'+name)
+        let index = name.indexOf(RANDOM_SUFFIX)
+        console.log('removeRandomSuffix random index:'+index)
+        
+        if(index > 0){
+            console.log('removeRandomSuffix return:'+name.substring(0, index))
+            return name.substring(0, index)
+        }else{
+            console.log('removeRandomSuffix return:'+name)
+            return name
+        }
+    },
+    addRandomSuffix(name, random){
+        return name + RANDOM_SUFFIX + random
+    },
+    getUploadUserAvatarDir(){
+        return uploadUserAvatarDir
+    },
+    getAvatarDefault(){
+        return 'assets/user/avatar/default.png'
+    },
+    isSysAvatar(avatarFileName){        
+        if(avatarFileName.startsWith('anonymous')){ return true }
+        if(avatarFileName.startsWith('myanonymous')){return true}
+        if(avatarFileName.startsWith('default')){return true}        
+        return false
+    },
+    getAvatarFilePath(avatarFileName){
+        /**
+         * 如果以default/anonymous/myanonymous开头，那么是系统avatar，返回真实路径，否则返回undefined
+         */
+        if(avatarFileName.startsWith('anonymous')){
+            return 'assets/user/avatar/anonymous.png'            
+        }
+        if(avatarFileName.startsWith('myanonymous')){
+            return 'assets/user/avatar/myanonymous.png'
+        }
+        if(avatarFileName.startsWith('default')){
+            return 'assets/user/avatar/default.png'
+        }        
+        return path.join(uploadUserAvatarDir, avatarFileName)
+    },
     addSecuritySelect(select){
 
         //暂定添加anonymous字段

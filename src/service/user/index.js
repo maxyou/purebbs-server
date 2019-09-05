@@ -5,6 +5,7 @@ const uuidv1 = require('uuid/v1')
 const fs = require('fs')
 const { calc, time } = require('../../tool')
 const nodemailer = require("nodemailer")
+const path = require('path')
 
 // console.log('--------user/index.js-------')
 
@@ -55,7 +56,71 @@ module.exports = {
         return { code: 0, message: 'user findByIdAndUpdate更新数据成功' };
     },
 
-    async uploadAvatar(avatarFileName, ctx) {
+    async uploadAvatar(newAvatar, ctx) {
+        /**
+         * 之前版本是直接使用新文件，以及新文件的文件名，这导致avatarFileName改变，导致系统复杂度升高
+         * 现在改为新文件替换旧文件，使用旧文件名，也即用户的avatarFileName是永远不变的，这样系统无需做任何其他修改，
+         * 同时post及comment也可以直接保存用户的avatarFileName，不用在查询post/comment时再查询一遍user
+         * 
+         * 所以流程是
+         *  如果用户旧头像是系统头像
+         *      在数据库中更新用户为新头像
+         *  如果用户旧头像是之前上传的头像
+         *      删除旧头像，将新头像文件名改为旧头像文件名
+         * 
+         * 另外
+         *  如果头像文件名不改变的话，客户端的缓存不会刷新
+         *  解决方案是，文件名加一个随机后缀，每次更新时后缀会更新，但文件名本身不更新
+         *  当客户端根据文件名获取头像时在服务器端忽略或去掉后缀即可找到实际的文件
+         */
+
+        console.log('-------servive uploadAvatar---------------')
+
+        const newSuffix = Math.random().toString()
+        
+        let oldAvatarOldSuffix = calc.getUserData(ctx).avatarFileName
+        
+        if (!oldAvatarOldSuffix || calc.isSysAvatar(oldAvatarOldSuffix)) { //之前使用系统头像
+            
+            console.log('-------servive uploadAvatar---------------1')
+            //使用新文件名+新后缀
+            let newAvatarNewSuffix = calc.addRandomSuffix(newAvatar, newSuffix)
+            await db.user.uploadAvatar(newAvatarNewSuffix, calc.getUserData(ctx)._id) 
+            
+            ctx.session.userinfo.result.data.avatarFileName = newAvatarNewSuffix
+            
+        } else { //使用之前上传头像
+            console.log('-------servive uploadAvatar---------------2')            
+
+            let oldAvatar = calc.removeRandomSuffix(calc.getUserData(ctx).avatarFileName)       
+            var oldAvatarPath = path.join(calc.getUploadUserAvatarDir(), oldAvatar)
+            
+            if (fs.existsSync(oldAvatarPath)) {
+                await fs.unlinkSync(oldAvatarPath)
+                console.log('uploadAvatar remove old avatar complete!');
+            }
+            console.log('-------servive uploadAvatar---------------2.2')
+
+            var newAvatarPath = path.join(calc.getUploadUserAvatarDir(), newAvatar)
+            
+            fs.rename(newAvatarPath, oldAvatarPath, (err) => {
+                if (err) throw err;
+                console.log('uploadAvatar rename new to old avatar filename!');
+            });
+            
+            //使用旧文件名+新后缀
+            let oldAvatarNewSuffix = calc.addRandomSuffix(oldAvatar, newSuffix)
+            await db.user.uploadAvatar(oldAvatarNewSuffix, calc.getUserData(ctx)._id) 
+
+            console.log('-------servive uploadAvatar---------------2.3')
+            ctx.session.userinfo.result.data.avatarFileName = oldAvatarNewSuffix
+        }
+        
+        console.log('-------servive uploadAvatar---------------2.4')
+
+        return { code: 0, message: 'upload success' }
+    },
+    async uploadAvatar_will_deleted(avatarFileName, ctx) { //使用了新文件名，导致系统复杂度升高
 
         console.log(avatarFileName)
 
@@ -373,12 +438,12 @@ module.exports = {
                 resetPasswordCode: resetPasswordCode,
                 resetPasswordTime: resetPasswordTime,
             })
-            
+
             if (res) { } else { return { code: -1, message: '禁止修改密码' } }
-            
-            try{
+
+            try {
                 let transporter = nodemailer.createTransport({
-                    
+
                     host: appConfig.smtp.host,
                     // host: "smtp.126.com",
                     port: appConfig.smtp.port,
@@ -408,9 +473,9 @@ module.exports = {
                 // console.log(JSON.stringify(info))
                 console.log(info)
 
-            }catch(e){
+            } catch (e) {
                 console.log(e)
-                return { code: -1, message: '发送邮件失败'}
+                return { code: -1, message: '发送邮件失败' }
             }
 
             console.log('已发送邮件，请查收')

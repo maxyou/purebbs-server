@@ -40,17 +40,20 @@ module.exports = {
     },
     '/user/avatar': async (ctx, next) => {
 
-        var id = ctx.params.id
-        console.log('avatar id: ' + id)
+        var avatarFileName = ctx.params.id
+        console.log('/user/avatar:-----------avatarFileName: ' + avatarFileName)
 
-        var b = await fs.existsSync(path.join('upload/user/avatar', id))
-        // console.log('statSync:-----------1.1'+b)
+        var avatar = calc.getAvatarFilePath(calc.removeRandomSuffix(avatarFileName))
+
+        console.log('/user/avatar:-----------avatar:'+avatar)
+        var b = await fs.existsSync(avatar)
+        console.log('/user/avatar:-----------if exist:'+b)
         if (b) {
-            await send(ctx, id, { root: 'upload/user/avatar' }) //当前项目根目录下的download目录
-            // console.log('statSync:-----------1.1')
+            await send(ctx, avatar)
+            console.log('/user/avatar:-----------exist:'+avatar)
         } else {
-            await send(ctx, 'default.png', { root: 'upload/user/avatar' }) //当前项目根目录下的download目录
-            // console.log('statSync:-----------1.2')
+            await send(ctx, calc.getAvatarDefault())
+            console.log('/user/avatar:-----------not exist:'+avatar)
         }
     },
     '/user/status': async (ctx, next) => {
