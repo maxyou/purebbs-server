@@ -28,45 +28,36 @@ module.exports = {
                     "$facet":{
                         "docs":[
                             { "$match": query},
-                            // { "$match": {category: {"$in": [
-                            //             "category_dev_web",
-                            //             "category_dev_client"
-                            //         ]}
-                            //     }
-                            // },
                             { "$project": project},
                             { "$sort": options.sort }, //注意次序，要先sort，再skip+limit
                             { "$skip": options.offset },
                             { "$limit": options.limit },
-                            { "$lookup":
-                                {
-                                  from:"users",
-                                  let: {
-                                    authorId:"$authorId"
-                                  },
-                                  pipeline: [
-                                      { "$addFields": { "userId": { "$toString": "$_id" }}},
-                                      {
-                                          $match:{
-                                              $expr:{
-                                                  $eq: ["$userId", "$$authorId"]
-                                              }
-                                          }
-                                      },
-                                      {
-                                        "$project": {
-                                        //   "_id": {
-                                        //     "$toString": "$_id"
-                                        //   },
-                                          avatarFileName: 1,
-                                          source: 1,
-                                          oauth:1
-                                        }
-                                      },
-                                  ],
-                                  as: "fromUser"
-                                }
-                            },
+                            // { "$lookup":
+                            //     {
+                            //       from:"users",
+                            //       let: {
+                            //         authorId:"$authorId"
+                            //       },
+                            //       pipeline: [
+                            //           { "$addFields": { "userId": { "$toString": "$_id" }}},
+                            //           {
+                            //               $match:{
+                            //                   $expr:{
+                            //                       $eq: ["$userId", "$$authorId"]
+                            //                   }
+                            //               }
+                            //           },
+                            //           {
+                            //             "$project": {
+                            //               avatarFileName: 1,
+                            //               source: 1,
+                            //               oauth:1
+                            //             }
+                            //           },
+                            //       ],
+                            //       as: "fromUser"
+                            //     }
+                            // },
 
                         ],
                         "totalDocs":[ //在server层已经获取了totalDocs，这里可以省略了
@@ -78,33 +69,7 @@ module.exports = {
             ]).toArray()
         }catch(e){
             console.log(e)
-        }
-        
-        // console.log('----------a---------')
-        // console.log(JSON.stringify(a))
-
-        // var res = await db.collection('posts').find()
-        //     .limit(options.limit)
-        //     .skip(options.offset)
-        //     .sort({_id:-1})
-        //     .toArray()
-
-        // console.log('---------db getByPaginate res --------------')
-        // console.log(res)
-
-        // var totalDocs
-        // try{
-        //     const c = db.collection('posts')
-        //     console.log('---------db getByPaginate totalDocs --------------2')
-        //     totalDocs = await c.estimatedDocumentCount()
-        // }catch(e){
-        //     console.log(e)
-        // }
-
-        // console.log('---------db getByPaginate return --------------3')
-        // console.log(a)
-        // console.log(a[0].docs)
-        // console.log(a[0].totalDocs[0]?a[0].totalDocs[0].count:0)
+        }        
 
         return {
             docs:a[0].docs, 

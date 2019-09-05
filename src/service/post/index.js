@@ -20,6 +20,8 @@ module.exports = {
             author:calc.getUserData(ctx).name,
             authorId:calc.getUserData(ctx)._id,
             avatarFileName:calc.getUserData(ctx).avatarFileName,
+            source:calc.getUserData(ctx).source,
+            oauth:calc.getUserData(ctx).oauth,
             created:Date.now(),
             updated:Date.now(),
             allUpdated:Date.now(),
@@ -165,10 +167,13 @@ module.exports = {
 
                 v.authorId = 'anonymous'
                 v.author = 'anonymous'
-                if(v.fromUser){
-                    v.fromUser[0]._id = 'anonymous'
-                    v.fromUser[0].avatarFileName = 'anonymous.png'
-                }
+                v.avatarFileName = 'anonymous.png'
+                v.source = 'register'
+                v.oauth = undefined
+                // if(v.fromUser){
+                //     v.fromUser[0]._id = 'anonymous'
+                //     v.fromUser[0].avatarFileName = 'anonymous.png'
+                // }
             }
 
 

@@ -4,6 +4,7 @@ module.exports = {
         content: { type: String },
     },
     User: {//must capitalized
+        //个人基本信息
         uuid: { type: String },
         name: { type: String },
         hashpwd: { type: String },
@@ -13,9 +14,10 @@ module.exports = {
         email: { type: String },
         updated: { type: Date, default: Date.now },
         created: { type: Date, default: Date.now },
-        // avatar: { data: Buffer, contentType: String },
         avatarFileName: { type: String },
         role: { type: String, default: 'user' },
+
+        //第三方登录信息
         source: { type: String, default: 'register' },//缺省是'register'，还可能是'oauth'
         oauth: { //oauth第三方，比如GitHub
             oauthName: { type: String },
@@ -27,6 +29,8 @@ module.exports = {
             avatarUrl: { type: String },
             homepageUrl: { type: String },
         },
+
+        //个人设置
         setting: {
             language: { type: String },
             postPageSize: { type: Number },
@@ -40,37 +44,43 @@ module.exports = {
         email: { type: String },
     },
     Post: {//must capitalized
+        //作者相关信息
         author: { type: String, default: 'unknown' },
         authorId: { type: String, default: '-1' },
         postId: { type: String },
-        anonymous: { type: Boolean, default: false },
         avatarFileName: { type: String },
-
+        anonymous: { type: Boolean, default: false },
+        source: { type: String, default: 'register' },//缺省是'register'，还可能是'oauth'
+        oauth: { //oauth第三方，比如GitHub
+            avatarUrl: { type: String },
+        },
+        
+        //post信息
         title: { type: String, default: 'no title' },
         content: { type: String, default: 'no content' },
         category: { type: String },
+        updated: { type: Date },
+        created: { type: Date },
 
+        //评论、点赞、置顶等等
         commentNum: { type: Number, default: 0 },
         likeUser: [{
             _id: String,
             name: String,
         }],
-
         lastReplyId: { type: String },
         lastReplyName: { type: String },
         lastReplyTime: { type: Date },
         updatedById: { type: String },//可能被作者以外的比如bm修改，所以需要记录
         updatedByName: { type: String },
-        updated: { type: Date },
-        created: { type: Date },
         /**
          * 包含created+lastReplyTime，可考虑包含update
          * 但不包含comment的update，这个更新不应该影响帖子排序
          */
         allUpdated: { type: Date },
-
         stickTop: { type: Boolean, default: false },
 
+        //扩展
         extend: {
             addChoice: { type: String },
             addLineup: {
@@ -115,22 +125,24 @@ module.exports = {
 
     },
     Comment: {//must capitalized
+        //评论者信息
         author: { type: String, default: 'unknown' },
         authorId: { type: String, default: '-1' },
         avatarFileName: { type: String },
-        postId: { type: String, default: '-1' },
-        content: { type: String, default: 'no content' },
-        updatedById: { type: String },//可能被作者以外的比如bm修改，所以需要记录
-        updatedByName: { type: String },
-        updated: { type: Date },
-        created: { type: Date },
-
         anonymous: { type: Boolean, default: false },
 
+        //评论内容
+        postId: { type: String, default: '-1' },
+        content: { type: String, default: 'no content' },
+        updated: { type: Date },
+        created: { type: Date },        
+        
+        //互动
         likeUser: [{
             _id: String,
             name: String,
-        }],
-
+        }],        
+        updatedById: { type: String },//可能被作者以外的比如bm修改，所以需要记录
+        updatedByName: { type: String },
     }
 }

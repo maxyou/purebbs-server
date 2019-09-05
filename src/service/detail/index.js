@@ -231,6 +231,8 @@ module.exports = {
             author: calc.getUserData(ctx).name,
             authorId: calc.getUserData(ctx)._id,
             avatarFileName: calc.getUserData(ctx).avatarFileName,
+            source:calc.getUserData(ctx).source,
+            oauth:calc.getUserData(ctx).oauth,
             created: Date.now(),
             updated: Date.now(),
         }
