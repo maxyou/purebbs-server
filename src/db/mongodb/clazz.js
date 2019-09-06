@@ -129,6 +129,12 @@ module.exports = {
         author: { type: String, default: 'unknown' },
         authorId: { type: String, default: '-1' },
         avatarFileName: { type: String },
+        source: String,
+        oauth: { //oauth第三方，比如GitHub
+            login: { type: String },
+            name: { type: String },
+            avatarUrl: { type: String },
+        },
         anonymous: { type: Boolean, default: false },
 
         //评论内容

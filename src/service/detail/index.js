@@ -196,10 +196,13 @@ module.exports = {
 
                 v.authorId = 'anonymous'
                 v.author = 'anonymous'
-                if (v.fromUser) {
-                    v.fromUser[0]._id = 'anonymous'
-                    v.fromUser[0].avatarFileName = 'anonymous.png'
-                }
+                v.avatarFileName = 'anonymous.png'
+                v.source = 'register'
+                v.oauth = undefined
+                // if (v.fromUser) {
+                //     v.fromUser[0]._id = 'anonymous'
+                //     v.fromUser[0].avatarFileName = 'anonymous.png'
+                // }
             }
 
             let likeHasCurrentUser = false
