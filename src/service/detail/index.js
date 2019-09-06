@@ -53,7 +53,7 @@ module.exports = {
                             console.log('hasCtxUser = true')
                             hasCtxUser = true
                         }
-                        if (v.anonymous) {
+                        if (v._id != user._id && v.anonymous) { //如果不是自己，并且要求匿名
                             return {
                                 // ...v,
                                 _id: 'anonymous',
@@ -81,7 +81,7 @@ module.exports = {
                             if (v._id == user._id) {
                                 hasCtxUser = true
                             }
-                            if (v.anonymous) {
+                            if (v._id != user._id && v.anonymous) {
                                 return {
                                     // ...v,
                                     _id: 'anonymous',
