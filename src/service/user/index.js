@@ -309,6 +309,8 @@ module.exports = {
                     // updated: res.updated,
                     created: res.created,
                     avatarFileName: res.avatarFileName,
+                    source: res.source,
+                    oauth: res.oauth,
                 }
             }
         } else {
