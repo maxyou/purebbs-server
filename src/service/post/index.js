@@ -150,8 +150,8 @@ module.exports = {
 
             /**
              * 什么情况下不屏蔽author信息？
-             * 1，作者自己读取
-             * 2，其他人读取，并且anonymous明确是false。如果是undefined则当成true处理
+             * 1，作者自己读取，无论是否anonymous
+             * 2，其他人读取，并且anonymous明确是false，也即明确公开
              * 
              */
             // console.log('------------------------------------------------------')

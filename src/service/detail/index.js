@@ -58,8 +58,10 @@ module.exports = {
                                 // ...v,
                                 _id: 'anonymous',
                                 name: 'anonymous',
+                                source: 'register',
+                                oauth: undefined,
+                                avatarFileName: 'anonymous.png',
                                 anonymous: true,
-                                message: v.message,
                             }
                         } else {
                             return v
@@ -84,6 +86,9 @@ module.exports = {
                                     // ...v,
                                     _id: 'anonymous',
                                     name: 'anonymous',
+                                    source: 'register',
+                                    oauth: undefined,
+                                    avatarFileName: 'anonymous.png',
                                     anonymous: true,
                                 }
                             } else {
@@ -113,6 +118,7 @@ module.exports = {
             res.authorId = 'anonymous'
             res.author = 'anonymous'
             res.source = 'register'
+            res.oauth = undefined
             res.avatarFileName = 'anonymous.png'
             // if (res.fromUser) {
             //     res.fromUser[0]._id = 'anonymous'
