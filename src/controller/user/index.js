@@ -43,7 +43,7 @@ module.exports = {
         var avatarFileName = ctx.params.id
         console.log('/user/avatar:-----------avatarFileName: ' + avatarFileName)
 
-        var avatar = calc.getAvatarFilePath(calc.removeRandomSuffix(avatarFileName))
+        var avatar = calc.getAvatarFilePath(avatarFileName)
 
         console.log('/user/avatar:-----------avatar:'+avatar)
         var b = await fs.existsSync(avatar)

@@ -1,25 +1,8 @@
 const path = require('path')
 const uploadUserAvatarDir = 'upload/user/avatar'
-const RANDOM_SUFFIX = '.random_'
-module.exports = {
 
-    removeRandomSuffix(name){
-        console.log('removeRandomSuffix name:'+name)
-        let index = name.indexOf(RANDOM_SUFFIX)
-        console.log('removeRandomSuffix random index:'+index)
-        
-        if(index > 0){
-            console.log('removeRandomSuffix return:'+name.substring(0, index))
-            return name.substring(0, index)
-        }else{
-            console.log('removeRandomSuffix return:'+name)
-            return name
-        }
-    },
-    addRandomSuffix(name, random){
-        // return name + RANDOM_SUFFIX + random
-        return name
-    },
+module.exports = {
+    
     getUploadUserAvatarDir(){
         return uploadUserAvatarDir
     },

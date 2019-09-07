@@ -78,82 +78,34 @@ module.exports = {
 
         console.log('-------servive uploadAvatar---------------')
 
-        const newSuffix = Math.random().toString()
-        
-        let oldAvatarOldSuffix = calc.getUserData(ctx).avatarFileName
-        
-        if (!oldAvatarOldSuffix || calc.isSysAvatar(oldAvatarOldSuffix)) { //之前使用系统头像
-            
-            console.log('-------servive uploadAvatar---------------1')
-            //使用新文件名+新后缀
-            let newAvatarNewSuffix = calc.addRandomSuffix(newAvatar, newSuffix)
-            await db.user.uploadAvatar(newAvatarNewSuffix, calc.getUserData(ctx)._id) 
-            
-            ctx.session.userinfo.result.data.avatarFileName = newAvatarNewSuffix
-            
-        } else { //使用之前上传头像
-            console.log('-------servive uploadAvatar---------------2')            
+        let avatarFileName = calc.getUserData(ctx).avatarFileName //获取旧文件名
 
-            let oldAvatar = calc.removeRandomSuffix(calc.getUserData(ctx).avatarFileName)       
-            var oldAvatarPath = path.join(calc.getUploadUserAvatarDir(), oldAvatar)
-            
-            if (fs.existsSync(oldAvatarPath)) {
-                await fs.unlinkSync(oldAvatarPath)
-                console.log('uploadAvatar remove old avatar complete!');
-            }
-            console.log('-------servive uploadAvatar---------------2.2')
+        if(!avatarFileName){ //新注册用户始终有 头像文件名 这个字段，老用户可能没有，所以这里兼容一下，新部署时可以删除 todo
 
-            var newAvatarPath = path.join(calc.getUploadUserAvatarDir(), newAvatar)
-            
-            fs.rename(newAvatarPath, oldAvatarPath, (err) => {
-                if (err) throw err;
-                console.log('uploadAvatar rename new to old avatar filename!');
-            });
-            
-            //使用旧文件名+新后缀
-            let oldAvatarNewSuffix = calc.addRandomSuffix(oldAvatar, newSuffix)
-            await db.user.uploadAvatar(oldAvatarNewSuffix, calc.getUserData(ctx)._id) 
-
+            avatarFileName = '' + calc.getUserData(ctx)._id + '.blob' //这样的用户暂时使用id作为文件名
+            await db.user.uploadAvatar(avatarFileName, calc.getUserData(ctx)._id) //更新到数据库
+    
             console.log('-------servive uploadAvatar---------------2.3')
-            ctx.session.userinfo.result.data.avatarFileName = oldAvatarNewSuffix
+            ctx.session.userinfo.result.data.avatarFileName = avatarFileName //更新到session
         }
+
+        var avatarPath = path.join(calc.getUploadUserAvatarDir(), avatarFileName)        
+        if (fs.existsSync(avatarPath)) { //存在旧文件则删除
+            await fs.unlinkSync(avatarPath)
+            console.log('uploadAvatar remove old avatar complete!');
+        }
+        
+        console.log('-------servive uploadAvatar---------------2.2')
+        var newAvatarPath = path.join(calc.getUploadUserAvatarDir(), newAvatar)        
+        fs.rename(newAvatarPath, avatarPath, (err) => { //新文件改为旧文件名
+            if (err) throw err;
+            console.log('uploadAvatar rename new to old avatar filename!');
+        });        
         
         console.log('-------servive uploadAvatar---------------2.4')
 
         return { code: 0, message: 'upload success' }
-    },
-    async uploadAvatar_will_deleted(avatarFileName, ctx) { //使用了新文件名，导致系统复杂度升高
-
-        console.log(avatarFileName)
-
-        //查询user表的数据
-        console.log('--------service user/uploadAvatar-------1')
-        await db.user.uploadAvatar(avatarFileName, calc.getUserData(ctx)._id)
-        console.log('--------service user/uploadAvatar-------2')
-
-        //删除旧头像
-        if (calc.getUserData(ctx).avatarFileName) {
-            console.log('upload/user/avatar/' + calc.getUserData(ctx).avatarFileName)
-
-            var b = fs.existsSync('upload/user/avatar/' + calc.getUserData(ctx).avatarFileName)
-            if (b) {
-                await fs.unlinkSync('upload/user/avatar/' + calc.getUserData(ctx).avatarFileName)
-            }
-
-            // try{
-            // }catch(e){
-            //     console.log(e)
-            // }
-        }
-
-        console.log('--------update session-------' + avatarFileName)
-        ctx.session.userinfo.result.data.avatarFileName = avatarFileName
-
-        // console.log(users)
-        console.log('--------service user/uploadAvatar-------2')
-
-        return
-    },
+    },         
 
     async getUsers() {
 
@@ -209,7 +161,7 @@ module.exports = {
             // console.log(user.name)
             // console.log(user.role)
 
-            user.avatarFileName = calc.addRandomSuffix(user.uuid, Math.random().toString())
+            user.avatarFileName = user.uuid + '.blob' //客户端上传的头像文件的后缀是blob
 
             var res = await db.user.addUser(user)
 
