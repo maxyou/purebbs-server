@@ -17,7 +17,8 @@ module.exports = {
         }
     },
     addRandomSuffix(name, random){
-        return name + RANDOM_SUFFIX + random
+        // return name + RANDOM_SUFFIX + random
+        return name
     },
     getUploadUserAvatarDir(){
         return uploadUserAvatarDir

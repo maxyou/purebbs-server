@@ -10,7 +10,7 @@ module.exports = {
         await time.delay(1)
 
         console.log('--------extend/index.js-------lineupJoin')
-        console.log(post) //{"anonymous":"","message":""}
+        // console.log(post) //{"anonymous":"","message":""}
 
         if (calc.isLogin(ctx)) {
 
@@ -57,7 +57,7 @@ module.exports = {
 
             var updateRes = await db.detail.postFindByIdAndUpdate(res)
             console.log('--------extend/index.js-------after update')
-            console.log(updateRes)
+            // console.log(updateRes)
 
             return { code: 0, message: '发表成功' }
         } else {
@@ -71,7 +71,7 @@ module.exports = {
         await time.delay(1)
 
         console.log('--------extend/index.js-------lineupQuit')
-        console.log(post) //{"anonymous":"","message":""}
+        // console.log(post) //{"anonymous":"","message":""}
 
         if (calc.isLogin(ctx)) {
 
@@ -100,7 +100,7 @@ module.exports = {
 
             var updateRes = await db.detail.postFindByIdAndUpdate(res)
             console.log('--------extend/index.js-------after update')
-            console.log(updateRes)
+            // console.log(updateRes)
 
             return { code: 0, message: '已经退出' }
         } else {
@@ -191,7 +191,7 @@ module.exports = {
                 case 'multiple':
                     console.log('=====multiple=========')
                     for (var i = 0; i < post.multiVote.length; i++) {
-                        console.log('=====multiple 2=========:' + post.multiVote[i])
+                        // console.log('=====multiple 2=========:' + post.multiVote[i])
                         if (post.multiVote[i]) {
                             cleanVoteArray[i].push({
                                 _id: user._id,

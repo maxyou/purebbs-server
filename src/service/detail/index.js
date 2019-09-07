@@ -43,11 +43,11 @@ module.exports = {
             switch (res.extend.addChoice) {
                 case 'lineup':
                     var hasCtxUser = false
-                    console.log(user)
+                    // console.log(user)
                     var afterFilter = res.extend.lineupData.map((v) => {
 
-                        console.log('v:')
-                        console.log(v)
+                        // console.log('v:')
+                        // console.log(v)
 
                         if (v._id == user._id) {
                             console.log('hasCtxUser = true')

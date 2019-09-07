@@ -57,6 +57,9 @@ module.exports = {
     },
 
     async uploadAvatar(newAvatar, ctx) {
+
+        // await time.delay(1)
+
         /**
          * 之前版本是直接使用新文件，以及新文件的文件名，这导致avatarFileName改变，导致系统复杂度升高
          * 现在改为新文件替换旧文件，使用旧文件名，也即用户的avatarFileName是永远不变的，这样系统无需做任何其他修改，
@@ -68,10 +71,9 @@ module.exports = {
          *  如果用户旧头像是之前上传的头像
          *      删除旧头像，将新头像文件名改为旧头像文件名
          * 
-         * 另外
+         * 注意
          *  如果头像文件名不改变的话，客户端的缓存不会刷新
-         *  解决方案是，文件名加一个随机后缀，每次更新时后缀会更新，但文件名本身不更新
-         *  当客户端根据文件名获取头像时在服务器端忽略或去掉后缀即可找到实际的文件
+         *  解决方案是，客户端自行reload page
          */
 
         console.log('-------servive uploadAvatar---------------')
@@ -206,6 +208,9 @@ module.exports = {
             }
             // console.log(user.name)
             // console.log(user.role)
+
+            user.avatarFileName = calc.addRandomSuffix(user.uuid, Math.random().toString())
+
             var res = await db.user.addUser(user)
 
             console.log('add user ---- after call db')
@@ -220,6 +225,7 @@ module.exports = {
                         name: res.name,
                         email: res.email,
                         role: res.role,
+                        avatarFileName: res.avatarFileName,
                         updated: res.updated,
                         created: res.created,
                     }
