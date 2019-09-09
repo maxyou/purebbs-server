@@ -48,7 +48,7 @@ module.exports = {
           });
 
         console.log('------- service oauthGithub ----------4')
-        console.log(resOauthUserData.data)
+        // console.log(resOauthUserData.data)
         // return { code: 0, message: '获取数据成功', data: {data:result.data} };
 
         let oauthUserData = resOauthUserData.data

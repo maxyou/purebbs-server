@@ -46,8 +46,8 @@ module.exports = {
                     // console.log(user)
                     var afterFilter = res.extend.lineupData.map((v) => {
 
-                        // console.log('v:')
-                        // console.log(v)
+                        console.log('v:')
+                        console.log(v)
 
                         if (v._id == user._id) {
                             console.log('hasCtxUser = true')
@@ -62,6 +62,7 @@ module.exports = {
                                 oauth: undefined,
                                 avatarFileName: 'anonymous.png',
                                 anonymous: true,
+                                message: v.message,
                             }
                         } else {
                             return v
