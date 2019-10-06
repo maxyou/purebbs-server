@@ -12,6 +12,7 @@ const typeDefs = gql`
   }
   type Query {
     books: [Book]
+    book: Book
   }
   type Mutation {
     updateMsg(arg1: String, arg2: String!): Boolean
@@ -42,6 +43,7 @@ let msg = ''
 const resolvers = {
   Query: {
     books: () => books,
+    book: () => book,
   },
   Mutation: {
     updateMsg: (parent, args) => {
