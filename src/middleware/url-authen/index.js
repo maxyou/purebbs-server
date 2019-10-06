@@ -18,6 +18,7 @@ const allowUrl = [
     '/sys',
     '/oauth',
     '/detail/comment/getpage',
+    '/graphql',
 ]
 
 
