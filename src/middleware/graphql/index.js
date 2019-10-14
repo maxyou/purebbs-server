@@ -1,8 +1,11 @@
 const { gql } = require('apollo-server-koa');
 const { user: serviceUser } = require('../../service')
+const { GraphQLScalarType, Kind } = require('graphql');
 
 // Construct a schema, using GraphQL schema language
 const typeDefs = gql`
+  scalar Date
+
   type Author {
     name: String
     nation: String
@@ -14,7 +17,7 @@ const typeDefs = gql`
   type Post {
     title: String
     postId: String
-    created: String
+    created: Date
     category: String
   }
   type Query {
@@ -31,6 +34,22 @@ const typeDefs = gql`
 // Provide resolver functions for your schema fields
 let msg = ''
 const resolvers = {
+  Date: new GraphQLScalarType({
+    name: 'Date',
+    description: 'Date custom scalar type',
+    parseValue(value) {
+      return new Date(value); // value from the client
+    },
+    serialize(value) {
+      return value.getTime(); // value sent to the client
+    },
+    parseLiteral(ast) {
+      if (ast.kind === Kind.INT) {
+        return parseInt(ast.value, 10); // ast value is always in string format
+      }
+      return null;
+    },
+  }),
   Query: {
     posts: async (parent, args, context) => {
       console.log('----------user post-------------')
