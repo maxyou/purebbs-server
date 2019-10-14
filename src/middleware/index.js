@@ -20,7 +20,9 @@ module.exports = (app) => {
   app.use(session(app))
   app.use(urlAuthen()) //must after session middleware
 
-  const server = new ApolloServer({ typeDefs, resolvers });
+  const server = new ApolloServer({ typeDefs, resolvers, context:({ctx})=>{
+    return ctx
+  } });
   server.applyMiddleware({ app });
 
   // app.use(views(path.join(__dirname, './view'),{

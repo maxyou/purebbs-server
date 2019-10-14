@@ -490,13 +490,24 @@ module.exports = {
 
     },
 
-    async graphql_getUserPosts(id, length, context) {
+    async graphql_getUserPosts(id, length, ctx) {
 
         await time.delay(1)
         
         console.log('service user getByPaginate----2')
-        var res = await db.user.getPostByPaginate({authorId:id}, {offset: 0, limit: length})
-        console.log(res.docs)
+        // console.log(ctx)
+
+        let query
+        if(calc.getUserData(ctx)._id == id){
+            console.log('look myself')
+            query = {authorId:id}
+        }else{
+            //只能看他人的公开post
+            console.log('look other')
+            query = {authorId:id, anonymous:false}
+        }
+        var res = await db.user.getPostByPaginate(query, {offset: 0, limit: length, sort:{postId:-1}})
+        // console.log(res.docs)
         return res.docs;
         // return { code: 0, message: '获取数据成功', data: res.docs, totalDocs: res.totalDocs };
     }

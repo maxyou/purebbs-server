@@ -13,7 +13,9 @@ const typeDefs = gql`
   }
   type Post {
     title: String
-    id: String
+    postId: String
+    created: String
+    category: String
   }
   type Query {
     posts(id: String, length: Int): [Post]

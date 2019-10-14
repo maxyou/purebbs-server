@@ -11,7 +11,7 @@ module.exports = {
         console.log(options)
         var res = await config.getModel('Post').paginate(query, options)
         console.log('---------db getByPaginate res user--------------')
-        console.log(res)
+        // console.log(res)
         return res;
     },
     async uploadAvatar(avatarFileName, _id){
