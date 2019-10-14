@@ -4,7 +4,16 @@ const fs = require('fs')
 // console.log('--------db/mongodb/user.js-------')
 
 module.exports = {
+    async getPostByPaginate(query = {}, options = {offset: 0, limit: 20}) {
 
+        console.log('---------db getByPaginate pageInfo user--------------')
+        console.log(query)
+        console.log(options)
+        var res = await config.getModel('Post').paginate(query, options)
+        console.log('---------db getByPaginate res user--------------')
+        console.log(res)
+        return res;
+    },
     async uploadAvatar(avatarFileName, _id){
         console.log('db uploadAvatar:')
         console.log(avatarFileName)

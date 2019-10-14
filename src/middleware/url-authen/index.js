@@ -34,8 +34,8 @@ module.exports = () => {
         // console.log('---------url-authen---------------' + allowUrl.indexOf(ctx.originalUrl))
 
         if (allowUrl.some(v => ctx.originalUrl.indexOf(v) > -1)) {
-            // console.log('====allow page:' + ctx.originalUrl)
-            // console.log('====await next()')
+            console.log('====allow page:' + ctx.originalUrl)
+            console.log('====await next()')
             return await next()
         }
 

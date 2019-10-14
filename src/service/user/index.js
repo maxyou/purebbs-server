@@ -488,5 +488,16 @@ module.exports = {
             return { code: -1, message: '用户未找到' }
         }
 
+    },
+
+    async graphql_getUserPosts(id, length, context) {
+
+        await time.delay(1)
+        
+        console.log('service user getByPaginate----2')
+        var res = await db.user.getPostByPaginate({authorId:id}, {offset: 0, limit: length})
+        console.log(res.docs)
+        return res.docs;
+        // return { code: 0, message: '获取数据成功', data: res.docs, totalDocs: res.totalDocs };
     }
 }
