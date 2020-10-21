@@ -98,7 +98,11 @@ module.exports = {
         console.log('-------servive uploadAvatar---------------2.2')
         var newAvatarPath = path.join(calc.getUploadUserAvatarDir(), newAvatar)        
         fs.rename(newAvatarPath, avatarPath, (err) => { //新文件改为旧文件名
-            if (err) throw err;
+            if (err) {
+                console.log(`uploadAvatar rename error! ${newAvatarPath} ${avatarPath}`);
+                ctx.log.error(`uploadAvatar rename error! ${newAvatarPath} ${avatarPath}`);
+                // throw err;
+            }
             console.log('uploadAvatar rename new to old avatar filename!');
         });        
         
