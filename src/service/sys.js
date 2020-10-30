@@ -121,23 +121,26 @@ module.exports = {
     },
 
     //获取发帖量最高的若干个用户
-    async graphql_getTopUserByPostNum(query, ctx) {
+    async graphql_getTopUserByPostNum({length}, ctx) {
 
         await time.delay(1)
-        
+
+        console.log('===============await db.sys.getTopUserByPostNum()===============================')
+        console.log(length)
         //debug
-        var res = await db.sys.getTopUserByPostNum({
-          query:{'statistic':{$exists:true}},
-          options:{offset: 0, 
-            limit: 25, 
-            // sort:{'statistic.postNum':1}, 
-            sort:{'statistic.postNum':-1},
-            select:'name statistic role'}
-        })
+        var res = await db.sys.getTopUserByPostNum(
+            {'statistic':{$exists:true}},
+            {offset: 0, 
+              limit: length, 
+              // sort:{'statistic.postNum':1}, 
+              sort:{'statistic.postNum':-1},
+              select:'name statistic role'} //这里要做过滤，防止敏感信息发送到客户端
+        )
         console.log('===============await db.sys.getTopUserByPostNum()===============================')
         console.log(res)
-        
-        return { code: 0, message: '获取数据成功', data: res};
+
+        return res.docs.map(v=>{return {...v, postNum: v.statistic.postNum}}); //提高一层，便于后续处理
+        // return { code: 0, message: '获取数据成功', data: res};
 
     },
 

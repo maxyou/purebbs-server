@@ -1,5 +1,5 @@
 const { gql } = require('apollo-server-koa');
-const { user: serviceUser } = require('../../service')
+const { user: serviceUser, sys: serviceSys } = require('../../service')
 const { GraphQLScalarType, Kind } = require('graphql');
 
 // Construct a schema, using GraphQL schema language
@@ -20,7 +20,13 @@ const typeDefs = gql`
     created: Date
     category: String
   }
+  type TopUser {
+    name: String
+    role: String
+    postNum: Int
+  }
   type Query {
+    topUser(length: Int): [TopUser]
     posts(id: String, length: Int): [Post]
     books: [Book]
     book: Book
@@ -51,6 +57,11 @@ const resolvers = {
     },
   }),
   Query: {
+    topUser: async (parent, args, context) => {
+      console.log('################$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$----------topUser-------------')
+      console.log(args)
+      return await serviceSys.graphql_getTopUserByPostNum(args, context)
+    },
     posts: async (parent, args, context) => {
       console.log('----------user post-------------')
       console.log(args)
