@@ -153,11 +153,12 @@ module.exports = {
           console.log(category)
           //debug
           var res = await db.sys.getPostNumByCategory(category)
-          console.log('===============await db.sys.graphql_getPostNumByCategory()===============================')
-          console.log(res)
+          console.log('===============await db.sys.graphql_getPostNumByCategory()===============================2')
+          console.log(res.docs)
   
           // return res.docs.map(v=>{return {...v, postNum: v.statistic.postNum}}); //提高一层，便于后续处理
-          return { code: 0, message: '获取统计数据成功', res};
+          return res.docs
+          // return { code: 0, message: '获取统计数据成功', res};
   
       },
 

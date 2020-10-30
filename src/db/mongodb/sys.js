@@ -108,9 +108,15 @@ module.exports = {
                 console.log(category[0].idStr)
 
                 if(aa[k][0]){
-                    aaa.push({[k]:aa[k][0][k]})
+                    aaa.push({
+                        name:k,
+                        postNum:aa[k][0][k]
+                    })
                 }else{
-                    aaa.push({[k]:0})
+                    aaa.push({
+                        name:k,
+                        postNum:0
+                    })
                 }
             }
         })

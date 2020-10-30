@@ -30,7 +30,7 @@ const typeDefs = gql`
     postNum: Int
   }
   type Query {
-    categoryPostNum(): [CategoryPostNum]
+    categoryPostNum: [CategoryPostNum]
     topUser(length: Int): [TopUser]
     posts(id: String, length: Int): [Post]
     books: [Book]
