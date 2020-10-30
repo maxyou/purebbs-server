@@ -25,7 +25,12 @@ const typeDefs = gql`
     role: String
     postNum: Int
   }
+  type CategoryPostNum {
+    name: String
+    postNum: Int
+  }
   type Query {
+    categoryPostNum(): [CategoryPostNum]
     topUser(length: Int): [TopUser]
     posts(id: String, length: Int): [Post]
     books: [Book]
@@ -57,9 +62,15 @@ const resolvers = {
     },
   }),
   Query: {
-    topUser: async (parent, args, context) => {
-      console.log('################$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$----------topUser-------------')
+    categoryPostNum: async (parent, args, context) => {
+      console.log('################$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$----------categoryPostNum-------------')
       console.log(args)
+      
+      return await serviceSys.graphql_getPostNumByCategory()
+    },
+    topUser: async (parent, args, context) => {
+      // console.log('################$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$----------topUser-------------')
+      // console.log(args)
       return await serviceSys.graphql_getTopUserByPostNum(args, context)
     },
     posts: async (parent, args, context) => {

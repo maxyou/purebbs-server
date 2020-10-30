@@ -125,8 +125,8 @@ module.exports = {
 
         await time.delay(1)
 
-        console.log('===============await db.sys.getTopUserByPostNum()===============================')
-        console.log(length)
+        // console.log('===============await db.sys.getTopUserByPostNum()===============================')
+        // console.log(length)
         //debug
         var res = await db.sys.getTopUserByPostNum(
             {'statistic':{$exists:true}},
@@ -136,7 +136,7 @@ module.exports = {
               sort:{'statistic.postNum':-1},
               select:'name statistic role'} //这里要做过滤，防止敏感信息发送到客户端
         )
-        console.log('===============await db.sys.getTopUserByPostNum()===============================')
+        // console.log('===============await db.sys.getTopUserByPostNum()===============================')
         console.log(res)
 
         return res.docs.map(v=>{return {...v, postNum: v.statistic.postNum}}); //提高一层，便于后续处理
@@ -144,5 +144,21 @@ module.exports = {
 
     },
 
+        //获取发帖量最高的若干个用户
+    async graphql_getPostNumByCategory(category=appConfig.category, ctx) {
+
+          await time.delay(1)
+  
+          console.log('===============await db.sys.graphql_getPostNumByCategory()===============================')
+          console.log(category)
+          //debug
+          var res = await db.sys.getPostNumByCategory(category)
+          console.log('===============await db.sys.graphql_getPostNumByCategory()===============================')
+          console.log(res)
+  
+          // return res.docs.map(v=>{return {...v, postNum: v.statistic.postNum}}); //提高一层，便于后续处理
+          return { code: 0, message: '获取统计数据成功', res};
+  
+      },
 
 }

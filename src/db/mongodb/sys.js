@@ -62,25 +62,65 @@ module.exports = {
             totalDocs:a[0].totalDocs[0]?a[0].totalDocs[0].count:0,
         }
 
-
-
-
-        // config.getModel('User').find({}).sort({})
-        return res;
     },
-    async __getByPaginate(query = {}, options = {offset: 0, limit: 20}) {
+    async getPostNumByCategory(category) {
 
-        // console.log('---------db getByPaginate pageInfo admin--------------')
-        // console.log(query)
-        // console.log(options)
-        var res = await config.getModel('User').paginate(query, options)
-        // console.log('---------db getByPaginate res admin--------------')
-        // console.log(res)
-        return res;
-    },
-    async __getPostId(){
-        var postId = await config.getModel('Config').findOne({name:'postId'})
-        return parseInt(postId.content)
+        console.log('--------db/getPostNumByCategory()-------2')
+        console.log(category)
+
+        var brr = {}
+        category.forEach((v)=>{
+            brr = {...brr, [v.idStr]:[
+                {"$match":{category:v.idStr}},
+                {"$count":v.idStr}
+            ]}
+        })
+        console.log('--------db/getPostNumByCategory()-------2.0')
+        console.log(JSON.stringify(brr))
+        
+        var db = native.getDb()
+        console.log('--------db/getPostNumByCategory()-------3')
+        try{
+            var a = await db.collection('posts').aggregate([    
+                {
+                    "$facet": brr
+                }
+            ]).toArray()
+        }catch(e){
+            console.log(e)
+        }        
+
+        console.log(JSON.stringify(a))
+        console.log('--------db/getPostNumByCategory()-------4')
+
+        // [{"category_all":[],
+        //  "category_dev_web":[{"category_dev_web":66}],
+        //  "category_dev_client":[{"category_dev_client":2}],
+        //  "category_pm":[{"category_pm":3}],
+        //  "category_job":[],
+        //  "category_no_category":[{"category_no_category":3}]}]
+
+        let aa = a[0]
+        let aaa = []
+        Object.keys(aa).forEach((k) => {
+            if(k != category[0].idStr){ //不用返回分类“all”
+                console.log(k)
+                console.log(category[0].idStr)
+
+                if(aa[k][0]){
+                    aaa.push({[k]:aa[k][0][k]})
+                }else{
+                    aaa.push({[k]:0})
+                }
+            }
+        })
+        console.log('--------db/getPostNumByCategory()-------4.1')
+        console.log(JSON.stringify(aaa))
+
+        return {
+            docs:aaa, 
+            totalDocs:aaa.length,
+        }
     },
 
 }
