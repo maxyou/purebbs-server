@@ -35,6 +35,14 @@ module.exports = {
             language: { type: String },
             postPageSize: { type: Number },
             commentPageSize: { type: Number },
+        },
+
+        //统计信息
+        statistic: {
+            postNum: { type: Number },
+            postAnonymousNum: { type: Number },
+            commentNum: { type: Number },
+            commentAnonymousNum: { type: Number },
         }
     },
     Admin: {//must capitalized
@@ -150,5 +158,13 @@ module.exports = {
         }],        
         updatedById: { type: String },//可能被作者以外的比如bm修改，所以需要记录
         updatedByName: { type: String },
+    },
+    Category:{
+        idStr: { type: String },//可能被作者以外的比如bm修改，所以需要记录
+        name: { type: String },
+        postNum: { type: Number },
+        postAnonymousNum: { type: Number },
+        commentNum: { type: Number },
+        commentAnonymousNum: { type: Number },
     }
 }

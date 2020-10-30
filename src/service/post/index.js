@@ -33,7 +33,52 @@ module.exports = {
 
         if (res) {//或者比较返回值的name属性？
             await db.post.setPostId(postId)
-            return { code: 0, message: '发表成功', res: res };
+
+            console.log('find user by id ---- after add post')
+            var allFound = await db.user.findUserById(calc.getUserData(ctx)._id)
+            // console.log(JSON.stringify(allFound))
+    
+            var userFound = allFound[0]
+    
+            if (userFound) {
+    
+                console.log('--------user update statistic--------1')
+
+                //获取之前统计数据
+                var statistic = userFound.statistic
+
+                if(!statistic){
+                    //初始化统计数据
+                    statistic = {
+                        postNum: 0,
+                        postAnonymousNum:0,
+                        commentNum:0,
+                        commentAnonymousNum:0
+                    }
+                }
+
+                if(post.anonymous){
+                    if(statistic.postAnonymousNum){ 
+                        statistic.postAnonymousNum++ 
+                    }else{ 
+                        statistic.postAnonymousNum = 1 
+                    }    
+                }else{
+                    if(statistic.postNum){
+                        statistic.postNum++
+                    }else{
+                        statistic.postNum = 1
+                    }    
+                }
+
+                var res = await db.user.findByIdAndUpdate({ _id: userFound._id, statistic: statistic })
+                // console.log(JSON.stringify(res))
+                console.log('--------user update statistic--------3')
+                return { code: 0, message: '发表成功，用户统计数据更新成功', res: res };
+            } else {
+                return { code: -1, message: '发表成功，用户统计数据更新错误', res: res }
+            }
+
         } else {
             return { code: -1, message: '发表异常' };
         }
@@ -209,9 +254,10 @@ module.exports = {
         await time.delay(1)
         
         const user = calc.getUserData(ctx)
+        const authorId = post.authorId
         if(user.role=='bm'){
             console.log('-----you are bm-------')
-        }else if(user._id==post.authorId){
+        }else if(user._id==authorId){
             console.log('-----you delete your post-------')
         }else{
             console.log('-----you delete failed for authority-------')
@@ -227,10 +273,57 @@ module.exports = {
         if(res){
             await db.post.findCommentByPostIdAndDelete(post)
             console.log('-----service findByIdAndUpdate-------2')
+
+
+            console.log('find user by id ---- after add post')
+            var allFound = await db.user.findUserById(authorId)
+            // console.log(JSON.stringify(allFound))
+    
+            var userFound = allFound[0]
+    
+            if (userFound) {
+    
+                console.log('--------user update statistic----delete post----1')
+
+                //获取之前统计数据
+                var statistic = userFound.statistic
+
+                if(!statistic){
+                    //初始化统计数据
+                    statistic = {
+                        postNum: 0,
+                        postAnonymousNum:0,
+                        commentNum:0,
+                        commentAnonymousNum:0
+                    }
+                }else{
+                    if(post.anonymous){
+                        if(statistic.postAnonymousNum && statistic.postAnonymousNum > 0){ 
+                            statistic.postAnonymousNum--
+                        }else{ 
+                            statistic.postAnonymousNum = 0
+                        }    
+                    }else{
+                        if(statistic.postNum && statistic.postNum > 0){
+                            statistic.postNum--
+                        }else{
+                            statistic.postNum = 0
+                        }    
+                    }
+                }
+
+                var res = await db.user.findByIdAndUpdate({ _id: userFound._id, statistic: statistic })
+                // console.log(JSON.stringify(res))
+                console.log('--------user update statistic----delete post----3')
+                return { code: 0, message: '删除成功，用户统计数据更新成功', res: res };
+            } else {
+                return { code: -1, message: '删除成功，用户统计数据更新错误', res: res }
+            }
+
         }
         
         console.log('-----service findByIdAndUpdate-------3')
-        return { code: 0, message: '删除数据成功', data: res };
+        return { code: -1, message: '删除数据可能失败', data: res };
 
     },
     // async findByIdAndUpdate(post) {
