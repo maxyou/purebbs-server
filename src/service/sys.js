@@ -120,5 +120,26 @@ module.exports = {
 
     },
 
+    //获取发帖量最高的若干个用户
+    async graphql_getTopUserByPostNum(query, ctx) {
+
+        await time.delay(1)
+        
+        //debug
+        var res = await db.sys.getTopUserByPostNum({
+          query:{'statistic':{$exists:true}},
+          options:{offset: 0, 
+            limit: 25, 
+            // sort:{'statistic.postNum':1}, 
+            sort:{'statistic.postNum':-1},
+            select:'name statistic role'}
+        })
+        console.log('===============await db.sys.getTopUserByPostNum()===============================')
+        console.log(res)
+        
+        return { code: 0, message: '获取数据成功', data: res};
+
+    },
+
 
 }
