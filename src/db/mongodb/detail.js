@@ -6,7 +6,7 @@ module.exports = {
 
     async detailPostGet(condition, select) {
 
-        console.log('---------db detail get--------------')
+        // console.log('---------db detail get--------------')
         // console.log(condition)
         // console.log(select)
         
@@ -18,7 +18,7 @@ module.exports = {
             })
             // console.log(project)
         }
-        console.log('---------db detail get--------------1')
+        // console.log('---------db detail get--------------1')
 
         var db = native.getDb()
         try{
@@ -57,7 +57,7 @@ module.exports = {
             console.log(e)
         }
         
-        console.log('---------db detail get--------------2')
+        // console.log('---------db detail get--------------2')
         // console.log(JSON.stringify(a[0].docs))
         // console.log(a[0])
 

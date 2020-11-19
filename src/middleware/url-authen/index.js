@@ -36,6 +36,8 @@ module.exports = () => {
         if (allowUrl.some(v => ctx.originalUrl.indexOf(v) > -1)) {
             console.log('====allow page:' + ctx.originalUrl)
             console.log('====await next()')
+            // ctx.log.info(`from ctx.log:${ctx.originalUrl}`)
+            ctx.fmtLog.info(`allowed url`)
             return await next()
         }
 
@@ -48,7 +50,8 @@ module.exports = () => {
             return await next()
         }
 
-        console.log('====redirect to sign-in')
+        console.log('==== not allowed url =====')
+        ctx.fmtLog.warn('not allowed url !')
         // ctx.redirect('/login')
         ctx.body = { code: -2, message: '权限不够' }
         return

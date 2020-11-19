@@ -46,11 +46,11 @@ module.exports = {
                     // console.log(user)
                     var afterFilter = res.extend.lineupData.map((v) => {
 
-                        console.log('v:')
-                        console.log(v)
+                        // console.log('v:')
+                        // console.log(v)
 
                         if (v._id == user._id) {
-                            console.log('hasCtxUser = true')
+                            // console.log('hasCtxUser = true')
                             hasCtxUser = true
                         }
                         if (v._id != user._id && v.anonymous) { //如果不是自己，并且要求匿名
@@ -74,11 +74,11 @@ module.exports = {
                 case 'vote':
                     var hasCtxUser = false
                     var afterFilter = res.extend.voteData.map((vv) => {
-                        console.log('vv:')
-                        console.log(vv)
+                        // console.log('vv:')
+                        // console.log(vv)
                         return vv.map((v) => {
-                            console.log('v:')
-                            console.log(v)
+                            // console.log('v:')
+                            // console.log(v)
                             if (v._id == user._id) {
                                 hasCtxUser = true
                             }
